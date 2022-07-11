@@ -3,3 +3,5 @@
 /media/media
 config/__pycache__/*
 service/__pycache__/*
+main/__pycache__/*
+/debug.log
