@@ -1,0 +1,128 @@
+{% extends 'main/base.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block title %}
+	<title>{% trans "Home" %}</title>
+{% endblock%}
+
+{% block main %}
+
+<section class="subscribe">
+	<div class="container">
+
+		<div class="subscribe__body">
+			<div class="subscribe__items">
+
+				{% for item in all_products %}
+
+				<div class="subscribe__item {% if all_products.0.id == item.id %}active{% endif %}" id="sub-netflix">
+					<div class="subscribe__item-content">
+						<h3>{{ item.name }}</h3>
+						<p>
+							{{ item.description }}
+						</p>
+						<a href="{% url 'offers_redirect' item.slug %}">{% trans 'Read more' %}</a>
+					</div>
+					<div class="subscribe__item-img" style="background: #000;">
+						{% if item.icon %}
+						<img src="{{ item.icon.url }}" alt="netflix" />
+						{% endif %}
+					</div>
+				</div>
+				{% endfor %}
+
+			</div>
+			<div class="subscribe__preview">
+				{% if all_products %}
+					{% if all_products.0.icon %}
+						<img src="{{ all_products.0.icon.url }}" alt="preview services">
+					{% endif %}
+				{% else %}
+					<img src="" alt="preview services">
+				{% endif %}
+			</div>
+		</div>
+	</div>
+</section>
+
+<section class="works">
+	<div class="container">
+		<h2>{% trans 'How it works?' %}</h2>
+		<div class="works__steps">
+
+			<div class="works__step bg-white">
+				<div class="works__step-text">
+					{% trans 'We work with the media subscriptions of: <br>Netflix <br>Spotify <br>Premium YouTube-Premium' %}
+				</div>
+				<div class="works__step-img">
+					<img src="{% static 'img/step-1.png' %}" alt="step 1">
+				</div>
+			</div>
+
+			<div class="works__step bg-white">
+				<div class="works__step-text">
+					{% trans 'You choose the subscription you want On our Telegram Channel then you will receive a link that will direct you to our specialized bot that will provide you with the subscription.' %}
+				</div>
+				<div class="works__step-img">
+					<img src="{% static 'img/step-2.png' %}" alt="step 2">
+				</div>
+			</div>
+
+			<div class="works__step bg-white">
+				<div class="works__step-text">
+					{% trans 'You will choose the desired language, And you will receive the gray tariff. Pay you by PayPal secure payment fill in your account information and we will create the subscription for you. ' %}
+				</div>
+				<div class="works__step-img">
+					<img src="{% static 'img/step-3.png' %}" alt="step 3">
+				</div>
+			</div>
+
+			<div class="works__step bg-white">
+				<div class="works__step-text">
+					{% trans "It's simple, fast and economical!" %}
+				</div>
+				<div class="works__step-img">
+					<img src="{% static 'img/step-4.png' %}" alt="step 4">
+				</div>
+			</div>
+
+		</div>
+
+		{% include 'blocks/invite.html' %}
+	</div>
+</section>
+
+<section class="about">'
+	<div class="about__anchor" id="about"></div>
+    <div class="container">
+        <h2>{% trans 'About us' %}</h2>
+        <div class="about__body">
+            <div class="about__block bg-white about__content">
+                <img src="{% static 'img/icons/logo.png' %}" alt="logo">
+                <p>{% trans 'We offer you a subscribe to various media services at the best price.' %}</p>
+                <p>{% trans 'We have partnered with several companies to help you find the best prices for your media subscribes and provide you with the best prices for the Premium subscribes you want.' %}</p>
+                <p><strong>{% trans "It's simple, fast and economical." %}</strong></p>
+            </div>
+            <div class="about__block bg-white block-img">
+                <img src="{% static 'img/about-img.jpg' %}" alt="It's simple, fast and economical.">
+            </div>
+        </div>
+    </div>
+</section>
+
+{% include "blocks/faq.html" %}
+
+<section class="more">
+    <div class="container">
+        <div class="more__body bg-blue">
+            <div class="more__contetnt">
+                <h4>{% trans 'Request for an additional subscribe that was not found here' %}</h4>
+                <p>{% trans 'Disney, Amazon Prime, Microsoft Office, Microsoft Windows' %}</p>
+            </div>
+            <a href="##" class="btn-wh">{% trans 'Request' %}</a>
+        </div>
+    </div>
+</section>
+
+{% endblock%}

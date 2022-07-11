@@ -1,0 +1,60 @@
+{% extends 'main/base.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block title %}
+
+    <title>{% trans "Offers" %}</title>
+
+{% endblock%}
+
+{% block main %}
+
+
+<section class="service">
+    <div class="container">
+        <div class="service__body">
+            <h1 class="service__title">{% trans 'Choose a' %} {{ product.name }} {% trans 'Plan' %}</h1>
+            {% if rates|length == 1 %}
+                {% for rate in rates %}
+                  <p class="service__note">{% trans 'Select the subscription type for a period of' %} <span>{{ rate }}</span>
+                {% endfor %}
+              {% else %}
+              <p class="service__note">{% trans 'Listen without limits at a bargain price' %}</p>
+                <div class="service__period">
+                    {% for rate in rates %}
+                      {% if rate.slug == rate_slug %}
+                        <button  class="active">
+                      {% else %}
+                         <button>
+                       {% endif %}
+                            <a href="{% url 'offers' slug=product.slug rate_slug=rate.slug  %}">
+                                {{ rate }}
+                            </a>
+                        </button>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            <div class="service__tariffs">
+
+              {% for item in offers %}
+                <div class="tariff bg-white">
+                    <h2 class="tariff__name">{{ item.name }}</h2>
+                    <ul class="tariff__includes">
+                        <li>Ad-free music listening</li>
+                        <li>Play anywhere - even offline</li>
+                        <li>On-demand playback</li>
+                    </ul>
+                    <div class="tariff__price">$<span>{{ item.price }}</span></div>
+                    <button  class="tariff__btn-get get-started-button" id="{{ item.id }}" >
+                        {% trans 'Get started' %}
+                    </button>
+                </div>
+              {% endfor %}
+            </div>
+        </div>
+        {% include 'blocks/invite.html' %}
+    </div>
+</section>
+
+{% endblock%}

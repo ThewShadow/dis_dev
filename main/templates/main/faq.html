@@ -1,0 +1,26 @@
+{%  extends 'main/base.html' %}
+{% load i18n %}
+{% block title %}
+    <title>{% trans 'FAQ' %}</title>
+
+{% endblock %}
+
+{% block main %}
+
+<section class="faq">
+    <div class="container">
+        <h1 class="faq__title">{% trans 'How can we help you?' %}</h1>
+        <div class="faq__items">
+            {% for question in questions_list %}
+                <details class="bg-white">
+                    <summary>{{ question.title }}</summary>
+                     <p>{{ question.answer }}</p>
+                </details>
+            {% endfor %}
+        </div>
+        <div class="faq__btn">
+            <a href="" class="btn btn-black">{% trans 'Support' %}</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

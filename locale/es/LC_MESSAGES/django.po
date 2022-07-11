@@ -1,0 +1,627 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-07-07 19:13+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: config/settings.py:138
+msgid "English"
+msgstr "English"
+
+#: config/settings.py:139
+msgid "Russian"
+msgstr "Русский"
+
+#: config/settings.py:140
+msgid "Spanish"
+msgstr "España"
+
+#: config/settings.py:141
+msgid "France"
+msgstr ""
+
+#: config/settings.py:142
+msgid "Hebrew"
+msgstr "עברית"
+
+#: main/forms.py:20
+msgid "Email already exists"
+msgstr "El correo electrónico ya existe"
+
+#: main/forms.py:100
+msgid "User with this email does not exist"
+msgstr "El usuario con esta dirección de correo electrónico no existe"
+
+#: main/forms.py:121
+msgid "User not exist"
+msgstr "El usuario no existe"
+
+#: main/forms.py:136
+msgid "Passwords do not match"
+msgstr "Las contraseñas no coinciden"
+
+#: main/managers.py:15
+msgid "The Email must be set"
+msgstr "El correo electrónico debe estar configurado"
+
+#: main/managers.py:30
+msgid "Superuser must have is_staff=True."
+msgstr "El superusuario debe tener is_staff=True."
+
+#: main/managers.py:32
+msgid "Superuser must have is_superuser=True."
+msgstr "El superusuario debe tener is_superuser=True."
+
+#: main/models.py:14
+msgid "email address"
+msgstr "dirección de correo electrónico"
+
+#: main/templates/blocks/faq.html:4 main/templates/main/faq.html:12
+msgid "How can we help you?"
+msgstr "Como podemos ayudarte?"
+
+#: main/templates/blocks/faq.html:14 main/templates/main/base.html:88
+#: main/templates/main/base.html:238 main/templates/main/faq.html:22
+msgid "Support"
+msgstr "Soporte"
+
+#: main/templates/blocks/invite.html:4
+msgid "Invite friends"
+msgstr "Invitar a amigas"
+
+#: main/templates/blocks/invite.html:5
+#, python-format
+msgid ""
+"Starting today up to 50%% for NETFLIX, YOUTUBE, SPOTIFY subscriptions with a "
+"secure payment from PAYPAL"
+msgstr ""
+"A partir de hoy hasta 50%% para suscripciones de NETFLIX, YOUTUBE, SPOTIFY "
+"con unpago seguro desde PAYPAL"
+
+#: main/templates/blocks/invite.html:8
+msgid "Click on the link"
+msgstr "Clic en el enlace"
+
+#: main/templates/email_templates/activation_account_code.html:10
+msgid "You activation account code:"
+msgstr "Su código de cuenta de activación:"
+
+#: main/templates/email_templates/reset_password_code.html:9
+msgid "You code for reset password:"
+msgstr "Usted codifica para restablecer la contraseña:"
+
+#: main/templates/main/base.html:40
+msgid "Account"
+msgstr "Cuenta"
+
+#: main/templates/main/base.html:47 main/templates/main/base.html:229
+msgid "Subscriptions"
+msgstr "Suscripciones"
+
+#: main/templates/main/base.html:68 main/templates/main/index.html:6
+msgid "Home"
+msgstr "Inicio"
+
+#: main/templates/main/base.html:79 main/templates/main/base.html:237
+#: main/templates/main/faq.html:4
+msgid "FAQ"
+msgstr ""
+
+#: main/templates/main/base.html:98 main/templates/main/base.html:236
+msgid "About"
+msgstr "Acerca de"
+
+#: main/templates/main/base.html:114
+msgid "Login"
+msgstr "inicio de sesión"
+
+#: main/templates/main/base.html:115
+msgid "Sign up"
+msgstr "Inscribirse"
+
+#: main/templates/main/base.html:122
+msgid "Log out"
+msgstr "Cerrar sesión"
+
+#: main/templates/main/base.html:167 main/templates/popups/login_modal.html:16
+#: main/templates/popups/login_modal.html:43
+msgid "Log in"
+msgstr "Iniciar sesión"
+
+#: main/templates/main/base.html:171 main/templates/main/user_profile.html:7
+#: main/templates/main/user_subscriptions.html:7
+msgid "Profile"
+msgstr "Perfil"
+
+#: main/templates/main/base.html:186
+msgid "My profile"
+msgstr "Perfil"
+
+#: main/templates/main/base.html:198
+msgid "Logout"
+msgstr "Cierre de sesión"
+
+#: main/templates/main/base.html:225
+msgid "It's simple, fast and economical"
+msgstr "Es sencillo, rápido y económico."
+
+#: main/templates/main/base.html:235
+msgid "Site navigation"
+msgstr "Sitio de navegacion"
+
+#: main/templates/main/index.html:25
+msgid "Read more"
+msgstr "Lee mas"
+
+#: main/templates/main/index.html:51
+msgid "How it works?"
+msgstr "¿Cómo funciona?"
+
+#: main/templates/main/index.html:56
+msgid ""
+"We work with the media subscriptions of: <br>Netflix <br>Spotify <br>Premium "
+"YouTube-Premium "
+msgstr ""
+"Trabajamos con las suscripciones de medios de: <br>Netflix <br>Spotify <br>Premium "
+"YouTube-Premium"
+
+
+#: main/templates/main/index.html:65
+msgid ""
+"You choose the subscription you want On our Telegram Channel then you will "
+"receive a link that will direct you to our specialized bot that will provide "
+"you with the subscription. You will choose the desired language, And you "
+"will receive the gray tariff"
+msgstr ""
+
+#: main/templates/main/index.html:74
+msgid ""
+"Pay you by PayPal secure payment fill in your account information and we "
+"will create the subscription for you"
+msgstr ""
+"Pagar por pago seguro de PayPalcomplete la información de su cuenta y "
+"crearemos elsuscripciónpara ti."
+
+#: main/templates/main/index.html:83
+#, fuzzy
+#| msgid "It's simple, fast and economical"
+msgid "It's simple, fast and economical!"
+msgstr "Es sencillo, rápido y económico."
+
+#: main/templates/main/index.html:99
+msgid "About us"
+msgstr "Sobre nosotros"
+
+#: main/templates/main/index.html:103
+msgid "We offer you a subscribe to various media services at the best price."
+msgstr ""
+"Te ofrecemos suscribirte a varios servicios multimedia al mejor precio."
+
+#: main/templates/main/index.html:104
+msgid ""
+"We have partnered with several companies to help you find the best prices "
+"for your media subscribes and provide you with the best prices for the "
+"Premium subscribes you want."
+msgstr ""
+"Nos hemos asociado con varias empresas para ayudarte a encontrar los mejores "
+"precios.para sus suscriptores de medios y ofrecerle los mejores precios para "
+"elSuscriptores premium que quieras."
+
+#: main/templates/main/index.html:105
+msgid "It's simple, fast and economical."
+msgstr "Es sencillo, rápido y económico."
+
+#: main/templates/main/index.html:120
+msgid "Request for an additional subscribe that was not found here"
+msgstr "Solicitud de suscripción adicional que no se encontró aquí"
+
+#: main/templates/main/index.html:121
+msgid "Disney, Amazon Prime, Microsoft Office, Microsoft Windows"
+msgstr ""
+
+#: main/templates/main/index.html:123
+msgid "Request"
+msgstr "Solicitud"
+
+#: main/templates/main/manager_panel.html:7
+msgid "Manager Panel"
+msgstr "Panel de gestión"
+
+#: main/templates/main/manager_panel.html:13
+msgid "Manager panel"
+msgstr "Panel de control"
+
+#: main/templates/main/offers.html:7
+msgid "Offers"
+msgstr "Ofertas"
+
+#: main/templates/main/offers.html:17
+msgid "Choose a"
+msgstr "Escoge un"
+
+#: main/templates/main/offers.html:17
+msgid "Plan"
+msgstr "Plan"
+
+#: main/templates/main/offers.html:20
+msgid "Select the subscription type for a period of"
+msgstr "Seleccione el tipo de suscripción por un período de"
+
+#: main/templates/main/offers.html:23
+msgid "Listen without limits at a bargain price"
+msgstr "Escucha sin límites a un precio de ganga"
+
+#: main/templates/main/offers.html:50
+msgid "Get started"
+msgstr "Empezar"
+
+#: main/templates/main/unauthorized.html:6
+msgid "Unauthorized"
+msgstr "No autorizada"
+
+#: main/templates/main/unauthorized.html:11
+msgid "Permission denied, user not authorized."
+msgstr "Permiso denegado, usuario no autorizado."
+
+#: main/templates/main/unauthorized.html:16
+msgid "Please, register or login to your personal account:"
+msgstr "Por favor, regístrese o inicie sesión en su cuenta personal:"
+
+#: main/templates/main/user_profile.html:15
+#: main/templates/main/user_subscriptions.html:15
+msgid "Personal data management"
+msgstr "Gestión de datos personales"
+
+#: main/templates/main/user_profile.html:23
+#: main/templates/main/user_subscriptions.html:23
+msgid "Exit the office"
+msgstr "Salir de la oficina"
+
+#: main/templates/main/user_profile.html:35
+#: main/templates/main/user_profile.html:51
+#: main/templates/main/user_subscriptions.html:35
+msgid "Account info"
+msgstr "Informacion de cuenta"
+
+#: main/templates/main/user_profile.html:45
+#: main/templates/main/user_subscriptions.html:45
+#, fuzzy
+#| msgid "Subscriptions order"
+msgid "My Subscriptions"
+msgstr "Mis Suscripciónes"
+
+#: main/templates/main/user_profile.html:56
+msgid "ID user"
+msgstr "ID Usuaria"
+
+#: main/templates/main/user_profile.html:60
+msgid "How can I call you?"
+msgstr "¿Cómo puedo llamarte?"
+
+#: main/templates/main/user_profile.html:64
+msgid "E-mail"
+msgstr "Correo electrónico"
+
+#: main/templates/main/user_profile.html:68
+msgid "Save changes"
+msgstr ""
+
+#: main/templates/main/user_subscriptions.html:57
+msgid "Change plan"
+msgstr "Cambio de plan"
+
+#: main/templates/popups/crypto_payment_modal.html:16
+#: main/templates/popups/payment_modal.html:16
+msgid "Purchase payment"
+msgstr "Pago de compra"
+
+#: main/templates/popups/crypto_payment_modal.html:19
+#: main/templates/popups/payment_modal.html:47
+msgid "Payment by crypto wallet"
+msgstr "Pago por monedero criptográfico"
+
+#: main/templates/popups/crypto_payment_modal.html:23
+msgid "The amount to be paid:"
+msgstr "La cantidad a pagar:"
+
+#: main/templates/popups/crypto_payment_modal.html:27
+msgid "Blockchain:"
+msgstr "Cadena de bloques"
+
+#: main/templates/popups/crypto_payment_modal.html:33
+msgid "You can copy the address:"
+msgstr "Puedes copiar la dirección:"
+
+#: main/templates/popups/crypto_payment_modal.html:41
+msgid "ok"
+msgstr ""
+
+#: main/templates/popups/email_verification_modal.html:16
+msgid "Email verification"
+msgstr "Verificacion de email"
+
+#: main/templates/popups/email_verification_modal.html:19
+msgid ""
+"Please enter the 6-digit verification code that was sent to name@gmail,com. "
+"The code is valid for 30 minutes."
+msgstr ""
+"Ingrese el código de verificación de 6 dígitos que se envió a name@gmail,com."
+"El código es válido durante 30 minutos."
+
+#: main/templates/popups/email_verification_modal.html:30
+#: main/templates/popups/forget_password_code_modal.html:26
+msgid "Resent code"
+msgstr "Reenviar código"
+
+#: main/templates/popups/email_verification_modal.html:31
+#: main/templates/popups/forget_password_code_modal.html:27
+msgid "Email verification code"
+msgstr "Código de verificación de correo electrónico"
+
+#: main/templates/popups/email_verification_modal.html:40
+#: main/templates/popups/registration_modal.html:58
+msgid "Sing up"
+msgstr "Cantar más fuerte"
+
+#: main/templates/popups/email_verification_modal.html:44
+msgid "Didn’t receive the code?"
+msgstr "¿No recibiste el código?"
+
+#: main/templates/popups/forget_password_code_modal.html:16
+#: main/templates/popups/forget_password_email_modal.html:16
+#: main/templates/popups/new_password_modal.html:16
+msgid "Forget Password"
+msgstr "Has olvidado tu contraseña ?"
+
+#: main/templates/popups/forget_password_code_modal.html:18
+msgid "We will send reset code in this email."
+msgstr "Le enviaremos el código de reinicio en este correo electrónico."
+
+#: main/templates/popups/forget_password_code_modal.html:36
+#: main/templates/popups/forget_password_email_modal.html:35
+msgid "Submit"
+msgstr "Enviar"
+
+#: main/templates/popups/forget_password_email_modal.html:18
+msgid "We will send reset code in this emaill."
+msgstr "Le enviaremos el código de reinicio en este correo electrónico."
+
+#: main/templates/popups/forget_password_email_modal.html:26
+#: main/templates/popups/login_modal.html:27
+#: main/templates/popups/registration_modal.html:33
+#: main/templates/popups/subscription_app.html:28
+msgid "Email Address"
+msgstr "Dirección de correo electrónico"
+
+#: main/templates/popups/login_modal.html:18
+msgid "New user?"
+msgstr "¿Nueva usuaria?"
+
+#: main/templates/popups/login_modal.html:19
+#: main/templates/popups/registration_modal.html:16
+msgid "Create an account"
+msgstr "Crea una cuenta"
+
+#: main/templates/popups/login_modal.html:33
+#: main/templates/popups/new_password_modal.html:27
+#: main/templates/popups/registration_modal.html:39
+msgid "Password"
+msgstr "La contraseña"
+
+#: main/templates/popups/login_modal.html:42
+msgid "Forfot password?"
+msgstr "¿Se te olvidó tu contraseña?"
+
+#: main/templates/popups/login_modal.html:46
+#: main/templates/popups/registration_modal.html:62
+msgid "Or sign in with"
+msgstr "O inicia sesión con"
+
+#: main/templates/popups/login_modal.html:55
+msgid "Protected by reCAPTCHA and subject to the Google"
+msgstr "Protegido por reCAPTCHA y sujeto a Google"
+
+#: main/templates/popups/login_modal.html:55
+#: main/templates/popups/registration_modal.html:53
+msgid "Privacy Policy"
+msgstr "Política de privacidad"
+
+#: main/templates/popups/login_modal.html:56
+msgid "Terms of Service"
+msgstr "Términos de servicio"
+
+#: main/templates/popups/logout.html:16
+msgid "Are you sure want to logout?"
+msgstr "¿Estás segura de que quieres cerrar sesión?"
+
+#: main/templates/popups/logout.html:21
+msgid "Cancel"
+msgstr "¿Cancelar?"
+
+#: main/templates/popups/logout.html:22
+msgid "Yes, Logout"
+msgstr "Sí, cerrar sesión"
+
+#: main/templates/popups/new_password_modal.html:18
+msgid "Enter a new password."
+msgstr "Introduzca una nueva contraseña."
+
+#: main/templates/popups/new_password_modal.html:33
+msgid "Confirm Password"
+msgstr "Confirmar contraseña"
+
+#: main/templates/popups/new_password_modal.html:42
+msgid "Restore Password"
+msgstr "Restaurar contraseña"
+
+#: main/templates/popups/payment_modal.html:26
+msgid "Card Number"
+msgstr "Número de tarjeta"
+
+#: main/templates/popups/payment_modal.html:31
+msgid "Expiration Date"
+msgstr "Fecha de caducidad"
+
+#: main/templates/popups/payment_modal.html:42
+msgid "Pay with card"
+msgstr "Paga con tarjeta"
+
+#: main/templates/popups/payment_modal.html:44
+msgid "We do not collect information on your cards, everything is safe"
+msgstr "No recopilamos información de tus tarjetas, todo es seguro"
+
+#: main/templates/popups/payment_modal.html:53
+msgid "Select currency"
+msgstr "Seleccione el tipo de moneda"
+
+#: main/templates/popups/payment_modal.html:62
+msgid "Select Blockchain"
+msgstr "Seleccionar cadena de bloques"
+
+#: main/templates/popups/payment_modal.html:73
+msgid "Pay"
+msgstr "Pago"
+
+#: main/templates/popups/registration_modal.html:18
+msgid "Already have an account?"
+msgstr "¿Ya tienes una cuenta?"
+
+#: main/templates/popups/registration_modal.html:19
+msgid "Sign In"
+msgstr "Registrarse"
+
+#: main/templates/popups/registration_modal.html:28
+msgid "User name"
+msgstr "Nombre de usuario"
+
+#: main/templates/popups/registration_modal.html:53
+msgid "By creating an account you agree to our"
+msgstr "Al crear una cuenta, usted acepta nuestros"
+
+#: main/templates/popups/registration_modal.html:53
+msgid "and"
+msgstr "y"
+
+#: main/templates/popups/registration_modal.html:54
+msgid "Terms of Service."
+msgstr "Términos de servicio."
+
+#: main/templates/popups/subscription_app.html:16
+msgid "Subscription Application"
+msgstr "Solicitud de suscripción"
+
+#: main/templates/popups/subscription_app.html:23
+msgid "Enter your name"
+msgstr "Introduzca su nombre"
+
+#: main/templates/popups/subscription_app.html:33
+msgid "Phone"
+msgstr "Teléfono"
+
+#: main/templates/popups/subscription_app.html:45
+msgid "Apply"
+msgstr "Aplicar"
+
+#: main/templates/popups/subscription_paid_modal.html:20
+msgid "Subscription paid"
+msgstr "Suscripción pagada"
+
+#: main/templates/popups/subscription_paid_modal.html:24
+#: main/templates/popups/success_registration_modal.html:26
+msgid "Continue work"
+msgstr "Continuar trabajando"
+
+#: main/templates/popups/success_registration_modal.html:16
+msgid "Successful registration"
+msgstr "Registro exitoso"
+
+#: main/templates/popups/success_registration_modal.html:19
+msgid ""
+"By optimizing our work and using internal tools, we were able to lower the "
+"prices while keeping the highest possible."
+msgstr ""
+"Al optimizar nuestro trabajo y utilizar herramientas internas, pudimos "
+"reducir elprecios manteniendo los más altos posibles."
+
+#: service/service.py:23
+msgid "Activation email"
+msgstr "Correo electrónico de activación"
+
+#: service/service.py:33
+msgid "Password reset code"
+msgstr "Código de restablecimiento de contraseña"
+
+#: service/views.py:112
+msgid "Bad Request"
+msgstr "Solicitud incorrecta"
+
+#: service/views.py:201
+msgid "Wrong login or password"
+msgstr "Nombre de usuario o contraseña incorrectos"
+
+#: service/views.py:206
+msgid "Email not verified"
+msgstr "Correo electrónico no verificado"
+
+#: service/views.py:252 service/views.py:333
+msgid "Session expired"
+msgstr "Sesión expirada"
+
+#: service/views.py:258
+#, fuzzy
+#| msgid "Email verification code"
+msgid "invalid verification code"
+msgstr "Código de verificación de correo electrónico"
+
+#: service/views.py:324
+msgid "Incorrect input data"
+msgstr "Datos de entrada incorrectos"
+
+#: service/views.py:338
+msgid "Incorrect code"
+msgstr "código incorrecto"
+
+#: service/views.py:347
+msgid "User is not found"
+msgstr "La usuario no se encuentra"
+
+#, fuzzy
+#~| msgid "It's simple, fast and economical"
+#~ msgid ""
+#~ "\n"
+#~ "\t\t\t\t\t\tIt's simple, fast and economical!\n"
+#~ "\t\t\t\t\t"
+#~ msgstr "Es sencillo, rápido y económico."
+
+#~ msgid ""
+#~ "Entering information, registering on the site and filling in personal "
+#~ "data."
+#~ msgstr ""
+#~ "Entering information, registering on the site and filling in personal "
+#~ "data."
+
+#~ msgid "Choice of subscription, subscription type and subscription period."
+#~ msgstr ""
+#~ "Elección de suscripción, tipo de suscripción y período de suscripción."
+
+#~ msgid "Payment stage, payment is made securely via PayPal or bank card"
+#~ msgstr ""
+#~ "Etapa de pago, el pago se realiza de forma segura a través de PayPal o "
+#~ "tarjeta bancaria"
+
+#~ msgid "Receipt of the selected subscription by the subscriber."
+#~ msgstr "Recepción de la suscripción seleccionada por parte del suscriptor."

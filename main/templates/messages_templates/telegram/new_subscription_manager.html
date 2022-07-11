@@ -1,0 +1,9 @@
+{% load i18n %}
+
+You have a new subscription order id {{ subscription.id }}
+Plan: {{ subscription.offer }}
+User id: {{ subscription.user.id }}
+User email: {{ subscription.email }}
+Phone number: {{ subscription.phone_number }}
+Payment type: {{ subscription.payment_type}}
+Order date: {{ order_date }}

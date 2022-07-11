@@ -1,0 +1,71 @@
+{% load i18n %}
+<div id="popup_2" class="popup">
+	<div class="popup__body">
+		<div class="popup__overlay"></div>
+		<div class="popup__content">
+			<a href="#header" class="popup__btn-close">
+				<svg width="14" height="14" viewBox="0 0 14 14" fill="none"
+					xmlns="http://www.w3.org/2000/svg">
+					<path
+						d="M6.99974 5.58574L11.9497 0.635742L13.3637 2.04974L8.41374 6.99974L13.3637 11.9497L11.9497 13.3637L6.99974 8.41374L2.04974 13.3637L0.635742 11.9497L5.58574 6.99974L0.635742 2.04974L2.04974 0.635742L6.99974 5.58574Z"
+						fill="#3A3A3C" />
+				</svg>
+			</a>
+
+			<div>
+				<h2 class="popup__title">{% trans 'Create an account' %}</h2>
+				<p class="popup__note">
+					<span>{% trans 'Already have an account?' %}</span>
+					<a class="login-link" href="#">{% trans 'Sign In' %}</a>
+				</p>
+			</div>
+
+
+			<div class="popup__inputs">
+				<form id="registration-form">
+					{% csrf_token %}
+					<div class="popup__input-block">
+						<p>{% trans 'User name' %}</p>
+						{{ register_form.username }}
+						<div class="username_errors"></div>
+					</div>
+					<div class="popup__input-block">
+						<p>{% trans 'Email Address' %}</p>
+						{{ register_form.email }}
+						<div class="email_errors"></div>
+					</div>
+					<div class="popup__input-block popup__input-password">
+						<button class="toggle-show hide"></button>
+						<p>{% trans 'Password' %}</p>
+						{{ register_form.password }}
+						<div class="password_errors"></div>
+					</div>
+					<span class="message"></span>
+				</form>
+			</div>
+
+			<div class="popup__agree">
+				<label>
+					<input type="checkbox" name="agree" tabindex="4">
+					<span></span>
+				</label>
+				<span>
+					{% trans 'By creating an account you agree to our' %} <a href="##">{% trans 'Privacy Policy' %}</a> {% trans 'and' %}
+					<a href="##">{% trans 'Terms of Service.' %}</a>
+				</span>
+			</div>
+			<div>
+				<button class="popup__btn-blue popup__btn-full register-button" tabindex="5">{% trans 'Sing up' %}</button>
+			</div>
+
+			<div class="sign-with">
+				<div class="sign-with__title"> <span>{% trans 'Or sign in with' %}</span></div>
+				<div class="sign-with__socials">
+					<div class="sign-with__elem"></div>
+					<div class="sign-with__elem"></div>
+					<div class="sign-with__elem"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

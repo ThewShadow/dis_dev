@@ -1,0 +1,26 @@
+{% load i18n %}
+<div id="popup_13" class="popup">
+	<div class="popup__body">
+		<div class="popup__overlay"></div>
+		<div class="popup__content">
+			<a href="#header" class="popup__btn-close">
+				<svg width="14" height="14" viewBox="0 0 14 14" fill="none"
+					xmlns="http://www.w3.org/2000/svg">
+					<path
+						d="M6.99974 5.58574L11.9497 0.635742L13.3637 2.04974L8.41374 6.99974L13.3637 11.9497L11.9497 13.3637L6.99974 8.41374L2.04974 13.3637L0.635742 11.9497L5.58574 6.99974L0.635742 2.04974L2.04974 0.635742L6.99974 5.58574Z"
+						fill="#3A3A3C" />
+				</svg>
+			</a>
+
+			<div>
+				<h2 class="popup__title">{% trans 'Are you sure want to logout?' %}</h2>
+			</div>
+
+
+			<div class="popup__logout-buttons">
+				<button class="popup__logout-cancel popup__btn-white">{% trans 'Cancel' %}</button>
+				<button class=" popup__btn-blue" tabindex="2"><a href="{% url 'logout' %}">{% trans 'Yes, Logout' %}</a></button>
+			</div>
+		</div>
+	</div>
+</div>

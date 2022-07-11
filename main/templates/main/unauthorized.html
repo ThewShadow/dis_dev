@@ -1,0 +1,21 @@
+{% extends 'main/base.html' %}
+{% load i18n %}
+
+
+{% block title %}
+    <title>{% trans "Unauthorized" %}</title>
+{% endblock %}
+
+{% block main %}
+  <h2>
+    {% trans "Permission denied, user not authorized." %}
+  </h2>
+
+    <center>
+      <p>
+        {% trans "Please, register or login to your personal account:" %}
+      </p>
+    </center>
+
+
+{% endblock %}

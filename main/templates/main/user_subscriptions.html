@@ -1,0 +1,72 @@
+{% extends 'main/base.html' %}
+{% load i18n %}
+
+
+{% block title %}
+
+    <title>{% trans "Profile" %}</title>
+
+{% endblock%}
+
+{% block main %}
+<section class="account">
+	<div class="container">
+		<div class="account__body">
+			<h1 class="account__title">{% trans 'Personal data management' %}</h1>
+			<a href="" class="account__btn-exit link-icon logout-button">
+				<svg width="19" height="20" viewBox="0 0 19 20" fill="none"
+					xmlns="http://www.w3.org/2000/svg">
+					<path
+						d="M1 20C0.734784 20 0.48043 19.8946 0.292893 19.7071C0.105357 19.5196 0 19.2652 0 19V1C0 0.734784 0.105357 0.48043 0.292893 0.292893C0.48043 0.105357 0.734784 0 1 0H15C15.2652 0 15.5196 0.105357 15.7071 0.292893C15.8946 0.48043 16 0.734784 16 1V4H14V2H2V18H14V16H16V19C16 19.2652 15.8946 19.5196 15.7071 19.7071C15.5196 19.8946 15.2652 20 15 20H1ZM14 14V11H7V9H14V6L19 10L14 14Z"
+						fill="#333333" />
+				</svg>
+				<span>{% trans 'Exit the office' %}</span>
+			</a>
+			<div class="account__content">
+				<div class="account__nav">
+					<a href="{% url 'profile' %}" class="account__btn-info
+					{% if 'info' in request.path %} active {%endif%}">
+						<svg width="20" height="21" viewBox="0 0 20 21" fill="none"
+							xmlns="http://www.w3.org/2000/svg">
+							<path
+								d="M7.95405 1.20875C9.30298 0.925884 10.6958 0.925203 12.045 1.20675C12.1349 1.80004 12.3574 2.36544 12.6958 2.86093C13.0343 3.35642 13.4801 3.76925 14 4.06875C14.5196 4.36928 15.1002 4.54881 15.6987 4.594C16.2973 4.63919 16.8983 4.54887 17.457 4.32975C18.3753 5.35781 19.0709 6.56479 19.5 7.87475C19.0314 8.24933 18.6532 8.7247 18.3935 9.26554C18.1338 9.80638 17.9993 10.3988 18 10.9987C18 12.2627 18.586 13.3897 19.502 14.1227C19.0704 15.4316 18.3739 16.6376 17.456 17.6658C16.8974 17.4468 16.2966 17.3566 15.6983 17.4017C15.0999 17.4469 14.5195 17.6264 14 17.9268C13.4805 18.2262 13.0351 18.6387 12.6968 19.1338C12.3585 19.629 12.1361 20.1939 12.046 20.7868C10.6973 21.0703 9.30439 21.0716 7.95505 20.7908C7.86559 20.1969 7.64335 19.6309 7.30487 19.1349C6.96639 18.6389 6.52038 18.2256 6.00005 17.9258C5.48041 17.6254 4.89975 17.446 4.30124 17.401C3.70272 17.356 3.10176 17.4465 2.54305 17.6658C1.62465 16.6374 0.929052 15.4301 0.500047 14.1198C0.96844 13.7454 1.34651 13.2703 1.60618 12.7299C1.86586 12.1894 2.00048 11.5974 2.00005 10.9977C2.00054 10.3976 1.86575 9.80512 1.60571 9.26427C1.34568 8.72341 0.96707 8.24813 0.498047 7.87375C0.929715 6.56487 1.62616 5.35885 2.54405 4.33075C3.1027 4.54971 3.70352 4.63995 4.30184 4.59476C4.90017 4.54958 5.48062 4.37013 6.00005 4.06975C6.51959 3.77035 6.96503 3.35777 7.30331 2.86266C7.64158 2.36754 7.864 1.80259 7.95405 1.20975V1.20875ZM10 13.9987C10.7957 13.9987 11.5588 13.6827 12.1214 13.1201C12.684 12.5575 13 11.7944 13 10.9987C13 10.2031 12.684 9.44004 12.1214 8.87743C11.5588 8.31482 10.7957 7.99875 10 7.99875C9.2044 7.99875 8.44134 8.31482 7.87873 8.87743C7.31612 9.44004 7.00005 10.2031 7.00005 10.9987C7.00005 11.7944 7.31612 12.5575 7.87873 13.1201C8.44134 13.6827 9.2044 13.9987 10 13.9987Z"
+								fill="#9C99AD" />
+						</svg>
+						{% trans 'Account info' %}
+					</a>
+					<a href="{% url 'user_subscriptions' %}" class="account__btn-subscr
+						{% if 'subscriptions' in request.path %} active {%endif%}"">
+						<svg width="20" height="18" viewBox="0 0 20 18" fill="none"
+							xmlns="http://www.w3.org/2000/svg">
+							<path
+								d="M0 6H19C19.2652 6 19.5196 6.10536 19.7071 6.29289C19.8946 6.48043 20 6.73478 20 7V17C20 17.2652 19.8946 17.5196 19.7071 17.7071C19.5196 17.8946 19.2652 18 19 18H1C0.734784 18 0.48043 17.8946 0.292893 17.7071C0.105357 17.5196 0 17.2652 0 17V6ZM1 0H16V4H0V1C0 0.734784 0.105357 0.48043 0.292893 0.292893C0.48043 0.105357 0.734784 0 1 0ZM13 11V13H16V11H13Z"
+								fill="#9C99AD" />
+						</svg>
+						{% trans 'My Subscriptions' %}
+					</a>
+
+				</div>
+				<div class="account__edit-data">
+					<div class="account__subscr account__subscr active">
+						{% for item in user_subscriptions %}
+						<div  class="account__subscr-item account__subscr-spotify bg-white">
+							<h3 style="background: {{ item.offer.product.background_color}}">{{ item.offer.product.name }}</h3>
+							<div class="account__subscr-item-body">
+								<p>{{ item.offer.product.name }}</p>
+								<a href="{% url 'offers' slug=item.offer.product.slug rate_slug=item.offer.rate.slug %}">
+									{% trans 'Change plan' %}
+								</a>
+							</div>
+						</div>
+						{% endfor %}
+					</div>
+				</div>
+			</div>
+		</div>
+		{% include 'blocks/invite.html' %}
+	</div>
+</section>
+
+{% include "blocks/faq.html" %}
+
+{% endblock%}

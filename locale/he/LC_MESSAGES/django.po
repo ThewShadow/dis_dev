@@ -1,0 +1,717 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-07-07 17:49+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n == 2 && n % "
+"1 == 0) ? 1: (n % 10 == 0 && n % 1 == 0 && n > 10) ? 2 : 3;\n"
+
+#: config/settings.py:138
+msgid "English"
+msgstr "English"
+
+#: config/settings.py:139
+msgid "Russian"
+msgstr "Русский"
+
+#: config/settings.py:140
+msgid "Spanish"
+msgstr "España"
+
+#: config/settings.py:141
+msgid "France"
+msgstr ""
+
+#: config/settings.py:142
+msgid "Hebrew"
+msgstr "עברית"
+
+#: main/forms.py:20
+msgid "Email already exists"
+msgstr "האימייל כבר קיים"
+
+#: main/forms.py:100
+msgid "User with this email does not exist"
+msgstr "המשתמש עם האימייל הזה לא קיים"
+
+#: main/forms.py:121
+msgid "User not exist"
+msgstr "משתמש לא קיים"
+
+#: main/forms.py:136
+msgid "Passwords do not match"
+msgstr "סיסמאות לא תואמות"
+
+#: main/managers.py:15
+msgid "The Email must be set"
+msgstr "יש להגדיר את האימייל"
+
+#: main/managers.py:30
+msgid "Superuser must have is_staff=True."
+msgstr "משתמש-על חייב להיות בעל is_staff=true."
+
+#: main/managers.py:32
+msgid "Superuser must have is_superuser=True."
+msgstr "ל-Superuser חייב להיות is_superuser=True."
+
+#: main/models.py:14
+msgid "email address"
+msgstr "כתובת דואל"
+
+#: main/templates/blocks/faq.html:4 main/templates/main/faq.html:12
+msgid "How can we help you?"
+msgstr "איך נוכל לעזור לך?"
+
+#: main/templates/blocks/faq.html:14 main/templates/main/base.html:88
+#: main/templates/main/base.html:238 main/templates/main/faq.html:22
+msgid "Support"
+msgstr "תמיכה"
+
+#: main/templates/blocks/invite.html:4
+msgid "Invite friends"
+msgstr "להזמין חברים"
+
+#: main/templates/blocks/invite.html:5
+#, python-format
+msgid ""
+"Starting today up to 50%% for NETFLIX, YOUTUBE, SPOTIFY subscriptions with a "
+"secure payment from PAYPAL"
+msgstr ""
+"החל מהיום עד 50%% עבור מנויי NETFLIX, YOUTUBE, SPOTIFY עם תשלום מאובטח מ-"
+"PAYPAL"
+
+#: main/templates/blocks/invite.html:8
+msgid "Click on the link"
+msgstr "לחץ על הקישור"
+
+#: main/templates/email_templates/activation_account_code.html:10
+msgid "You activation account code:"
+msgstr "קוד ההפעלה שלך לחשבון:"
+
+#: main/templates/email_templates/reset_password_code.html:9
+msgid "You code for reset password:"
+msgstr "אתה מקודד לאיפוס סיסמה:"
+
+#: main/templates/main/base.html:40
+msgid "Account"
+msgstr "חֶשְׁבּוֹן"
+
+#: main/templates/main/base.html:47 main/templates/main/base.html:229
+msgid "Subscriptions"
+msgstr "מנויים"
+
+#: main/templates/main/base.html:68 main/templates/main/index.html:6
+msgid "Home"
+msgstr "בית"
+
+#: main/templates/main/base.html:79 main/templates/main/base.html:237
+#: main/templates/main/faq.html:4
+msgid "FAQ"
+msgstr "שאלות נפוצות"
+
+#: main/templates/main/base.html:98 main/templates/main/base.html:236
+msgid "About"
+msgstr "על אודות"
+
+#: main/templates/main/base.html:114
+msgid "Login"
+msgstr "התחברות"
+
+#: main/templates/main/base.html:115
+msgid "Sign up"
+msgstr "הירשם"
+
+#: main/templates/main/base.html:122
+msgid "Log out"
+msgstr "להתנתק"
+
+#: main/templates/main/base.html:167 main/templates/popups/login_modal.html:16
+#: main/templates/popups/login_modal.html:43
+msgid "Log in"
+msgstr "התחברות"
+
+#: main/templates/main/base.html:171 main/templates/main/user_profile.html:7
+#: main/templates/main/user_subscriptions.html:7
+msgid "Profile"
+msgstr "פּרוֹפִיל"
+
+#: main/templates/main/base.html:186
+msgid "My profile"
+msgstr "הפרופיל שלי"
+
+#: main/templates/main/base.html:198
+msgid "Logout"
+msgstr "להתנתק"
+
+#: main/templates/main/base.html:225
+msgid "It's simple, fast and economical"
+msgstr "זה פשוט, מהיר וחסכוני"
+
+#: main/templates/main/base.html:235
+msgid "Site navigation"
+msgstr "ניווט באתר"
+
+#: main/templates/main/index.html:25
+#, fuzzy
+#| msgid "Learn more"
+msgid "Read more"
+msgstr "למד עוד"
+
+#: main/templates/main/index.html:51
+msgid "How it works?"
+msgstr "איך זה עובד"
+
+#: main/templates/main/index.html:55
+msgid ""
+"Entering information, registering on the site and filling in personal data."
+msgstr ""
+
+#: main/templates/main/index.html:62
+msgid "Choice of subscription, subscription type and subscription period."
+msgstr ""
+
+#: main/templates/main/index.html:69
+msgid "Payment stage, payment is made securely via PayPal or bank card"
+msgstr ""
+
+#: main/templates/main/index.html:76
+msgid "Receipt of the selected subscription by the subscriber."
+msgstr ""
+
+#: main/templates/main/index.html:91
+msgid "About us"
+msgstr "עלינו"
+
+#: main/templates/main/index.html:95
+msgid "We offer you a subscribe to various media services at the best price."
+msgstr "אנו מציעים לכם הרשמה לשירותי מדיה שונים במחיר הטוב ביותר."
+
+#: main/templates/main/index.html:96
+msgid ""
+"We have partnered with several companies to help you find the best prices "
+"for your media subscribes and provide you with the best prices for the "
+"Premium subscribes you want."
+msgstr ""
+"שיתפנו פעולה עם מספר חברות כדי לעזור לך למצוא את המחירים הטובים ביותרעבור "
+"המדיה שלך נרשמת ומספקת לך את המחירים הטובים ביותר עבורמנויי פרימיום שאתה "
+"רוצה."
+
+#: main/templates/main/index.html:97
+msgid "It's simple, fast and economical."
+msgstr "זה פשוט, מהיר וחסכוני."
+
+#: main/templates/main/index.html:112
+msgid "Request for an additional subscribe that was not found here"
+msgstr "בקשה למנוי נוסף שלא נמצא כאן"
+
+#: main/templates/main/index.html:113
+msgid "Disney, Amazon Prime, Microsoft Office, Microsoft Windows"
+msgstr ""
+
+#: main/templates/main/index.html:115
+msgid "Request"
+msgstr "בַּקָשָׁה"
+
+#: main/templates/main/manager_panel.html:7
+msgid "Manager Panel"
+msgstr "פאנל מנהל"
+
+#: main/templates/main/manager_panel.html:13
+msgid "Manager panel"
+msgstr "פאנל מנהל"
+
+#: main/templates/main/offers.html:7
+msgid "Offers"
+msgstr "הצעות"
+
+#: main/templates/main/offers.html:17
+msgid "Choose a"
+msgstr "תבחר"
+
+#: main/templates/main/offers.html:17
+msgid "Plan"
+msgstr "לְתַכְנֵן"
+
+#: main/templates/main/offers.html:20
+msgid "Select the subscription type for a period of"
+msgstr "בחר את סוג המנוי לתקופה של"
+
+#: main/templates/main/offers.html:23
+msgid "Listen without limits at a bargain price"
+msgstr "האזינו ללא הגבלה במחיר מציאה"
+
+#: main/templates/main/offers.html:50
+msgid "Get started"
+msgstr "להתחיל"
+
+#: main/templates/main/unauthorized.html:6
+msgid "Unauthorized"
+msgstr "לא מורשה"
+
+#: main/templates/main/unauthorized.html:11
+msgid "Permission denied, user not authorized."
+msgstr ".ההרשאה נדחתה, המשתמש אינו מורשה"
+
+#: main/templates/main/unauthorized.html:16
+msgid "Please, register or login to your personal account:"
+msgstr "אנא הירשם או התחבר לחשבון האישי שלך:"
+
+#: main/templates/main/user_profile.html:15
+#: main/templates/main/user_subscriptions.html:15
+msgid "Personal data management"
+msgstr "ניהול נתונים אישיים"
+
+#: main/templates/main/user_profile.html:23
+#: main/templates/main/user_subscriptions.html:23
+msgid "Exit the office"
+msgstr "צא מהמשרד"
+
+#: main/templates/main/user_profile.html:35
+#: main/templates/main/user_profile.html:51
+#: main/templates/main/user_subscriptions.html:35
+msgid "Account info"
+msgstr "פרטי חשבון"
+
+#: main/templates/main/user_profile.html:45
+#: main/templates/main/user_subscriptions.html:45
+msgid "My Subscriptions"
+msgstr "המנויים שלי"
+
+#: main/templates/main/user_profile.html:56
+msgid "ID user"
+msgstr "תעודת זהות של המשתמש"
+
+#: main/templates/main/user_profile.html:60
+msgid "How can I call you?"
+msgstr "איך אני יכול להתקשר אליך?"
+
+#: main/templates/main/user_profile.html:64
+msgid "E-mail"
+msgstr "אימייל"
+
+#: main/templates/main/user_profile.html:68
+msgid "Save changes"
+msgstr "שמור שינויים"
+
+#: main/templates/main/user_subscriptions.html:57
+msgid "Change plan"
+msgstr "שנה תוכנית"
+
+#: main/templates/popups/crypto_payment_modal.html:16
+#: main/templates/popups/payment_modal.html:16
+msgid "Purchase payment"
+msgstr "תשלום רכישה"
+
+#: main/templates/popups/crypto_payment_modal.html:19
+#: main/templates/popups/payment_modal.html:47
+msgid "Payment by crypto wallet"
+msgstr "תשלום באמצעות ארנק קריפטו"
+
+#: main/templates/popups/crypto_payment_modal.html:23
+msgid "The amount to be paid:"
+msgstr "הסכום לתשלום:"
+
+#: main/templates/popups/crypto_payment_modal.html:27
+msgid "Blockchain:"
+msgstr "בלוקצ'יין"
+
+#: main/templates/popups/crypto_payment_modal.html:33
+msgid "You can copy the address:"
+msgstr "אתה יכול להעתיק את הכתובת:"
+
+#: main/templates/popups/crypto_payment_modal.html:41
+msgid "ok"
+msgstr "בסדר"
+
+#: main/templates/popups/email_verification_modal.html:16
+msgid "Email verification"
+msgstr "אימות אימייל"
+
+#: main/templates/popups/email_verification_modal.html:19
+msgid ""
+"Please enter the 6-digit verification code that was sent to name@gmail,com. "
+"The code is valid for 30 minutes."
+msgstr ""
+"אנא הזן את קוד האימות בן 6 הספרות שנשלח אל name@gmail,com.הקוד תקף ל-30 דקות."
+
+#: main/templates/popups/email_verification_modal.html:30
+#: main/templates/popups/forget_password_code_modal.html:26
+msgid "Resent code"
+msgstr "שלח שוב את הקוד"
+
+#: main/templates/popups/email_verification_modal.html:31
+#: main/templates/popups/forget_password_code_modal.html:27
+msgid "Email verification code"
+msgstr "קוד אימות באימייל"
+
+#: main/templates/popups/email_verification_modal.html:40
+#: main/templates/popups/registration_modal.html:58
+msgid "Sing up"
+msgstr "לשיר"
+
+#: main/templates/popups/email_verification_modal.html:44
+msgid "Didn’t receive the code?"
+msgstr "לא קיבלת את הקוד?"
+
+#: main/templates/popups/forget_password_code_modal.html:16
+#: main/templates/popups/forget_password_email_modal.html:16
+#: main/templates/popups/new_password_modal.html:16
+msgid "Forget Password"
+msgstr "שכח את הסיסמה?"
+
+#: main/templates/popups/forget_password_code_modal.html:18
+msgid "We will send reset code in this email."
+msgstr "אנו נשלח קוד איפוס בדוא&rsquo;ל זה."
+
+#: main/templates/popups/forget_password_code_modal.html:36
+#: main/templates/popups/forget_password_email_modal.html:35
+msgid "Submit"
+msgstr "שלח"
+
+#: main/templates/popups/forget_password_email_modal.html:18
+msgid "We will send reset code in this emaill."
+msgstr "אנו נשלח קוד איפוס בדוא&rsquo;ל זה."
+
+#: main/templates/popups/forget_password_email_modal.html:26
+#: main/templates/popups/login_modal.html:27
+#: main/templates/popups/registration_modal.html:33
+#: main/templates/popups/subscription_app.html:28
+msgid "Email Address"
+msgstr "כתובת דוא&rdquo;ל"
+
+#: main/templates/popups/login_modal.html:18
+msgid "New user?"
+msgstr "משתמש חדש?"
+
+#: main/templates/popups/login_modal.html:19
+#: main/templates/popups/registration_modal.html:16
+msgid "Create an account"
+msgstr "צור חשבון"
+
+#: main/templates/popups/login_modal.html:33
+#: main/templates/popups/new_password_modal.html:27
+#: main/templates/popups/registration_modal.html:39
+msgid "Password"
+msgstr "סיסמה"
+
+#: main/templates/popups/login_modal.html:42
+msgid "Forfot password?"
+msgstr "שכחת את הסיסמא?"
+
+#: main/templates/popups/login_modal.html:46
+#: main/templates/popups/registration_modal.html:62
+msgid "Or sign in with"
+msgstr "או היכנס עם"
+
+#: main/templates/popups/login_modal.html:55
+msgid "Protected by reCAPTCHA and subject to the Google"
+msgstr ""
+
+#: main/templates/popups/login_modal.html:55
+#: main/templates/popups/registration_modal.html:53
+msgid "Privacy Policy"
+msgstr "מדיניות פרטיות"
+
+#: main/templates/popups/login_modal.html:56
+msgid "Terms of Service"
+msgstr "תנאי השירות"
+
+#: main/templates/popups/logout.html:16
+msgid "Are you sure want to logout?"
+msgstr "האם אתה בטוח שברצונך להתנתק?"
+
+#: main/templates/popups/logout.html:21
+msgid "Cancel"
+msgstr "לְבַטֵל"
+
+#: main/templates/popups/logout.html:22
+msgid "Yes, Logout"
+msgstr "כן, התנתק"
+
+#: main/templates/popups/new_password_modal.html:18
+msgid "Enter a new password."
+msgstr "שנה סיסמאהכנס סיסמא חדשה."
+
+#: main/templates/popups/new_password_modal.html:33
+msgid "Confirm Password"
+msgstr "אשר סיסמה"
+
+#: main/templates/popups/new_password_modal.html:42
+msgid "Restore Password"
+msgstr "שחזר סיסמה"
+
+#: main/templates/popups/payment_modal.html:26
+msgid "Card Number"
+msgstr "מספר כרטיס"
+
+#: main/templates/popups/payment_modal.html:31
+msgid "Expiration Date"
+msgstr "תאריך תפוגה"
+
+#: main/templates/popups/payment_modal.html:42
+msgid "Pay with card"
+msgstr "שלם עם כרטיס"
+
+#: main/templates/popups/payment_modal.html:44
+msgid "We do not collect information on your cards, everything is safe"
+msgstr "אנחנו לא אוספים מידע על הכרטיסים שלך, הכל בטוח"
+
+#: main/templates/popups/payment_modal.html:53
+msgid "Select currency"
+msgstr "תבחר מדינה"
+
+#: main/templates/popups/payment_modal.html:62
+msgid "Select Blockchain"
+msgstr "בחר בלוקצ'יין"
+
+#: main/templates/popups/payment_modal.html:73
+msgid "Pay"
+msgstr "לְשַׁלֵם"
+
+#: main/templates/popups/registration_modal.html:18
+msgid "Already have an account?"
+msgstr "כבר יש לך חשבון?"
+
+#: main/templates/popups/registration_modal.html:19
+msgid "Sign In"
+msgstr "להתחבר"
+
+#: main/templates/popups/registration_modal.html:28
+msgid "User name"
+msgstr "שם משתמש"
+
+#: main/templates/popups/registration_modal.html:53
+msgid "By creating an account you agree to our"
+msgstr "על ידי יצירת חשבון אתה מסכים לנו"
+
+#: main/templates/popups/registration_modal.html:53
+msgid "and"
+msgstr "ו"
+
+#: main/templates/popups/registration_modal.html:54
+msgid "Terms of Service."
+msgstr "תנאי השירות."
+
+#: main/templates/popups/subscription_app.html:16
+msgid "Subscription Application"
+msgstr "יישום מנוי"
+
+#: main/templates/popups/subscription_app.html:23
+msgid "Enter your name"
+msgstr "הזן את שמך"
+
+#: main/templates/popups/subscription_app.html:33
+msgid "Phone"
+msgstr "טלפון"
+
+#: main/templates/popups/subscription_app.html:45
+msgid "Apply"
+msgstr "להגיש מועמדות"
+
+#: main/templates/popups/subscription_paid_modal.html:20
+msgid "Subscription paid"
+msgstr "מנוי שולם"
+
+#: main/templates/popups/subscription_paid_modal.html:24
+#: main/templates/popups/success_registration_modal.html:26
+msgid "Continue work"
+msgstr "המשך בעבודה"
+
+#: main/templates/popups/success_registration_modal.html:16
+msgid "Successful registration"
+msgstr "רישום מוצלח"
+
+#: main/templates/popups/success_registration_modal.html:19
+msgid ""
+"By optimizing our work and using internal tools, we were able to lower the "
+"prices while keeping the highest possible."
+msgstr ""
+"על ידי אופטימיזציה של העבודה שלנו ושימוש בכלים פנימיים, הצלחנו להוריד "
+"אתמחירים תוך שמירה על הכי גבוה שאפשר."
+
+#: service/service.py:23
+msgid "Activation email"
+msgstr "דוא&rsquo;ל הפעלה"
+
+#: service/service.py:33
+msgid "Password reset code"
+msgstr "קוד איפוס סיסמה"
+
+#: service/views.py:112
+msgid "Bad Request"
+msgstr "בקשה גרועה"
+
+#: service/views.py:201
+msgid "Wrong login or password"
+msgstr "שם משתמש או סיסמא שגויים"
+
+#: service/views.py:206
+msgid "Email not verified"
+msgstr "האימייל לא מאומת"
+
+#: service/views.py:252 service/views.py:333
+msgid "Session expired"
+msgstr "פג תוקף ההפעלה"
+
+#: service/views.py:258
+msgid "invalid verification code"
+msgstr "קוד אימות לא תקף"
+
+#: service/views.py:324
+msgid "Incorrect input data"
+msgstr "נתוני קלט שגויים"
+
+#: service/views.py:338
+msgid "Incorrect code"
+msgstr "קוד שגוי"
+
+#: service/views.py:347
+msgid "User is not found"
+msgstr "המשתמש לא נמצא"
+
+#~ msgid "Start enjoying a benefit of up to 50%%"
+#~ msgstr "התחל ליהנות מהטבה של עד 50%%"
+
+#~ msgid ""
+#~ "You have always wanted to get the same product at a special price for "
+#~ "you, without haggling - and it is yours."
+#~ msgstr "תמיד רצית לקבל את אותו מוצר במחיר מיוחד עבורך,בלי להתמקח - וזה שלך."
+
+#~ msgid "Start using"
+#~ msgstr "להתחיל להשתמש"
+
+#~ msgid "Choose a subscribe"
+#~ msgstr "בחר מנוי"
+
+#~ msgid "subscribe rates"
+#~ msgstr "תעריפי מנוי"
+
+#~ msgid "Enter your account information"
+#~ msgstr "הזן את פרטי החשבון שלך"
+
+#~ msgid "Step 3"
+#~ msgstr "שלב 3"
+
+#~ msgid "Select the desired subscribe and plan"
+#~ msgstr "בחר את המנוי והתוכנית הרצויים"
+
+#~ msgid "Pay your bill with PayPal"
+#~ msgstr "שלם את החשבון שלך עם PayPal"
+
+#~ msgid "French"
+#~ msgstr "Français"
+
+#~ msgid "Hello"
+#~ msgstr "שלום"
+
+#~ msgid "You account activate succsessfuly."
+#~ msgstr "החשבון שלך הופעל בהצלחה."
+
+#~ msgid "visite"
+#~ msgstr "לְבַקֵר"
+
+#~ msgid "the site."
+#~ msgstr "האתר."
+
+#~ msgid "About Us ?"
+#~ msgstr "עלינו ?"
+
+#~ msgid ""
+#~ "        Contrary to popular belief, Lorem Ipsum is not simply random "
+#~ "text. It has roots in a piece of classical Latin literature from 45 BC, "
+#~ "making it over 2000 years old. Richard McClintock, a Latin professor at "
+#~ "Hampden-Sydney College in Virginia, looked up one of the more obscure "
+#~ "Latin words, consectetur, from a Lorem Ipsum passage, and going through "
+#~ "the cites of the word in classical literature, discovered the undoubtable "
+#~ "source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of \"de "
+#~ "Finibus Bonorum et Malorum\" (The Extremes of Good and Evil) by Cicero, "
+#~ "written in 45 BC. This book is a treatise on the theory of ethics, very "
+#~ "popular during the Renaissance. The first line of Lorem Ipsum, \"Lorem "
+#~ "ipsum dolor sit amet..\", comes from a line in section 1.10.32.\n"
+#~ "\n"
+#~ "        The standard chunk of Lorem Ipsum used since the 1500s is "
+#~ "reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "
+#~ "\"de Finibus Bonorum et Malorum\" by Cicero are also reproduced in their "
+#~ "exact original form, accompanied by English versions from the 1914 "
+#~ "translation by H. Rackham.\n"
+#~ "     "
+#~ msgstr ""
+#~ "\n"
+#~ "במשפט אחד: אנו מציעים לך מנוי לשירותי מולטימדיה במחיר הטוב ביותר.\n"
+#~ "פנינו למספר חברות כדי למצוא את המחירים הטובים ביותר עבור מנויים לשירותי "
+#~ "מולטימדיה ולהציע לך את המחירים הטובים ביותר עבור מנויי הפרימיום שאתה "
+#~ "רוצה.\n"
+#~ "איך זה עובד?\n"
+#~ "אנחנו עובדים עם מנויי מדיה:\n"
+#~ "נטפליקס.ספוטיפיי פרימיום.יוטיוב פרימיום.\n"
+#~ "אתה בוחר את המנוי שאתה רוצה מעדכון הטלגרם שלנו.לאחר מכן תקבל קישור שיפנה "
+#~ "אותך לבוט הייעודי שלנו שיספק לך מנוי.\n"
+#~ "תבחר את השפה המועדפת עליך,\n"
+#~ "ותקבל שכר אפור.\n"
+#~ "אני אשלם לך בתשלום מאובטח של PayPal.\n"
+#~ "מלא את פרטי החשבון שלך ואנו ניצור עבורך מנוי.\n"
+#~ "זה פשוט, מהיר וזול!"
+
+#~ msgid "login"
+#~ msgstr "התחברות"
+
+#~ msgid "Register"
+#~ msgstr "הירשם"
+
+#~ msgid "Password reset sent"
+#~ msgstr "איפוס הסיסמה נשלח"
+
+#~ msgid ""
+#~ "\n"
+#~ "      We’ve emailed you instructions for setting your password,<br>\n"
+#~ "      if an account exists with the email you entered. You should receive "
+#~ "them shortly.<br>\n"
+#~ "      If you don’t receive an email, please make sure you’ve entered the "
+#~ "address you registered with,<br>\n"
+#~ "      and check your spam folder.\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "שלחנו לך באימייל את ההוראות להגדרת סיסמה.\n"
+#~ "אם יש חשבון עם כתובת האימייל שסיפקת. אתה אמור לקבלבְּהֶקְדֵם הַאֶפְשַׁרִי.\n"
+#~ "אם לא קיבלת את המייל, אנא הקפד להזיןהכתובת שממנה נרשמת,ובדוק את תיקיית "
+#~ "הספאם שלך."
+
+#~ msgid "Change youre password"
+#~ msgstr "שנה את סיסמתך"
+
+#~ msgid "Confirm!"
+#~ msgstr "לְאַשֵׁר!"
+
+#~ msgid "Your password has been set. You may go ahead and log in now."
+#~ msgstr "הסיסמה שלך הוגדרה. אתה יכול להמשיך ולהיכנס עכשיו."
+
+#~ msgid ""
+#~ "Enter your email address below, and we'll email instructions for setting "
+#~ "a new one."
+#~ msgstr "הזן את כתובת הדואל שלך למטה, ואנו נשלח בדואל הוראות להגדרת אחד חדש."
+
+#~ msgid "Send me instructions"
+#~ msgstr "שלח לי הוראות"
+
+#~ msgid "Order"
+#~ msgstr "להזמין"
+
+#~ msgid "SUPPORT"
+#~ msgstr "תמיכה"
+
+#~ msgid "Send to support"
+#~ msgstr "שלח לתמיכה"
