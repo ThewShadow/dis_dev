@@ -61,7 +61,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'social_django.middleware.SocialAuthExceptionMiddleware',
 
 ]
 
@@ -81,8 +80,6 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'social_django.context_processors.backends',
-                'social_django.context_processors.login_redirect',
                 'main.context_processors.base_context',
             ],
 
@@ -157,7 +154,6 @@ LOCALE_PATHS = [
 STATIC_URL = '/static/'
 MEDIA_URL = 'media/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
-#STATIC_ROOT = os.path.join(BASE_DIR, "static")
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 
@@ -175,11 +171,7 @@ AUTH_USER_EMAIL_UNIQUE = True
 AUTH_USER_MODEL = 'main.CustomUser'
 
 
-SOCIAL_AUTH_JSONFIELD_ENABLED = True
-
 AUTHENTICATION_BACKENDS = (
-    'social_core.backends.google.GoogleOAuth2',
-    'social_core.backends.google.GoogleOAuth',
     #'django.contrib.auth.backends.ModelBackend',
     'main.backends.EmailBackend',
 )

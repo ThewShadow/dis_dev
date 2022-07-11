@@ -1,12 +1,11 @@
 from .models import Subscription, SupportTask
-from django.forms import ModelForm, DateTimeInput, TextInput, NumberInput, Form, EmailInput, PasswordInput
+from django.forms import ModelForm, DateTimeInput, TextInput, NumberInput, Form
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from .models import CustomUser
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext as _
 from .models import Transaction
-
 
 class CustomUserCreationForm(ModelForm):
 

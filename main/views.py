@@ -1,36 +1,22 @@
-from django.shortcuts import redirect, get_object_or_404, render, HttpResponse, HttpResponseRedirect
+from django.shortcuts import redirect, get_object_or_404, HttpResponse
 from django.urls import reverse_lazy
-from django.http import JsonResponse
-from django.template.loader import render_to_string
-from django.views.generic import ListView, FormView, CreateView, TemplateView, View, RedirectView
+from django.views.generic import ListView, FormView, CreateView, TemplateView, View
 from datetime import datetime
 from service import service
-from social_django.models import UserSocialAuth
 from django.core.exceptions import PermissionDenied
-from paypal.standard.forms import PayPalPaymentsForm
-from django.utils.translation import get_language
-from config import settings
 from .models import CustomUser
 from .models import Offer
 from .models import Subscription
 from .models import Product
 from .models import FAQ
-from .forms import RegistrationForm
-from .forms import LoginForm
 from .forms import SupportCreateTaskForm
 from .forms import ChangeUserInfoForm
 from .forms import ChangeSubscibeStatusForm
 from .forms import SubscribeCreateForm
-from .forms import VerifyEmailForm
-from .forms import CustomUserCreationForm
-from .forms import ResetPasswordForm
-from .forms import ResetPasswordVerifyForm
-from .forms import NewPasswordForm
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import logout
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 import logging
-from main.mixins import BaseContextMixin
 
 logger = logging.getLogger(__name__)
 
@@ -154,7 +140,7 @@ class UserSubscriptionsView(LoginRequiredMixin, ListView):
         return context
 
 
-class SupportView(BaseContextMixin, LoginRequiredMixin, CreateView):
+class SupportView(LoginRequiredMixin, CreateView):
     template_name = 'main/support.html'
     model = User
     form_class = SupportCreateTaskForm
@@ -174,11 +160,11 @@ class SupportView(BaseContextMixin, LoginRequiredMixin, CreateView):
         return redirect(reverse_lazy('index'))
 
 
-class AboutUsView(BaseContextMixin, TemplateView):
+class AboutUsView(TemplateView):
     template_name = 'main/about_us.html'
 
 
-class FAQView(BaseContextMixin, ListView):
+class FAQView(ListView):
     model = FAQ
     template_name = 'main/faq.html'
     context_object_name = 'questions_list'
