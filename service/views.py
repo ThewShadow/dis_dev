@@ -131,7 +131,7 @@ class GoogleLoginComplete(View):
 
         try:
             user = CustomUser.objects.get(email=user_info['email'])
-        except ObjectDoesNotExist:
+        except:
             user = CustomUser()
             user.email = user_info['email']
             user.username = user_info['given_name']
