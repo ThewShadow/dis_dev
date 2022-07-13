@@ -21,7 +21,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-s=%ahjk93t0he#!6by2pv8moi3)9ib5l59oxj@dhqrwgeq-!cm'
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -178,22 +178,18 @@ AUTHENTICATION_BACKENDS = (
 
 EMAIL_BACKEND = 'django_smtp_ssl.SSLEmailBackend'
 
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '457196766783-gptut90v4j8i23jcb6r45pstsu76tvrm.apps.googleusercontent.com'
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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'
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.environ.get('SOCIAL_AUTH_GOOGLE_OAUTH2_KEY')
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.environ.get('SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET')
 
-EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST = os.environ.get('EMAIL_HOST')
 EMAIL_PORT = 465
-EMAIL_HOST_USER = 'zvichayniy.vick@gmail.com'
-EMAIL_HOST_PASSWORD = 'ovkjlmcuwckkicvf'
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = False
 DEFAULT_FROM_EMAIL = 'example@gmail.comv'
 MANAGERS_EMAILS = ['zvichayniy.vick@gmail.com', 'futuredevback1@gmail.com']
 
-PAYPAL_RECEIVER_EMAIL = 'sb-cdl0418110295@business.example.com'
-PAYPAL_TEST = True
-
 VERIFY_CODE_LENGTH = 6
-
 
 LOGGING = {
     'version': 1,
@@ -221,8 +217,8 @@ LOGGING = {
     },
 }
 
-TELEGRAM_BOT_API_KEY = '2041978799:AAGzNh7MLrdbwNg4TBUcBJI_UmSVH9TeXuU'
-TELEGRAM_GROUP_MANAGERS_ID = '-757413350'
+TELEGRAM_BOT_API_KEY = os.environ.get('TELEGRAM_BOT_API_KEY')
+TELEGRAM_GROUP_MANAGERS_ID = os.environ.get('TELEGRAM_GROUP_MANAGERS_ID')
 
 PAYPAL_CLIENT_ID = 'Aa8PaxYQyyYIvzISVFbZ6PJbZlc_DRFl0QtTH7IcwYpTJz9lggiHR9Co4n4qgi4secbvd8zeDpq30-Zd'
 
