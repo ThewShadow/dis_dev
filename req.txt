@@ -1,5 +1,6 @@
 Django==4.0.4
 django-modeltranslation==0.18.2
 django-phonenumber-field==6.1.0
+django-phonenumbers==1.0.1
 Pillow==7.0.0
 pyTelegramBotAPI==4.6.0
