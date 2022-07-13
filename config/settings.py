@@ -27,7 +27,7 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
 DEBUG = True
 
 BASE_URL = ''
-NGROK_DOMAIN = 'https://c41c-46-118-172-5.eu.ngrok.io'
+NGROK_DOMAIN = os.environ.get('NGROK_DOMAIN')
 
 ALLOWED_HOSTS = ['localhost', NGROK_DOMAIN.replace('https://', '')]
 
