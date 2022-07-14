@@ -50,6 +50,13 @@ class FAQ(models.Model):
         return self.title
 
 
+class Feature(models.Model):
+    name = models.TextField(verbose_name='product features', null=True)
+
+    def __str__(self):
+        return self.name
+
+
 class Offer(models.Model):
     name = models.CharField(max_length=200, default='')
     rate = models.ForeignKey('Rate', on_delete=models.CASCADE, null=True)
@@ -57,6 +64,7 @@ class Offer(models.Model):
     product = models.ForeignKey('Product', on_delete=models.CASCADE)
     currency = models.ForeignKey('Currency', on_delete=models.CASCADE, null=True)
     description = models.TextField(null=True)
+    features = models.ManyToManyField('Feature')
 
     def __str__(self):
         return f'{self.product.name} - {self.name} - {self.rate}: {self.price} {self.currency.code}'

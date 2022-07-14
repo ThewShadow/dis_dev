@@ -23,11 +23,8 @@
               <p class="service__note">{% trans 'Listen without limits at a bargain price' %}</p>
                 <div class="service__period">
                     {% for rate in rates %}
-                      {% if rate.slug == rate_slug %}
-                        <button  class="active">
-                      {% else %}
-                         <button>
-                       {% endif %}
+
+                        <button  class="{% if rate.slug == rate_slug %} active {% endif %}">
                             <a href="{% url 'offers' slug=product.slug rate_slug=rate.slug  %}">
                                 {{ rate }}
                             </a>
@@ -41,9 +38,9 @@
                 <div class="tariff bg-white">
                     <h2 class="tariff__name">{{ item.name }}</h2>
                     <ul class="tariff__includes">
-                        <li>Ad-free music listening</li>
-                        <li>Play anywhere - even offline</li>
-                        <li>On-demand playback</li>
+                        {% for feature in item.features.all %}
+                            <li>{{ feature.name }}</li>
+                        {% endfor %}
                     </ul>
                     <div class="tariff__price">$<span>{{ item.price }}</span></div>
                     <button  class="tariff__btn-get get-started-button" id="{{ item.id }}" >
