@@ -27,11 +27,18 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
 DEBUG = True
 
 BASE_URL = ''
-NGROK_DOMAIN = os.environ.get('NGROK_DOMAIN')
+NGROK_DOMAIN = os.environ.get('NGROK_DOMAIN', '')
 
-ALLOWED_HOSTS = ['localhost', NGROK_DOMAIN.replace('https://', '')]
+NGROK_HOST = NGROK_DOMAIN.replace('https://', '') if NGROK_DOMAIN else ''
 
-CSRF_TRUSTED_ORIGINS = [NGROK_DOMAIN, 'http://localhost', 'https://www.paypalobjects.com', 'http://127.0.0.1']
+ALLOWED_HOSTS = ['localhost', NGROK_HOST]
+if NGROK_HOST:
+    ALLOWED_HOSTS.append(NGROK_HOST)
+
+
+CSRF_TRUSTED_ORIGINS = ['http://localhost', 'https://www.paypalobjects.com', 'http://127.0.0.1']
+if NGROK_DOMAIN:
+    CSRF_TRUSTED_ORIGINS.append(NGROK_DOMAIN)
 
 SECURE_CROSS_ORIGIN_OPENER_POLICY='same-origin-allow-popups'
 

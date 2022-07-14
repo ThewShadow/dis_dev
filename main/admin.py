@@ -3,7 +3,8 @@ from .models import Product, Rate, Subscription, Offer, Currency, SupportTask, P
 from modeltranslation.admin import TranslationAdmin
 from django.contrib.auth.admin import UserAdmin
 from .forms import CustomUserCreationForm, CustomUserChangeForm
-from .models import CustomUser, Transaction
+from .models import CustomUser, Transaction, Feature
+
 
 class CustomUserAdmin(UserAdmin):
     add_form = CustomUserCreationForm
@@ -28,11 +29,14 @@ class CustomUserAdmin(UserAdmin):
 class RateAdmin(TranslationAdmin):
     prepopulated_fields = {'slug': ('count', 'name',)}
 
+
 class SubscriptionAdmin(admin.ModelAdmin):
     readonly_fields = ('order_date',)
 
+
 class OfferAdmin(TranslationAdmin):
-    pass
+    filter_horizontal = ['features']
+
 
 class CurrencyAdmin(TranslationAdmin):
     pass
@@ -41,7 +45,11 @@ class CurrencyAdmin(TranslationAdmin):
 class ProductAdmin(TranslationAdmin):
     prepopulated_fields = {'slug': ('name',)}
 
+class FeatureAdmin(TranslationAdmin):
+    pass
 
+class FAQAdmin(TranslationAdmin):
+    pass
 
 admin.site.register(Rate, RateAdmin)
 admin.site.register(Product, ProductAdmin)
@@ -50,8 +58,7 @@ admin.site.register(Offer, OfferAdmin)
 admin.site.register(SupportTask)
 admin.site.register(Subscription, SubscriptionAdmin)
 admin.site.register(PaymentType)
-admin.site.register(FAQ)
+admin.site.register(FAQ, FAQAdmin)
 admin.site.register(CustomUser, CustomUserAdmin)
 admin.site.register(Transaction)
-
-
+admin.site.register(Feature, FeatureAdmin)
