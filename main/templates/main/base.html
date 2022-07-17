@@ -233,15 +233,15 @@
 							</ul>
 							<ul>
 								<li class="footer__links-title">{% trans 'Site navigation' %}</li>
-								<li><a href="">{% trans 'About' %}</a></li>
+								<li><a href="{% url 'index' %}#about">{% trans 'About' %}</a></li>
 								<li><a href="{% url 'faq_list' %}">{% trans 'FAQ' %}</a></li>
-								<li><a href="">{% trans 'Support' %}</a></li>
+								<li><a href="https://t.me/FarmSkillsSupport">{% trans 'Support' %}</a></li>
 							</ul>
 						</div>
 						<div class="footer__lang">
 							<form class="change-language-form1" action="{% url 'set_language' %}" method="post">
 								{% csrf_token %}
-								<input name="next" type="hidden" value="{{ request.get_full_path|slice:'3:' }}" />
+								<input name="next" type="hidden" value="{{ redirect_to }}" />
 								<select name="language" class="select" id="language-select">
 									{% get_current_language as LANGUAGE_CODE %}
 									{% get_available_languages as LANGUAGES %}
