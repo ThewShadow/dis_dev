@@ -33,9 +33,6 @@ class SubscriptionCreate(View):
 
     def post(self, request, **kwargs):
 
-
-
-
         form = SubscribeCreateForm(self.request.POST)
         if not form.is_valid():
             return JsonResponse({'success': False,
