@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-19 11:08+0000\n"
+"POT-Creation-Date: 2022-07-19 12:03+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,23 +18,23 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: config/settings.py:149
+#: config/settings.py:154
 msgid "English"
 msgstr "English"
 
-#: config/settings.py:150
+#: config/settings.py:155
 msgid "Russian"
 msgstr "Русский"
 
-#: config/settings.py:151
+#: config/settings.py:156
 msgid "Spanish"
 msgstr ""
 
-#: config/settings.py:152
+#: config/settings.py:157
 msgid "France"
 msgstr ""
 
-#: config/settings.py:153
+#: config/settings.py:158
 msgid "Hebrew"
 msgstr ""
 
@@ -173,9 +173,10 @@ msgstr "Как это работает?"
 
 #: main/templates/main/index.html:56
 msgid ""
-"We work with the media subscriptions of: <br>Netflix <br>Spotify <br>Premium "
+"We work with the media subscriptions of: <br>Netflix <br>Spotify Premium<br> "
 "YouTube-Premium"
-msgstr ""
+msgstr "Мы работаем с медиа-подписками: <br>Netflix <br>Spotify <br>"
+"YouTube-Premium"
 
 #: main/templates/main/index.html:65
 msgid ""
@@ -183,6 +184,9 @@ msgid ""
 "receive a link that will direct you to our specialized bot that will provide "
 "you with the subscription."
 msgstr ""
+"Вы выбираете подписку, которую хотите на нашем канале Telegram, тогда вы"
+"получите ссылку, которая направит вас к нашему специализированному боту, который предоставит"
+"вам подписку"
 
 #: main/templates/main/index.html:74
 msgid ""
@@ -190,10 +194,11 @@ msgid ""
 "Pay you by PayPal secure payment fill in your account information and we "
 "will create the subscription for you. "
 msgstr ""
+"Вы выберете нужный язык, И получите серый тариф"
+"Заплатите вам безопасным платежом PayPal, заполните данные своей учетной записи,"
+"и мы создадим подписку для вас."
 
 #: main/templates/main/index.html:83
-#, fuzzy
-#| msgid "It's simple, fast and economical"
 msgid "It's simple, fast and economical!"
 msgstr "Это просто, быстро и экономично"
 
@@ -568,35 +573,35 @@ msgstr "Электронная почта для активации"
 msgid "Password reset code"
 msgstr "Код сброса пароля"
 
-#: service/views.py:113
+#: service/views.py:110
 msgid "Bad Request"
 msgstr ""
 
-#: service/views.py:202
+#: service/views.py:199
 msgid "Wrong login or password"
 msgstr "Неправильный логин или пароль"
 
-#: service/views.py:207
+#: service/views.py:204
 msgid "Email not verified"
 msgstr "Электронная почта не проверена"
 
-#: service/views.py:253 service/views.py:334
+#: service/views.py:250 service/views.py:331
 msgid "Session expired"
 msgstr "Сессия истекла"
 
-#: service/views.py:259
+#: service/views.py:256
 msgid "invalid verification code"
 msgstr "неверный код подтверждения"
 
-#: service/views.py:325
+#: service/views.py:322
 msgid "Incorrect input data"
 msgstr "Неверные входные данные"
 
-#: service/views.py:339
+#: service/views.py:336
 msgid "Incorrect code"
 msgstr "неверный код"
 
-#: service/views.py:348
+#: service/views.py:345
 msgid "User is not found"
 msgstr "Пользователь не найден"
 

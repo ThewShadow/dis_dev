@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-19 11:13+0000\n"
+"POT-Creation-Date: 2022-07-19 12:08+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,23 +18,23 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: config/settings.py:149
+#: config/settings.py:154
 msgid "English"
 msgstr "English"
 
-#: config/settings.py:150
+#: config/settings.py:155
 msgid "Russian"
 msgstr "Русский"
 
-#: config/settings.py:151
+#: config/settings.py:156
 msgid "Spanish"
 msgstr "España"
 
-#: config/settings.py:152
+#: config/settings.py:157
 msgid "France"
 msgstr ""
 
-#: config/settings.py:153
+#: config/settings.py:158
 msgid "Hebrew"
 msgstr "עברית"
 
@@ -175,9 +175,11 @@ msgstr "Comment ça fonctionne?"
 
 #: main/templates/main/index.html:56
 msgid ""
-"We work with the media subscriptions of: <br>Netflix <br>Spotify <br>Premium "
+"We work with the media subscriptions of: <br>Netflix <br>Spotify Premium<br> "
 "YouTube-Premium"
 msgstr ""
+"Nous travaillons avec les abonnements médias de : <br>Netflix <br>Spotify Premium<br>"
+"YouTube-Premium"
 
 #: main/templates/main/index.html:65
 msgid ""
@@ -185,6 +187,9 @@ msgid ""
 "receive a link that will direct you to our specialized bot that will provide "
 "you with the subscription."
 msgstr ""
+"Vous choisissez l'abonnement que vous souhaitez sur notre chaîne Telegram puis vous"
+"recevoir un lien qui vous dirigera vers notre bot spécialisé qui fournira"
+"vous avec l'abonnement."
 
 #: main/templates/main/index.html:74
 msgid ""
@@ -192,10 +197,11 @@ msgid ""
 "Pay you by PayPal secure payment fill in your account information and we "
 "will create the subscription for you. "
 msgstr ""
+"Vous choisirez la langue souhaitée, et vous recevrez le tarif gris."
+"Payez-vous par paiement sécurisé PayPal renseignez vos"
+"informations de compte et nous créerons l'abonnement pour vous."
 
 #: main/templates/main/index.html:83
-#, fuzzy
-#| msgid "It's simple, fast and economical"
 msgid "It's simple, fast and economical!"
 msgstr "C'est simple, rapide et économique"
 
@@ -566,35 +572,35 @@ msgstr "E-mail d'activation"
 msgid "Password reset code"
 msgstr "Code de réinitialisation du mot de passe"
 
-#: service/views.py:113
+#: service/views.py:110
 msgid "Bad Request"
 msgstr "Mauvaise demande"
 
-#: service/views.py:202
+#: service/views.py:199
 msgid "Wrong login or password"
 msgstr "Identifiant ou mot de passe erroné"
 
-#: service/views.py:207
+#: service/views.py:204
 msgid "Email not verified"
 msgstr "Courriel non vérifié"
 
-#: service/views.py:253 service/views.py:334
+#: service/views.py:250 service/views.py:331
 msgid "Session expired"
 msgstr "La session a expiré"
 
-#: service/views.py:259
+#: service/views.py:256
 msgid "invalid verification code"
 msgstr "Code de vérification invalide"
 
-#: service/views.py:325
+#: service/views.py:322
 msgid "Incorrect input data"
 msgstr "Données d'entrée incorrectes"
 
-#: service/views.py:339
+#: service/views.py:336
 msgid "Incorrect code"
 msgstr "code incorrect"
 
-#: service/views.py:348
+#: service/views.py:345
 msgid "User is not found"
 msgstr "L'utilisateur est introuvable"
 
