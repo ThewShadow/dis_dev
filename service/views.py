@@ -33,6 +33,9 @@ class SubscriptionCreate(View):
 
     def post(self, request, **kwargs):
 
+
+
+
         form = SubscribeCreateForm(self.request.POST)
         if not form.is_valid():
             return JsonResponse({'success': False,
@@ -358,9 +361,14 @@ class PayPalPaymentReturnView(View):
         return response
 
 
+@method_decorator(csrf_exempt, name='dispatch')
+class isAuthenticated(View):
 
-
-
+    def post(self, request, **kwargs):
+        if request.user.is_authenticated:
+            return HttpResponse(status=200)
+        else:
+            return HttpResponse(status=401)
 
 
 

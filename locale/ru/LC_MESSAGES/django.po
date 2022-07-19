@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-07 17:49+0300\n"
+"POT-Creation-Date: 2022-07-19 11:08+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,39 +18,39 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: config/settings.py:138
+#: config/settings.py:149
 msgid "English"
 msgstr "English"
 
-#: config/settings.py:139
+#: config/settings.py:150
 msgid "Russian"
 msgstr "Русский"
 
-#: config/settings.py:140
+#: config/settings.py:151
 msgid "Spanish"
 msgstr ""
 
-#: config/settings.py:141
+#: config/settings.py:152
 msgid "France"
 msgstr ""
 
-#: config/settings.py:142
+#: config/settings.py:153
 msgid "Hebrew"
 msgstr ""
 
-#: main/forms.py:20
+#: main/forms.py:19
 msgid "Email already exists"
 msgstr "Электронная почта уже существует"
 
-#: main/forms.py:100
+#: main/forms.py:99
 msgid "User with this email does not exist"
 msgstr "Пользователь с таким электронным адресом не существует"
 
-#: main/forms.py:121
+#: main/forms.py:120
 msgid "User not exist"
 msgstr "Пользователь не существует"
 
-#: main/forms.py:136
+#: main/forms.py:135
 msgid "Passwords do not match"
 msgstr "Пароли не совпадают"
 
@@ -164,40 +164,48 @@ msgid "Site navigation"
 msgstr "Навигация по сайту"
 
 #: main/templates/main/index.html:25
-msgid "Read more"
-msgstr "Узнать больше"
+msgid "Subscribe"
+msgstr "Подписаться"
 
 #: main/templates/main/index.html:51
 msgid "How it works?"
 msgstr "Как это работает?"
 
-#: main/templates/main/index.html:55
+#: main/templates/main/index.html:56
 msgid ""
-"Entering information, registering on the site and filling in personal data."
-msgstr "Ввод информации, регистрация на сайте и заполнение личных данных."
-
-#: main/templates/main/index.html:62
-msgid "Choice of subscription, subscription type and subscription period."
-msgstr "Выбор подписки, типа подписки и периода подписки."
-
-#: main/templates/main/index.html:69
-msgid "Payment stage, payment is made securely via PayPal or bank card"
+"We work with the media subscriptions of: <br>Netflix <br>Spotify <br>Premium "
+"YouTube-Premium"
 msgstr ""
-"Этап оплаты, оплата производится безопасно через PayPal или банковскую карту."
 
-#: main/templates/main/index.html:76
-msgid "Receipt of the selected subscription by the subscriber."
-msgstr "Получение выбранной подписки подписчиком."
+#: main/templates/main/index.html:65
+msgid ""
+"You choose the subscription you want On our Telegram Channel then you will "
+"receive a link that will direct you to our specialized bot that will provide "
+"you with the subscription."
+msgstr ""
 
-#: main/templates/main/index.html:91
+#: main/templates/main/index.html:74
+msgid ""
+"You will choose the desired language, And you will receive the gray tariff. "
+"Pay you by PayPal secure payment fill in your account information and we "
+"will create the subscription for you. "
+msgstr ""
+
+#: main/templates/main/index.html:83
+#, fuzzy
+#| msgid "It's simple, fast and economical"
+msgid "It's simple, fast and economical!"
+msgstr "Это просто, быстро и экономично"
+
+#: main/templates/main/index.html:99
 msgid "About us"
 msgstr "О нас"
 
-#: main/templates/main/index.html:95
+#: main/templates/main/index.html:103
 msgid "We offer you a subscribe to various media services at the best price."
 msgstr "Мы предлагаем вам подписку на различные медиа-сервисы по лучшей цене."
 
-#: main/templates/main/index.html:96
+#: main/templates/main/index.html:104
 msgid ""
 "We have partnered with several companies to help you find the best prices "
 "for your media subscribes and provide you with the best prices for the "
@@ -208,19 +216,19 @@ msgstr ""
 "для подписки на ваши СМИ и предоставим вам лучшие цены на Премиум-подписки, "
 "которые вы хотите."
 
-#: main/templates/main/index.html:97
+#: main/templates/main/index.html:105
 msgid "It's simple, fast and economical."
 msgstr "Это просто, быстро и экономично."
 
-#: main/templates/main/index.html:112
+#: main/templates/main/index.html:120
 msgid "Request for an additional subscribe that was not found here"
 msgstr "Запрос на дополнительную подписку, которую здесь не нашел"
 
-#: main/templates/main/index.html:113
+#: main/templates/main/index.html:121
 msgid "Disney, Amazon Prime, Microsoft Office, Microsoft Windows"
 msgstr ""
 
-#: main/templates/main/index.html:115
+#: main/templates/main/index.html:123
 msgid "Request"
 msgstr "Запрос"
 
@@ -252,7 +260,7 @@ msgstr "Выберите тип подписки на период"
 msgid "Listen without limits at a bargain price"
 msgstr "Слушайте без ограничений по выгодной цене"
 
-#: main/templates/main/offers.html:50
+#: main/templates/main/offers.html:47
 msgid "Get started"
 msgstr "Начать"
 
@@ -406,8 +414,6 @@ msgid "Password"
 msgstr "Пароль"
 
 #: main/templates/popups/login_modal.html:42
-#, fuzzy
-#| msgid "Forgot your password?"
 msgid "Forfot password?"
 msgstr "Забыли пароль?"
 
@@ -562,37 +568,56 @@ msgstr "Электронная почта для активации"
 msgid "Password reset code"
 msgstr "Код сброса пароля"
 
-#: service/views.py:112
+#: service/views.py:113
 msgid "Bad Request"
 msgstr ""
 
-#: service/views.py:201
+#: service/views.py:202
 msgid "Wrong login or password"
 msgstr "Неправильный логин или пароль"
 
-#: service/views.py:206
+#: service/views.py:207
 msgid "Email not verified"
 msgstr "Электронная почта не проверена"
 
-#: service/views.py:252 service/views.py:333
+#: service/views.py:253 service/views.py:334
 msgid "Session expired"
 msgstr "Сессия истекла"
 
-#: service/views.py:258
+#: service/views.py:259
 msgid "invalid verification code"
 msgstr "неверный код подтверждения"
 
-#: service/views.py:324
+#: service/views.py:325
 msgid "Incorrect input data"
 msgstr "Неверные входные данные"
 
-#: service/views.py:338
+#: service/views.py:339
 msgid "Incorrect code"
 msgstr "неверный код"
 
-#: service/views.py:347
+#: service/views.py:348
 msgid "User is not found"
 msgstr "Пользователь не найден"
+
+#~ msgid "Read more"
+#~ msgstr "Узнать больше"
+
+#~ msgid ""
+#~ "Entering information, registering on the site and filling in personal "
+#~ "data."
+#~ msgstr "Ввод информации, регистрация на сайте и заполнение личных данных."
+
+#~ msgid "Choice of subscription, subscription type and subscription period."
+#~ msgstr "Выбор подписки, типа подписки и периода подписки."
+
+#~ msgid "Payment stage, payment is made securely via PayPal or bank card"
+#~ msgstr ""
+#~ "Этап оплаты, оплата производится безопасно через PayPal или банковскую "
+#~ "карту."
+
+#~ msgid "Receipt of the selected subscription by the subscriber."
+#~ msgstr "Получение выбранной подписки подписчиком."
 
 #~ msgid "Start enjoying a benefit of up to 50%%"
 #~ msgstr "Начните пользоваться выгодой до 50%%"
@@ -609,9 +634,6 @@ msgstr "Пользователь не найден"
 
 #~ msgid "Choose a subscribe"
 #~ msgstr "Выберите подписку"
-
-#~ msgid "subscribe rates"
-#~ msgstr "тарифы на подписку"
 
 #~ msgid "Enter your account information"
 #~ msgstr "Введите данные своей учетной записи"

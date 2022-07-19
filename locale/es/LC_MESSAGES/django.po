@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-07 19:13+0300\n"
+"POT-Creation-Date: 2022-07-19 11:12+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,39 +18,39 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: config/settings.py:138
+#: config/settings.py:149
 msgid "English"
 msgstr "English"
 
-#: config/settings.py:139
+#: config/settings.py:150
 msgid "Russian"
 msgstr "Русский"
 
-#: config/settings.py:140
+#: config/settings.py:151
 msgid "Spanish"
 msgstr "España"
 
-#: config/settings.py:141
+#: config/settings.py:152
 msgid "France"
 msgstr ""
 
-#: config/settings.py:142
+#: config/settings.py:153
 msgid "Hebrew"
 msgstr "עברית"
 
-#: main/forms.py:20
+#: main/forms.py:19
 msgid "Email already exists"
 msgstr "El correo electrónico ya existe"
 
-#: main/forms.py:100
+#: main/forms.py:99
 msgid "User with this email does not exist"
 msgstr "El usuario con esta dirección de correo electrónico no existe"
 
-#: main/forms.py:121
+#: main/forms.py:120
 msgid "User not exist"
 msgstr "El usuario no existe"
 
-#: main/forms.py:136
+#: main/forms.py:135
 msgid "Passwords do not match"
 msgstr "Las contraseñas no coinciden"
 
@@ -164,34 +164,41 @@ msgid "Site navigation"
 msgstr "Sitio de navegacion"
 
 #: main/templates/main/index.html:25
-msgid "Read more"
-msgstr "Lee mas"
+msgid "Subscribe"
+msgstr "Suscribir"
 
 #: main/templates/main/index.html:51
 msgid "How it works?"
 msgstr "¿Cómo funciona?"
 
 #: main/templates/main/index.html:56
+#, fuzzy
+#| msgid ""
+#| "We work with the media subscriptions of: <br>Netflix <br>Spotify "
+#| "<br>Premium YouTube-Premium "
 msgid ""
 "We work with the media subscriptions of: <br>Netflix <br>Spotify <br>Premium "
-"YouTube-Premium "
-msgstr ""
-"Trabajamos con las suscripciones de medios de: <br>Netflix <br>Spotify <br>Premium "
 "YouTube-Premium"
-
+msgstr ""
+"Trabajamos con las suscripciones de medios de: <br>Netflix <br>Spotify "
+"<br>Premium YouTube-Premium"
 
 #: main/templates/main/index.html:65
 msgid ""
 "You choose the subscription you want On our Telegram Channel then you will "
 "receive a link that will direct you to our specialized bot that will provide "
-"you with the subscription. You will choose the desired language, And you "
-"will receive the gray tariff"
+"you with the subscription."
 msgstr ""
 
 #: main/templates/main/index.html:74
+#, fuzzy
+#| msgid ""
+#| "Pay you by PayPal secure payment fill in your account information and we "
+#| "will create the subscription for you"
 msgid ""
+"You will choose the desired language, And you will receive the gray tariff. "
 "Pay you by PayPal secure payment fill in your account information and we "
-"will create the subscription for you"
+"will create the subscription for you. "
 msgstr ""
 "Pagar por pago seguro de PayPalcomplete la información de su cuenta y "
 "crearemos elsuscripciónpara ti."
@@ -265,7 +272,7 @@ msgstr "Seleccione el tipo de suscripción por un período de"
 msgid "Listen without limits at a bargain price"
 msgstr "Escucha sin límites a un precio de ganga"
 
-#: main/templates/main/offers.html:50
+#: main/templates/main/offers.html:47
 msgid "Get started"
 msgstr "Empezar"
 
@@ -565,39 +572,42 @@ msgstr "Correo electrónico de activación"
 msgid "Password reset code"
 msgstr "Código de restablecimiento de contraseña"
 
-#: service/views.py:112
+#: service/views.py:113
 msgid "Bad Request"
 msgstr "Solicitud incorrecta"
 
-#: service/views.py:201
+#: service/views.py:202
 msgid "Wrong login or password"
 msgstr "Nombre de usuario o contraseña incorrectos"
 
-#: service/views.py:206
+#: service/views.py:207
 msgid "Email not verified"
 msgstr "Correo electrónico no verificado"
 
-#: service/views.py:252 service/views.py:333
+#: service/views.py:253 service/views.py:334
 msgid "Session expired"
 msgstr "Sesión expirada"
 
-#: service/views.py:258
+#: service/views.py:259
 #, fuzzy
 #| msgid "Email verification code"
 msgid "invalid verification code"
 msgstr "Código de verificación de correo electrónico"
 
-#: service/views.py:324
+#: service/views.py:325
 msgid "Incorrect input data"
 msgstr "Datos de entrada incorrectos"
 
-#: service/views.py:338
+#: service/views.py:339
 msgid "Incorrect code"
 msgstr "código incorrecto"
 
-#: service/views.py:347
+#: service/views.py:348
 msgid "User is not found"
 msgstr "La usuario no se encuentra"
+
+#~ msgid "Read more"
+#~ msgstr "Lee mas"
 
 #, fuzzy
 #~| msgid "It's simple, fast and economical"
