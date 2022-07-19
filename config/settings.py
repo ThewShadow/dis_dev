@@ -29,16 +29,21 @@ DEBUG = True
 BASE_URL = os.environ.get('BASE_URL', '')
 NGROK_DOMAIN = os.environ.get('NGROK_DOMAIN', '')
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '5.189.164.30']
 
-CSRF_TRUSTED_ORIGINS = ['http://localhost', 'https://www.paypalobjects.com', 'http://127.0.0.1']
+CSRF_TRUSTED_ORIGINS = [
+    'http://localhost',
+    'https://www.paypalobjects.com',
+    'http://127.0.0.1',
+    'https://5.189.164.30'
+]
 
 if NGROK_DOMAIN:
     ALLOWED_HOSTS.append(NGROK_DOMAIN.replace('https://', ''))
     CSRF_TRUSTED_ORIGINS.append(NGROK_DOMAIN)
 
 if BASE_URL:
-    ALLOWED_HOSTS.append(BASE_URL.replace('https://'))
+    ALLOWED_HOSTS.append(BASE_URL.replace('https://', ''))
     CSRF_TRUSTED_ORIGINS.append(BASE_URL)
 
 SECURE_CROSS_ORIGIN_OPENER_POLICY='same-origin-allow-popups'
