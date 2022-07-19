@@ -7,3 +7,4 @@ main/__pycache__/*
 /debug.log
 *.pyc
 *.pyo
+/venv
