@@ -48,10 +48,10 @@ $('.register-button').click(function (event){
 
 $(".get-started-button").click(function (event){
     event.preventDefault();
-
+    var sub_id = this.id;
     $.post(document.location.origin+"/service/is_authenticated/")
     .done(function (resp) {
-        document.cookie = "offer_id="+ this.id +"; path=/";
+        document.cookie = "offer_id="+ sub_id +"; path=/";
         popupOpen(CreateSubsctiptionPopUp);
     })
     .fail(function (resp) {
