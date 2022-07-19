@@ -27,7 +27,7 @@ paypal.Buttons({
             console.log("details" + JSON.stringify(details));
             $.ajax({
                 type: "POST",
-                url: "/service/paypal/receiving_payment/",
+                url: document.location.origin+"/service/paypal/receiving_payment/",
                 contentType: "application/json",
                 data: JSON.stringify(details)
 

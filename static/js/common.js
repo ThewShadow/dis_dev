@@ -48,8 +48,17 @@ $('.register-button').click(function (event){
 
 $(".get-started-button").click(function (event){
     event.preventDefault();
-    document.cookie = "offer_id="+ this.id +"; path=/";
-    popupOpen(CreateSubsctiptionPopUp);
+
+    $.post(document.location.origin+"/service/is_authenticated/")
+    .done(function (resp) {
+        document.cookie = "offer_id="+ this.id +"; path=/";
+        popupOpen(CreateSubsctiptionPopUp);
+    })
+    .fail(function (resp) {
+       if (resp.status == 401) {
+           popupOpen(loginPopUp)
+        }
+    });
 });
 
 $(".apply-button").click(function (event) {
@@ -104,7 +113,7 @@ function generate_crypto_token() {
     json["type-blockchain"]= $('.select-blockchain option:selected'). text();
 
 
-    $.post("/service/payments/crypto/create/", json)
+    $.post(document.location.origin+"/service/payments/crypto/create/", json)
     .done(function (resp) {
               if (resp['success']) {
 
@@ -271,6 +280,7 @@ function createSubscription() {
             popupClose(CreateSubsctiptionPopUp);
             popupOpen(PaymentPopUp);
         }).fail(function (resp) {
+
             showMessages(resp, form_id);
         });
     }

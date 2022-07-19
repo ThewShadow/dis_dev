@@ -27,9 +27,14 @@ urlpatterns = [
     path('paypal/receiving_payment/', views.PayPalPaymentReceiving.as_view(),
          name='paypal_form_create'),
 
+    path('is_authenticated/', views.isAuthenticated.as_view(),
+         name='check-login'),
+
     # paypal payment callbacks
     path('paypal_return/', views.PayPalPaymentReturnView.as_view(),
          name='paypal_return'),
+
+
 
 ]
 

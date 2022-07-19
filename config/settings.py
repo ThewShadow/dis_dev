@@ -26,19 +26,20 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-BASE_URL = ''
+BASE_URL = os.environ.get('BASE_URL', '')
 NGROK_DOMAIN = os.environ.get('NGROK_DOMAIN', '')
 
-NGROK_HOST = NGROK_DOMAIN.replace('https://', '') if NGROK_DOMAIN else ''
-
-ALLOWED_HOSTS = ['localhost', NGROK_HOST]
-if NGROK_HOST:
-    ALLOWED_HOSTS.append(NGROK_HOST)
-
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 CSRF_TRUSTED_ORIGINS = ['http://localhost', 'https://www.paypalobjects.com', 'http://127.0.0.1']
+
 if NGROK_DOMAIN:
+    ALLOWED_HOSTS.append(NGROK_DOMAIN.replace('https://', ''))
     CSRF_TRUSTED_ORIGINS.append(NGROK_DOMAIN)
+
+if BASE_URL:
+    ALLOWED_HOSTS.append(BASE_URL.replace('https://'))
+    CSRF_TRUSTED_ORIGINS.append(BASE_URL)
 
 SECURE_CROSS_ORIGIN_OPENER_POLICY='same-origin-allow-popups'
 
@@ -104,6 +105,12 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
+        # 'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        # 'NAME': os.environ.get('SQL_DATABASE'),
+        # 'USER': os.environ.get('SQL_USER'),
+        # 'PASSWORD': os.environ.get('SQL_PASSWORD'),
+        # 'HOST': os.environ.get('SQL_HOST'),
+        # 'PORT': os.environ.get('SQL_PORT')
     }
 }
 
