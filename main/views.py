@@ -218,3 +218,6 @@ class Unauthorized(TemplateView):
 
 class PayPalErrorView(TemplateView):
     template_name = 'main/paypal_error.html'
+
+class CryptoPayment(TemplateView):
+    template_name = 'main/pay_crypto_wallet.html'

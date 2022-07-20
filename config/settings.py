@@ -24,7 +24,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+debug = os.environ.get('DEBUG', 0)
+if int(debug) == 1:
+    DEBUG = True
+else:
+    DEBUG = False
+print(f'debug {DEBUG}')
 
 BASE_URL = os.environ.get('BASE_URL', '')
 NGROK_DOMAIN = os.environ.get('NGROK_DOMAIN', '')
@@ -171,7 +176,7 @@ LOCALE_PATHS = [
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_URL = '/static/'
-MEDIA_URL = 'media/'
+MEDIA_URL = '/media/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
