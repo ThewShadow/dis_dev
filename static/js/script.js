@@ -1,4 +1,4 @@
-// ---------------------------MOBILE MENU---------------------------
+//^ mobileMenu
 
 const btnMenu = document.querySelector('.btn-menu');
 const menuContent = document.querySelector('.header__content');
@@ -61,13 +61,13 @@ function closeAllSubMenu() {
 	subMenuItems.forEach((el) => el.classList.remove('opened'));
 }
 
-// ^ service__period
+//^ service__period
 
 let servicePeriod = document.querySelector('.service__period');
 
 if (servicePeriod != null) {
 	servicePeriod.addEventListener('click', () => {
-		let periods = servicePeriod.querySelectorAll('button');
+		let periods = servicePeriod.querySelectorAll('a');
 		periods.forEach((el) => el.classList.toggle('active'));
 	});
 }
@@ -94,14 +94,16 @@ if (inputBlockPassword != null) {
 
 
 
+let fakeArrows = document.querySelectorAll('.language__fake-arrow')
 
-window.addEventListener('load', setPayment);
+window.addEventListener('load', () => {
+	setSelectLang()
+	setPayment()
+});
 
-
-function setPayment() {
-
-	//^ style custom selects
-
+//^ style custom selects
+function setSelectLang() {
+	
 	$('.select').each(function () {
 		// Variables
 		var $this = $(this),
@@ -163,12 +165,13 @@ function setPayment() {
 				selectList.slideUp(dur);
 			}
 		});
+		console.log(fakeArrows)
+		fakeArrows.forEach(el => el.style.display = 'none')
 	});
+}
 
-
-
-	//^ set payment & blockchain
-
+//^ set payment & blockchain
+function setPayment() {
 	const selectCurrency = document.querySelectorAll('.select-currency');
 
 	const listCurrency = {
