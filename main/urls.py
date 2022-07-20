@@ -28,5 +28,6 @@ urlpatterns = [
 
     path('paypal_error/', views.PayPalErrorView.as_view(),
          name='paypal_error'),
-
+    path('crypto_payment/', views.CryptoPayment.as_view(),
+         name='crypto-pay')
 ]

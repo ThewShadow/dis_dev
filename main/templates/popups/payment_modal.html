@@ -40,7 +40,10 @@
 			<div class="popup__buttons-col">
 				<button class="popup__btn-blue popup__btn-full">{% trans 'Pay with card' %}</button>
 				<div id="paypal-button-container"></div>
-				<button class="popup__btn-white popup__btn-full popup__btn-crypto">Crypto Wallet</button>
+				<button class="popup__btn-white popup__btn-full popup__btn-crypto"><a href="{% url 'crypto-pay' %}">
+					Crypto Wallet
+					</a>
+				</button>
 
 				<p>{% trans 'We do not collect information on your cards, everything is safe' %}</p>
 			</div>
@@ -71,8 +74,7 @@
 				</div>
 			</form>
 			<div>
-				<button id="crypto-pay-button" class="popup__btn-blue popup__btn-full payment-button">{% trans 'Pay'
-					%}</button>
+				<button id="crypto-pay-button" class="popup__btn-blue popup__btn-full payment-button">{% trans 'Pay' %}</button>
 			</div>
 		</div>
 	</div>

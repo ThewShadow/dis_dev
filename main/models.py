@@ -160,7 +160,7 @@ def send_to_telegram(message):
     from telebot import TeleBot
     from config.settings import TELEGRAM_BOT_API_KEY
     from config.settings import TELEGRAM_GROUP_MANAGERS_ID as chat_id
+
     bot = TeleBot(TELEGRAM_BOT_API_KEY)
     bot.send_message(chat_id=chat_id, text=message)
-
 

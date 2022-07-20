@@ -184,8 +184,8 @@ msgid ""
 "receive a link that will direct you to our specialized bot that will provide "
 "you with the subscription."
 msgstr ""
-"Вы выбираете подписку, которую хотите на нашем канале Telegram, тогда вы"
-"получите ссылку, которая направит вас к нашему специализированному боту, который предоставит"
+"Вы выбираете подписку, которую хотите на нашем канале Telegram, тогда вы "
+"получите ссылку, которая направит вас к нашему специализированному боту, который предоставит "
 "вам подписку"
 
 #: main/templates/main/index.html:74
@@ -194,8 +194,8 @@ msgid ""
 "Pay you by PayPal secure payment fill in your account information and we "
 "will create the subscription for you. "
 msgstr ""
-"Вы выберете нужный язык, И получите серый тариф"
-"Заплатите вам безопасным платежом PayPal, заполните данные своей учетной записи,"
+"Вы выберете нужный язык, И получите серый тариф "
+"Оплатите безопасным платежом PayPal, заполните данные своей учетной записи, "
 "и мы создадим подписку для вас."
 
 #: main/templates/main/index.html:83
