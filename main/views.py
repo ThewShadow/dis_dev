@@ -1,4 +1,4 @@
-from django.shortcuts import redirect, get_object_or_404, HttpResponse
+from django.shortcuts import redirect, get_object_or_404, HttpResponse, render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, FormView, CreateView, TemplateView, View
 from datetime import datetime
@@ -16,6 +16,7 @@ from .forms import SubscribeCreateForm
 from django.contrib.auth import logout
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
+from django.http import Http404
 import logging
 
 logger = logging.getLogger(__name__)
@@ -28,7 +29,6 @@ class IndexView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['products'] = Product.objects.all()
-        logger.info('ss')
 
         return context
 
@@ -219,5 +219,22 @@ class Unauthorized(TemplateView):
 class PayPalErrorView(TemplateView):
     template_name = 'main/paypal_error.html'
 
-class CryptoPayment(TemplateView):
-    template_name = 'main/pay_crypto_wallet.html'
+class CryptoPayment(View):
+
+    def get(self, request, **kwargs):
+        if 'sub_id' not in request.COOKIES:
+            raise Http404
+
+        subscr = get_object_or_404(
+            Subscription,
+            id=request.COOKIES['sub_id'])
+
+        offer_descr = str(subscr.offer)
+
+        return render(
+            request,
+            'main/pay_crypto_wallet.html',
+            context={'offer_descr': offer_descr})
+
+
+

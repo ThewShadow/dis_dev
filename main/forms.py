@@ -36,7 +36,7 @@ class CustomUserChangeForm(UserChangeForm):
 class SubscribeForm(ModelForm):
     class Meta:
         model = Subscription
-        fields = ('offer', 'status', 'email', 'user', 'phone_number','payment_type',)
+        fields = ('offer', 'status', 'email', 'user', 'phone_number',)
 
         widgets = {
             'status': NumberInput(attrs={
@@ -120,8 +120,10 @@ class ResetPasswordForm(Form):
             raise ValidationError(_('User not exist'))
         return email
 
+
 class ResetPasswordVerifyForm(Form):
     verify_code = forms.CharField(max_length=6, required=True)
+
 
 class NewPasswordForm(Form):
     password1 = forms.CharField(max_length=250, required=True)
@@ -139,4 +141,10 @@ class TransactionForm(ModelForm):
 
     class Meta:
         model = Transaction
-        fields = ('transaction_id', 'date_create', 'subscription',)
+        fields = (
+            'transaction_id',
+            'date_create',
+            'subscription',
+            'pay_type',
+            'comment'
+        )

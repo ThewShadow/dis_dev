@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Product, Rate, Subscription, Offer, Currency, SupportTask, PaymentType, FAQ
+from .models import Product, Rate, Subscription, Offer, Currency, SupportTask, FAQ
 from modeltranslation.admin import TranslationAdmin
 from django.contrib.auth.admin import UserAdmin
 from .forms import CustomUserCreationForm, CustomUserChangeForm
@@ -32,11 +32,15 @@ class RateAdmin(TranslationAdmin):
 
 class SubscriptionAdmin(admin.ModelAdmin):
     readonly_fields = ('order_date',)
-
+    list_display = ('user', 'offer', 'phone_number', 'order_date', 'paid', 'is_active')
+    list_filter = ('user', 'offer', 'phone_number', 'order_date', 'paid', 'is_active')
+    search_fields = ('phone_number',)
 
 class OfferAdmin(TranslationAdmin):
     filter_horizontal = ['features']
-
+    list_display = ('name', 'product', 'rate', 'price',)
+    list_filter = ('name', 'product', 'rate', 'price',)
+    search_fields = ('name', 'product__name', 'user__username')
 
 class CurrencyAdmin(TranslationAdmin):
     pass
@@ -51,14 +55,20 @@ class FeatureAdmin(TranslationAdmin):
 class FAQAdmin(TranslationAdmin):
     pass
 
+class TransactionAdmin(admin.ModelAdmin):
+    list_display = ('transaction_id', 'pay_type', 'date_create', 'subscription')
+    list_filter = ('transaction_id', 'pay_type', 'date_create', 'subscription')
+    search_fields = ('transaction_id', 'pay_type', 'subscription')
+
+
+
 admin.site.register(Rate, RateAdmin)
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Currency, CurrencyAdmin)
 admin.site.register(Offer, OfferAdmin)
 admin.site.register(SupportTask)
 admin.site.register(Subscription, SubscriptionAdmin)
-admin.site.register(PaymentType)
 admin.site.register(FAQ, FAQAdmin)
 admin.site.register(CustomUser, CustomUserAdmin)
-admin.site.register(Transaction)
+admin.site.register(Transaction, TransactionAdmin)
 admin.site.register(Feature, FeatureAdmin)
