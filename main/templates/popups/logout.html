@@ -19,7 +19,7 @@
 
 			<div class="popup__logout-buttons">
 				<button class="popup__logout-cancel popup__btn-white">{% trans 'Cancel' %}</button>
-				<button class=" popup__btn-blue" tabindex="2"><a href="{% url 'logout' %}">{% trans 'Yes, Logout' %}</a></button>
+				<a class="popup__btn-blue" tabindex="2" href="{% url 'logout' %}">{% trans 'Yes, Logout' %}</a>
 			</div>
 		</div>
 	</div>
