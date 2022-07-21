@@ -17,6 +17,7 @@
 </head>
 
 <body>
+
 	<div class="wrapper">
 		<header class="header">
 		<div class="container">
@@ -27,7 +28,7 @@
 				</a>
 
 				<div class="header__content">
-
+					{% if request.user.is_authenticated %}
 					<a href="{% url 'profile' %}" class="header__btn-account ">
 						<span>
 							<svg class="svg-icon" width="12" height="15" viewBox="0 0 12 15" fill="none"
@@ -40,6 +41,7 @@
 						{% trans 'Account' %}
 					</a>
 
+					{% endif %}
 					<nav class="menu">
 						<ul class="menu__list">
 							<li class="submenu-block submenu-block__services">
@@ -51,11 +53,13 @@
 									</svg>
 								</div>
 								<ul>
+
 									{% for item in all_products %}
 									<li>
 										<a href="{% url 'offers_redirect' item.slug %}" class="menu__link">{{ item.name }}</a>
 									</li>
 									{% endfor %}
+
 								</ul>
 							</li>
 							<li>
@@ -111,9 +115,8 @@
 
 
 					<div class="header__auth">
-						<a href="##" class="header__login btn btn-wh login-link">{% trans 'Login' %}</a>
-						<a href="##" class="header__sing-up btn btn-blue">{%  trans 'Sign up' %}</a>
-						<a href="##" class="header__logout">
+						{% if request.user.is_authenticated %}
+						<a href="" class="header__logout logout-button">
 							<svg width="19" height="20" viewBox="0 0 19 20" fill="none" xmlns="http://www.w3.org/2000/svg">
 								<path
 									d="M1 20C0.734784 20 0.48043 19.8946 0.292893 19.7071C0.105357 19.5196 0 19.2652 0 19V1C0 0.734784 0.105357 0.48043 0.292893 0.292893C0.48043 0.105357 0.734784 0 1 0H15C15.2652 0 15.5196 0.105357 15.7071 0.292893C15.8946 0.48043 16 0.734784 16 1V4H14V2H2V18H14V16H16V19C16 19.2652 15.8946 19.5196 15.7071 19.7071C15.5196 19.8946 15.2652 20 15 20H1ZM14 14V11H7V9H14V6L19 10L14 14Z"
@@ -121,6 +124,10 @@
 							</svg>
 							{% trans 'Log out' %}
 						</a>
+						{% else %}
+							<a href="" class="header__login btn btn-wh login-link">{% trans 'Login' %}</a>
+							<a href="" class="header__sing-up btn btn-blue register-link">{%  trans 'Sign in' %}</a>
+						{% endif %}
 					</div>
 
 					<div class="header__lang-socials">
@@ -159,6 +166,7 @@
 									{% endfor %}
 								</select>
 							</form>
+							<div class="language__fake-arrow"></div>
 						</div>
 					</div>
 
@@ -195,7 +203,9 @@
 										</svg>
 
 									</span>
-									<a href="" class="logout-button">{% trans 'Logout' %}</a>
+									{% if request.user.is_authenticated %}
+										<a href="" class="logout-button">{% trans 'Logout' %}</a>
+									{% endif %}
 								</li>
 							</ul>
 						</div>
@@ -252,8 +262,9 @@
 										{{ language.code }}
 									</option>
 									{% endfor %}
-								</select>
+								</select>								
 							</form>
+							<div class="language__fake-arrow"></div>
 						</div>
 					</div>
 				</div>
@@ -282,12 +293,15 @@
 
 
 
+
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script src="{% static 'js/script.js' %}"></script>
 <script src="{% static 'js/faq.js' %}"></script>
 <script src="{% static 'js/popup.js' %}"></script>
 <script src="{% static 'js/common.js' %}"></script>
+<script src="{% static 'js/account.js' %}"></script>
+<script src="{% static 'js/payCryptoWallet.js' %}"></script>
 <script src="https://www.paypal.com/sdk/js?client-id={{ PAYPAL_CLIENT_ID }}&disable-funding=credit,card"></script>
 <script src="{% static 'js/paypal.js' %}"></script>
 

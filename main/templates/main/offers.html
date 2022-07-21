@@ -24,11 +24,11 @@
                 <div class="service__period">
                     {% for rate in rates %}
 
-                        <button  class="{% if rate.slug == rate_slug %} active {% endif %}">
-                            <a href="{% url 'offers' slug=product.slug rate_slug=rate.slug  %}">
+                       
+                            <a href="{% url 'offers' slug=product.slug rate_slug=rate.slug  %}" class="{% if rate.slug == rate_slug %} active {% endif %}">
                                 {{ rate }}
                             </a>
-                        </button>
+                       
                     {% endfor %}
                 </div>
             {% endif %}

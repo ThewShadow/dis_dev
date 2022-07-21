@@ -14,7 +14,7 @@ from main.forms import VerifyEmailForm
 from main.forms import CustomUserCreationForm
 from main.forms import ResetPasswordForm
 from main.forms import ResetPasswordVerifyForm
-from main.forms import NewPasswordForm
+from main.forms import NewPasswordForm, TransactionForm
 from django.contrib.auth import authenticate, login
 from django.utils.translation import gettext as _
 from django.core.exceptions import ObjectDoesNotExist
@@ -24,7 +24,9 @@ from service import google
 import threading
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
+from config import settings
 
+logging.config.dictConfig(settings.LOGGING)
 
 logger = logging.Logger(__name__)
 
@@ -74,41 +76,59 @@ class SubscriptionCreate(View):
             return JsonResponse(resp, status=200)
 
 
+@method_decorator(csrf_exempt, name='dispatch')
 class CryptoPayCreate(View):
 
     def post(self, request, **kwargs):
-        type_payment = request.POST.get('type-payment')
-        type_blockchain = request.POST.get('type-blockchain')
+        type_payment = request.POST.get('currency', None)
+        type_blockchain = request.POST.get('blockchain', None)
+        offer_id = request.session.get('current_offer_id', None)
 
-        if type_payment and type_blockchain:
-            link = crypto.gen_crypto_pay_link(type_payment, type_blockchain)
+        link = crypto.gen_crypto_pay_link(type_payment, type_blockchain)
+        qrcode_path = crypto.gen_qrcode(link)
 
-            offer_id = request.session.get('current_offer_id')
+        try:
             amount = Offer.objects.get(id=offer_id).price
+        except Offer.DoesNotExist:
+            amount = None
 
-            curr = None
-            if 'Bitcoin' in type_payment:
-                curr = 'BTC'
-            elif 'Ethereum' in type_payment:
-                curr = 'ETH'
+        if not offer_id \
+                or not link \
+                or not amount\
+                or not qrcode_path:
 
-            if curr:
-                crypto_amount = crypto.get_crypto_amount(curr, amount)
-            else:
-                crypto_amount = amount + ' USDT'
-
-            response = {
-                'success': True,
-                'payment_link': link,
-                'blockchain_name': str(type_blockchain).replace('Blockchain', ''),
-                'amount': crypto_amount
-            }
-
-            return JsonResponse(response)
-        else:
             return JsonResponse({'success': False,
                                  'message': _('Bad Request')},
                                 status=400)
+        else:
+
+            if 'Bitcoin' in type_payment:
+                currency = 'BTC'
+            elif 'Ethereum' in type_payment:
+                currency = 'ETH'
+            else:
+                currency = 'USDT'
+
+            if currency in ['BTC', 'ETH']:
+                try:
+                    crypto_amount = crypto.get_crypto_amount(currency, amount)
+                except:
+                    return JsonResponse({'success': False,
+                                         'message': _('Bad Request')},
+                                        status=400)
+            else:
+                crypto_amount = str(amount) + ' ' + currency
+
+            blockchain_name = str(type_blockchain).replace('Blockchain', '')
+
+            return JsonResponse({
+                'success': True,
+                'payment_link': link,
+                'blockchain_name': blockchain_name,
+                'amount': crypto_amount,
+                'qr': qrcode_path,
+                'currency': currency
+            })
 
 
 class GoogleLogin(View):
@@ -151,11 +171,13 @@ class PayPalPaymentReceiving(View):
         payment_data = json.loads(request.body)
 
         if 'purchase_units' not in payment_data:
+            logger.error('PayPalPaymentReceiving: purchase_units not found')
             return JsonResponse({'success': False}, status=400)
 
         for data in payment_data['purchase_units']:
             sub_id = data['custom_id']
             if not sub_id:
+                logger.error('PayPalPaymentReceiving: custom_id is empty')
                 return JsonResponse({'success': False}, status=400)
 
             customer_subscription = Subscription.objects.filter(id=sub_id).first()
@@ -163,7 +185,9 @@ class PayPalPaymentReceiving(View):
             init = {
                 'transaction_id': payment_data['id'],
                 'date_create': datetime.datetime.now(),
-                'subscription': customer_subscription
+                'subscription': customer_subscription,
+                'pay_type': 'paypal',
+
             }
 
             form = TransactionForm(init)
@@ -175,9 +199,41 @@ class PayPalPaymentReceiving(View):
                 customer_subscription.paid = True
                 customer_subscription.save()
 
+                logger.error('PayPalPaymentReceiving: payment reveiving success')
                 return JsonResponse({'success': True}, status=200)
             else:
+                logger.error('PayPalPaymentReceiving: form not valid')
+                logger.error(dict(form.errors))
                 return JsonResponse({'success': False}, status=400)
+
+
+class CryptoPaymentReceiving(View):
+
+    def post(self, request, **kwargs):
+
+        try:
+            customer_subscription = Subscription.objects\
+                .filter(id=request.COOKIES.get('sub_id'))\
+                .first()
+        except:
+            return JsonResponse({'success': False}, status=400)
+
+        init = {
+            'transaction_id': request.POST['proof-hash'],
+            'date_create': datetime.datetime.now(),
+            'subscription': customer_subscription,
+            'pay_type': 'crypto',
+            'comment': request.POST['pay_info']
+        }
+
+        form = TransactionForm(init)
+        if form.is_valid():
+            form.save()
+            return HttpResponse(status=200)
+        else:
+            return JsonResponse({'success': False,
+                                 'error_messages': dict(form.errors)},
+                                status=400)
 
 
 class Login(View):
@@ -346,8 +402,6 @@ class ActivationEmail(View):
                                 status=400)
 
         return JsonResponse({"success": True})
-
-
 
 
 class PayPalPaymentReturnView(View):

@@ -1,0 +1,133 @@
+{% extends 'main/base.html' %}
+{% load i18n %}
+
+{% block title%}
+	<title>{% trans 'Crypto payment' %}</title>
+{% endblock %}
+
+{% block main %}
+<section class="pay-crypto">
+	<div class="container">
+		<h1>{% trans 'Payment by crypto wallet' %}</h1>
+		<p class="pay-crypto__label">{% trans 'Follow the simple 3 steps to complete ypur mapping.' %}</p>
+		<div class="pay-crypto__body">
+			<div class="pay-crypto__progress bg-white">
+				<div class="pay-crypto__progress-step current">
+					<div class="pay-crypto__progress-number"><span>1</span></div>
+					<div class="pay-crypto__progress-name">
+						<strong>{% trans 'Select currency' %}</strong>
+						<p>Bitcoin, Ethereum, USDT</p>
+					</div>
+				</div>
+				<div class="pay-crypto__progress-step">
+					<div class="pay-crypto__progress-number"><span>2</span></div>
+					<div class="pay-crypto__progress-name">
+						<strong>Blockchain Network</strong>
+						<p>BTC, Solana, BSC</p>
+					</div>
+				</div>
+				<div class="pay-crypto__progress-step">
+					<div class="pay-crypto__progress-number"><span>3</span></div>
+					<div class="pay-crypto__progress-name">
+						<strong>Pay</strong>
+						<p>{% trans 'Data validation' %}</p>
+					</div>
+				</div>
+				<div class="pay-crypto__progress-step">
+					<div class="pay-crypto__progress-number"><span>4</span></div>
+					<div class="pay-crypto__progress-name">
+						<strong>Proof of payment</strong>
+						<p>{% trans 'Data validation' %}</p>
+					</div>
+				</div>
+			</div>
+			<div class="pay-crypto__action">
+				<div class="pay-crypto__action-step active">
+					<p class="pay-crypto__action-count">{% trans 'Step 1/4' %}</p>
+					<h4>{% trans 'Please choose which currency you want to pay the subscription to' %}</h4>
+					<form id="crypto_currency-form" method="post">
+					<fieldset>
+						<label>
+							<input type="radio" name="currency" value="Bitcoin" checked>
+							<span>Bitcoin</span>
+						</label>
+						<label>
+							<input type="radio" name="currency" value="Ethereum">
+							<span>Ethereum</span>
+						</label>
+						<label>
+							<input type="radio" name="currency" value="USDT">
+							<span>USDT</span>
+						</label>
+						</fieldset>
+					</form>
+
+				</div>
+				<div class="pay-crypto__action-step">
+					<p class="pay-crypto__action-count">{% trans 'Step 2/4' %}</p>
+					<h4>{% trans 'Please choose the Blockchain Network.' %}</h4>
+					<form id="blockchain-form">
+						<fieldset>
+							<label>
+								<input type="radio" name="blockchain"  value="Blockchain BTC network" checked>
+								<span>Blockchain BTC network </span>
+							</label>
+							<label>
+								<input type="radio" name="blockchain" value="Blockchain Solana network">
+								<span>Blockchain Solana network </span>
+							</label>
+							<label>
+								<input type="radio" name="blockchain" value="Blockchain BSC network">
+								<span>Blockchain BSC network</span>
+							</label>
+						</fieldset>
+					</form>
+				</div>
+				<div class="pay-crypto__action-step">
+					<p class="pay-crypto__action-count">{% trans 'Step 3/4' %}</p>
+					<h4>
+						{{ offer_descr }}
+					</h4>
+					<div class="pay-crypto__action-pay-info">
+						<div class="qr-code">
+							<img id="QR" src="" >
+						</div>
+						<ul>
+							<li>
+								<span>{% trans 'The amount to be paid:' %} </span>
+								<strong id="blockchain-sum"></strong>
+							</li>
+							<li>
+								<span>{% trans 'Blockchain:' %} </span>
+								<strong id="blockchain-name"></strong>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="pay-crypto__action-step">
+					<p class="pay-crypto__action-count">{% trans 'Step 4/4' %}</p>
+					<h4>{% trans 'Proof of payment' %}</h4>
+					<form id="proof-form" method="post">
+						{% csrf_token %}
+						<p>{% trans 'Enter hash code' %}</p>
+						<input name="proof-hash" type="text"
+							placeholder="0xb4bc263278d3f77a652a8d73a6bfd8ec0ba1a63923bbb4f38147fb8a943da26d">
+						<div class="transaction_id_errors"></div>
+						<input type="hidden" id="pay-info" name="pay_info" type="text">
+
+					</form>
+				</div>
+				<div class="pay-crypto__congrats">
+					<img src="./img/icons/step-3.svg" alt="congrats">
+					<h3>{% trans 'Thank you, payment was successful!' %}</h3>
+				</div>
+				<div class="pay-crypto__action-buttons">
+					<button id="proof-next" class="action-next popup__btn-blue">{% trans 'Next' %}</button>
+					<button class="action-prew ">{% trans 'Back' %}</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+{% endblock %}

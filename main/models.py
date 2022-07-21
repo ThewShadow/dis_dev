@@ -82,18 +82,10 @@ class Product(models.Model):
         return self.name
 
 
-class PaymentType(models.Model):
-    name = models.CharField(max_length=250)
-
-    def __str__(self):
-        return self.name
-
-
 class Subscription(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True)
     offer = models.ForeignKey('Offer', on_delete=models.CASCADE, null=True)
     email = models.EmailField(max_length=250)
-    payment_type = models.ForeignKey(PaymentType, on_delete=models.CASCADE, null=True)
     phone_number = PhoneNumberField(null=True)
     order_date = models.DateTimeField(auto_now_add=True, null=True)
     user_name = models.CharField(max_length=250, null=True)
@@ -144,9 +136,26 @@ class SupportTask(models.Model):
 
 
 class Transaction(models.Model):
-    transaction_id = models.CharField(max_length=250, null=True)
+    transaction_id = models.CharField(max_length=250)
     date_create = models.DateTimeField()
-    subscription = models.ForeignKey('Subscription', on_delete=models.CASCADE)
+    subscription = models.ForeignKey('Subscription',
+        on_delete=models.CASCADE)
+
+    comment = models.TextField(null=True, blank=True)
+
+    paytypes = [
+        ('paypal', 'PayPal',),
+        ('crypto', 'Crypto Wallet',)
+    ]
+    pay_type = models.CharField(max_length=255, choices=paytypes)
+
+
+    def __str__(self):
+        return self.transaction_id
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        self.notify_managers()
 
     def notify_managers(self):
         message = render_to_string(
@@ -160,7 +169,7 @@ def send_to_telegram(message):
     from telebot import TeleBot
     from config.settings import TELEGRAM_BOT_API_KEY
     from config.settings import TELEGRAM_GROUP_MANAGERS_ID as chat_id
+
     bot = TeleBot(TELEGRAM_BOT_API_KEY)
     bot.send_message(chat_id=chat_id, text=message)
-
 

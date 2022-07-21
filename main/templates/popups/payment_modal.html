@@ -1,77 +1,81 @@
 {% load i18n %}
 <div id="popup_9" class="popup">
-    <div class="popup__body">
-        <div class="popup__overlay"></div>
-        <div class="popup__content">
-            <a href="#header" class="popup__btn-close">
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <path
-                        d="M6.99974 5.58574L11.9497 0.635742L13.3637 2.04974L8.41374 6.99974L13.3637 11.9497L11.9497 13.3637L6.99974 8.41374L2.04974 13.3637L0.635742 11.9497L5.58574 6.99974L0.635742 2.04974L2.04974 0.635742L6.99974 5.58574Z"
-                        fill="#3A3A3C" />
-                </svg>
-            </a>
+	<div class="popup__body">
+		<div class="popup__overlay"></div>
+		<div class="popup__content">
+			<a href="#header" class="popup__btn-close">
+				<svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<path
+						d="M6.99974 5.58574L11.9497 0.635742L13.3637 2.04974L8.41374 6.99974L13.3637 11.9497L11.9497 13.3637L6.99974 8.41374L2.04974 13.3637L0.635742 11.9497L5.58574 6.99974L0.635742 2.04974L2.04974 0.635742L6.99974 5.58574Z"
+						fill="#3A3A3C" />
+				</svg>
+			</a>
 
-            <div>
-                <h3 class="popup__title">{% trans 'Purchase payment' %}</h3>
-            </div>
+			<div>
+				<h3 class="popup__title">{% trans 'Purchase payment' %}</h3>
+			</div>
 
-            <div class="popup__payment-type-row">
-                <button class="popup__btn-gpay"></button>
-                <button class="popup__btn-applepay"></button>
-            </div>
+			<div class="popup__payment-type-row">
+				<button class="popup__btn-gpay"></button>
+				<button class="popup__btn-applepay"></button>
+			</div>
 
-            <div class="popup__inputs">
-                <div class="popup__input-block">
-                    <p class="fz15">{% trans 'Card Number' %}</p>
-                    <input type="text" tabindex="1" placeholder="1234 1234 1234 1234">
-                </div>
-                <div class="popup__inputs-row">
-                    <div class="popup__input-block">
-                        <p class="fz15">{% trans 'Expiration Date' %}</p>
-                        <input type="text" placeholder="MM/ГГ" tabindex="2">
-                    </div>
-                    <div class="popup__input-block">
-                        <p class="fz15">СVC</p>
-                        <input type="number" placeholder="СVC" tabindex="3">
-                    </div>
-                </div>
-            </div>
+			<div class="popup__inputs">
+				<div class="popup__input-block">
+					<p class="fz15">{% trans 'Card Number' %}</p>
+					<input type="text" tabindex="1" placeholder="1234 1234 1234 1234">
+				</div>
+				<div class="popup__inputs-row">
+					<div class="popup__input-block">
+						<p class="fz15">{% trans 'Expiration Date' %}</p>
+						<input type="text" placeholder="MM/ГГ" tabindex="2">
+					</div>
+					<div class="popup__input-block">
+						<p class="fz15">СVC</p>
+						<input type="number" placeholder="СVC" tabindex="3">
+					</div>
+				</div>
+			</div>
 
-            <div class="popup__buttons-col">
-                <button class="popup__btn-blue popup__btn-full">{% trans 'Pay with card' %}</button>
-                <div id="paypal-button-container"></div>
-                <p>{% trans 'We do not collect information on your cards, everything is safe' %}</p>
-            </div>
+			<div class="popup__buttons-col">
+				<button class="popup__btn-blue popup__btn-full">{% trans 'Pay with card' %}</button>
+				<div id="paypal-button-container"></div>
+				<button class="popup__btn-white popup__btn-full popup__btn-crypto"><a href="{% url 'crypto-pay' %}">
+					Crypto Wallet
+					</a>
+				</button>
 
-            <div class="popup__subtitle">{% trans 'Payment by crypto wallet' %}</div>
-            <form id="crypto-payment-form">
-                    {% csrf_token %}
-            <div class="popup__selects">
+				<p>{% trans 'We do not collect information on your cards, everything is safe' %}</p>
+			</div>
 
-                    <div class="popup__select-block">
-                        <p>{% trans 'Select currency' %}</p>
-                        <select name="type-payment" class="select select-currency">
-                            <option value="Bitcoin" selected>Bitcoin</option>
-                            <option value="Ethereum">Ethereum</option>
-                            <option value="USDT">USDT</option>
-                        </select>
-                    </div>
+			<div class="popup__subtitle">{% trans 'Payment by crypto wallet' %}</div>
+			<form id="crypto-payment-form">
+				{% csrf_token %}
+				<div class="popup__selects">
 
-                    <div class="popup__select-block">
-                        <p>{% trans 'Select Blockchain' %}</p>
-                        <select name="type-blockchain" class="select select-blockchain">
-                            <option value="Blockchain BTC network" selected>Blockchain BTC network</option>
-                            <option value="Blockchain Solana network">Blockchain Solana network</option>
-                            <option value="Blockchain BSC network">Blockchain BSC network</option>
-                        </select>
-                    </div>
+					<div class="popup__select-block">
+						<p>{% trans 'Select currency' %}</p>
+						<select name="type-payment" class="select select-currency">
+							<option value="Bitcoin" selected>Bitcoin</option>
+							<option value="Ethereum">Ethereum</option>
+							<option value="USDT">USDT</option>
+						</select>
+					</div>
 
-            </div>
-  </form>
-            <div>
-                <button id="crypto-pay-button" class="popup__btn-blue popup__btn-full payment-button">{% trans 'Pay' %}</button>
-            </div>
-        </div>
-    </div>
+					<div class="popup__select-block">
+						<p>{% trans 'Select Blockchain' %}</p>
+						<select name="type-blockchain" class="select select-blockchain">
+							<option value="Blockchain BTC network" selected>Blockchain BTC network</option>
+							<option value="Blockchain Solana network">Blockchain Solana network</option>
+							<option value="Blockchain BSC network">Blockchain BSC network</option>
+						</select>
+					</div>
+
+				</div>
+			</form>
+			<div>
+				<button id="crypto-pay-button" class="popup__btn-blue popup__btn-full payment-button">{% trans 'Pay' %}</button>
+			</div>
+		</div>
+	</div>
 </div>

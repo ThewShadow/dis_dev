@@ -1,9 +1,0 @@
-/db.sqlite3
-/conf/settings.py
-/media/media
-config/__pycache__/*
-service/__pycache__/*
-main/__pycache__/*
-/debug.log
-*.pyc
-*.pyo

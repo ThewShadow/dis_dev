@@ -34,9 +34,9 @@ urlpatterns = [
     path('paypal_return/', views.PayPalPaymentReturnView.as_view(),
          name='paypal_return'),
 
-
+    path('crypto_payment_confirm/', views.CryptoPaymentReceiving.as_view(),
+         name='crypto-pay-confirm'),
 
 ]
 
 
-s = "sdsd\"sdsdsd"

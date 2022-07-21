@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-19 12:08+0000\n"
+"POT-Creation-Date: 2022-07-21 11:40+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,23 +18,23 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: config/settings.py:154
+#: config/settings.py:159
 msgid "English"
 msgstr "English"
 
-#: config/settings.py:155
+#: config/settings.py:160
 msgid "Russian"
 msgstr "Русский"
 
-#: config/settings.py:156
+#: config/settings.py:161
 msgid "Spanish"
 msgstr "España"
 
-#: config/settings.py:157
+#: config/settings.py:162
 msgid "France"
 msgstr ""
 
-#: config/settings.py:158
+#: config/settings.py:163
 msgid "Hebrew"
 msgstr "עברית"
 
@@ -50,7 +50,7 @@ msgstr "L'utilisateur avec cet email n'existe pas"
 msgid "User not exist"
 msgstr "L'utilisateur n'existe pas"
 
-#: main/forms.py:135
+#: main/forms.py:137
 msgid "Passwords do not match"
 msgstr "Les mots de passe ne correspondent pas"
 
@@ -74,8 +74,8 @@ msgstr "L'adresse e-mail"
 msgid "How can we help you?"
 msgstr "Comment pouvons-nous vous aider ?"
 
-#: main/templates/blocks/faq.html:14 main/templates/main/base.html:88
-#: main/templates/main/base.html:238 main/templates/main/faq.html:22
+#: main/templates/blocks/faq.html:14 main/templates/main/base.html:92
+#: main/templates/main/base.html:247 main/templates/main/faq.html:22
 msgid "Support"
 msgstr "Soutien"
 
@@ -104,64 +104,66 @@ msgstr "Votre code de compte d'activation:"
 msgid "You code for reset password:"
 msgstr "Vous codez pour réinitialiser le mot de passe:"
 
-#: main/templates/main/base.html:40
+#: main/templates/main/base.html:41
 msgid "Account"
 msgstr "Compte"
 
-#: main/templates/main/base.html:47 main/templates/main/base.html:229
+#: main/templates/main/base.html:49 main/templates/main/base.html:238
 msgid "Subscriptions"
 msgstr "Abonnements"
 
-#: main/templates/main/base.html:68 main/templates/main/index.html:6
+#: main/templates/main/base.html:72 main/templates/main/index.html:6
 msgid "Home"
 msgstr "Accueil"
 
-#: main/templates/main/base.html:79 main/templates/main/base.html:237
+#: main/templates/main/base.html:83 main/templates/main/base.html:246
 #: main/templates/main/faq.html:4
 msgid "FAQ"
 msgstr ""
 
-#: main/templates/main/base.html:98 main/templates/main/base.html:236
+#: main/templates/main/base.html:102 main/templates/main/base.html:245
 msgid "About"
 msgstr "À propos de"
 
-#: main/templates/main/base.html:114
-msgid "Login"
-msgstr "Connexion"
-
-#: main/templates/main/base.html:115
-msgid "Sign up"
-msgstr "S'inscrire"
-
-#: main/templates/main/base.html:122
+#: main/templates/main/base.html:125
 msgid "Log out"
 msgstr "Se déconnecter"
 
-#: main/templates/main/base.html:167 main/templates/popups/login_modal.html:16
+#: main/templates/main/base.html:128
+msgid "Login"
+msgstr "Connexion"
+
+#: main/templates/main/base.html:129
+#, fuzzy
+#| msgid "Sign In"
+msgid "Sign in"
+msgstr "S'identifier"
+
+#: main/templates/main/base.html:174 main/templates/popups/login_modal.html:16
 #: main/templates/popups/login_modal.html:43
 msgid "Log in"
 msgstr "Connexion"
 
-#: main/templates/main/base.html:171 main/templates/main/user_profile.html:7
+#: main/templates/main/base.html:178 main/templates/main/user_profile.html:7
 #: main/templates/main/user_subscriptions.html:7
 msgid "Profile"
 msgstr "Profil"
 
-#: main/templates/main/base.html:186
+#: main/templates/main/base.html:193
 #, fuzzy
 #| msgid "Profile"
 msgid "My profile"
 msgstr "Mon profil"
 
-#: main/templates/main/base.html:198
+#: main/templates/main/base.html:206
 msgid "Logout"
 msgstr "Déconnexion"
 
-#: main/templates/main/base.html:225
+#: main/templates/main/base.html:234
 msgid "It's simple, fast and economical"
 msgstr "C'est simple, rapide et économique"
 
-#: main/templates/main/base.html:235
+#: main/templates/main/base.html:244
 msgid "Site navigation"
 msgstr ""
 
@@ -178,8 +180,8 @@ msgid ""
 "We work with the media subscriptions of: <br>Netflix <br>Spotify Premium<br> "
 "YouTube-Premium"
 msgstr ""
-"Nous travaillons avec les abonnements médias de : <br>Netflix <br>Spotify Premium<br>"
-"YouTube-Premium"
+"Nous travaillons avec les abonnements médias de : <br>Netflix <br>Spotify "
+"Premium<br>YouTube-Premium"
 
 #: main/templates/main/index.html:65
 msgid ""
@@ -187,9 +189,9 @@ msgid ""
 "receive a link that will direct you to our specialized bot that will provide "
 "you with the subscription."
 msgstr ""
-"Vous choisissez l'abonnement que vous souhaitez sur notre chaîne Telegram puis vous"
-"recevoir un lien qui vous dirigera vers notre bot spécialisé qui fournira"
-"vous avec l'abonnement."
+"Vous choisissez l'abonnement que vous souhaitez sur notre chaîne Telegram "
+"puis vousrecevoir un lien qui vous dirigera vers notre bot spécialisé qui "
+"fourniravous avec l'abonnement."
 
 #: main/templates/main/index.html:74
 msgid ""
@@ -197,9 +199,9 @@ msgid ""
 "Pay you by PayPal secure payment fill in your account information and we "
 "will create the subscription for you. "
 msgstr ""
-"Vous choisirez la langue souhaitée, et vous recevrez le tarif gris."
-"Payez-vous par paiement sécurisé PayPal renseignez vos"
-"informations de compte et nous créerons l'abonnement pour vous."
+"Vous choisirez la langue souhaitée, et vous recevrez le tarif gris.Payez-"
+"vous par paiement sécurisé PayPal renseignez vosinformations de compte et "
+"nous créerons l'abonnement pour vous."
 
 #: main/templates/main/index.html:83
 msgid "It's simple, fast and economical!"
@@ -273,6 +275,88 @@ msgstr "Écoutez sans limites à un prix avantageux"
 msgid "Get started"
 msgstr "Commencer"
 
+#: main/templates/main/pay_crypto_wallet.html:5
+#, fuzzy
+#| msgid "Payment"
+msgid "Crypto payment"
+msgstr "Paiement d'achat"
+
+#: main/templates/main/pay_crypto_wallet.html:11
+#: main/templates/popups/crypto_payment_modal.html:19
+#: main/templates/popups/payment_modal.html:51
+msgid "Payment by crypto wallet"
+msgstr "Paiement par portefeuille crypto"
+
+#: main/templates/main/pay_crypto_wallet.html:12
+msgid "Follow the simple 3 steps to complete ypur mapping."
+msgstr ""
+
+#: main/templates/main/pay_crypto_wallet.html:18
+#: main/templates/popups/payment_modal.html:57
+msgid "Select currency"
+msgstr "Sélectionnez la devise"
+
+#: main/templates/main/pay_crypto_wallet.html:33
+#: main/templates/main/pay_crypto_wallet.html:40
+msgid "Data validation"
+msgstr ""
+
+#: main/templates/main/pay_crypto_wallet.html:46
+msgid "Step 1/4"
+msgstr ""
+
+#: main/templates/main/pay_crypto_wallet.html:47
+msgid "Please choose which currency you want to pay the subscription to"
+msgstr ""
+
+#: main/templates/main/pay_crypto_wallet.html:67
+msgid "Step 2/4"
+msgstr ""
+
+#: main/templates/main/pay_crypto_wallet.html:68
+msgid "Please choose the Blockchain Network."
+msgstr ""
+
+#: main/templates/main/pay_crypto_wallet.html:87
+msgid "Step 3/4"
+msgstr ""
+
+#: main/templates/main/pay_crypto_wallet.html:97
+#: main/templates/popups/crypto_payment_modal.html:23
+msgid "The amount to be paid:"
+msgstr "Le montant à payer:"
+
+#: main/templates/main/pay_crypto_wallet.html:101
+#: main/templates/popups/crypto_payment_modal.html:27
+msgid "Blockchain:"
+msgstr "Chaîne de blocs"
+
+#: main/templates/main/pay_crypto_wallet.html:108
+msgid "Step 4/4"
+msgstr ""
+
+#: main/templates/main/pay_crypto_wallet.html:109
+#, fuzzy
+#| msgid "Payment"
+msgid "Proof of payment"
+msgstr "Paiement d'achat"
+
+#: main/templates/main/pay_crypto_wallet.html:112
+msgid "Enter hash code"
+msgstr ""
+
+#: main/templates/main/pay_crypto_wallet.html:122
+msgid "Thank you, payment was successful!"
+msgstr ""
+
+#: main/templates/main/pay_crypto_wallet.html:125
+msgid "Next"
+msgstr ""
+
+#: main/templates/main/pay_crypto_wallet.html:126
+msgid "Back"
+msgstr ""
+
 #: main/templates/main/unauthorized.html:6
 msgid "Unauthorized"
 msgstr "Non autorisé"
@@ -327,24 +411,11 @@ msgid "Change plan"
 msgstr "Changer de forfait"
 
 #: main/templates/popups/crypto_payment_modal.html:16
-#: main/templates/popups/payment_modal.html:16
+#: main/templates/popups/payment_modal.html:15
 #, fuzzy
 #| msgid "Payment"
 msgid "Purchase payment"
 msgstr "Paiement d'achat"
-
-#: main/templates/popups/crypto_payment_modal.html:19
-#: main/templates/popups/payment_modal.html:47
-msgid "Payment by crypto wallet"
-msgstr "Paiement par portefeuille crypto"
-
-#: main/templates/popups/crypto_payment_modal.html:23
-msgid "The amount to be paid:"
-msgstr "Le montant à payer:"
-
-#: main/templates/popups/crypto_payment_modal.html:27
-msgid "Blockchain:"
-msgstr "Chaîne de blocs"
 
 #: main/templates/popups/crypto_payment_modal.html:33
 msgid "You can copy the address:"
@@ -472,32 +543,28 @@ msgstr "Confirmez le mot de passe"
 msgid "Restore Password"
 msgstr "Réinitialiser le mot de passe"
 
-#: main/templates/popups/payment_modal.html:26
+#: main/templates/popups/payment_modal.html:25
 msgid "Card Number"
 msgstr "Numéro de carte"
 
-#: main/templates/popups/payment_modal.html:31
+#: main/templates/popups/payment_modal.html:30
 msgid "Expiration Date"
 msgstr "Date d'expiration"
 
-#: main/templates/popups/payment_modal.html:42
+#: main/templates/popups/payment_modal.html:41
 msgid "Pay with card"
 msgstr "Payer avec carte"
 
-#: main/templates/popups/payment_modal.html:44
+#: main/templates/popups/payment_modal.html:48
 msgid "We do not collect information on your cards, everything is safe"
 msgstr ""
 "Nous ne collectons pas d'informations sur vos cartes, tout est sécurisé"
 
-#: main/templates/popups/payment_modal.html:53
-msgid "Select currency"
-msgstr "Sélectionnez la devise"
-
-#: main/templates/popups/payment_modal.html:62
+#: main/templates/popups/payment_modal.html:66
 msgid "Select Blockchain"
 msgstr "Sélectionnez la chaîne de blocs"
 
-#: main/templates/popups/payment_modal.html:73
+#: main/templates/popups/payment_modal.html:77
 msgid "Pay"
 msgstr "Paiement"
 
@@ -572,37 +639,40 @@ msgstr "E-mail d'activation"
 msgid "Password reset code"
 msgstr "Code de réinitialisation du mot de passe"
 
-#: service/views.py:110
+#: service/views.py:101 service/views.py:117
 msgid "Bad Request"
 msgstr "Mauvaise demande"
 
-#: service/views.py:199
+#: service/views.py:255
 msgid "Wrong login or password"
 msgstr "Identifiant ou mot de passe erroné"
 
-#: service/views.py:204
+#: service/views.py:260
 msgid "Email not verified"
 msgstr "Courriel non vérifié"
 
-#: service/views.py:250 service/views.py:331
+#: service/views.py:306 service/views.py:387
 msgid "Session expired"
 msgstr "La session a expiré"
 
-#: service/views.py:256
+#: service/views.py:312
 msgid "invalid verification code"
 msgstr "Code de vérification invalide"
 
-#: service/views.py:322
+#: service/views.py:378
 msgid "Incorrect input data"
 msgstr "Données d'entrée incorrectes"
 
-#: service/views.py:336
+#: service/views.py:392
 msgid "Incorrect code"
 msgstr "code incorrect"
 
-#: service/views.py:345
+#: service/views.py:401
 msgid "User is not found"
 msgstr "L'utilisateur est introuvable"
+
+#~ msgid "Sign up"
+#~ msgstr "S'inscrire"
 
 #~ msgid ""
 #~ "Entering information, registering on the site and filling in personal "

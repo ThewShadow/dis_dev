@@ -458,6 +458,38 @@ input.state-ok {
   background: url('../img/icons/state-ok.svg') calc(100% - 18px) center/18px no-repeat;
 }
 
+select[name='language'] {
+  background: transperent;
+  color: #333333;
+  font-size: 15px;
+  padding-right: 13px;
+  font-weight: 500;
+  text-align: right;
+  text-transform: uppercase;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  font-family: 'Gotham';
+  height: 24px;
+}
+
+select[name='language']::after {
+  content: '12';
+}
+
+.language__fake-arrow {
+  margin-left: -7px;
+  width: 7px;
+  height: 100%;
+  background: url('../img/icons/spoilers.svg') 0 10px / contain no-repeat;
+  -webkit-transition: all 0.27s ease-in-out;
+  -o-transition: all 0.27s ease-in-out;
+  transition: all 0.27s ease-in-out;
+  -webkit-transform: rotate(0deg);
+  -ms-transform: rotate(0deg);
+  transform: rotate(0deg);
+}
+
 .select {
   display: inline-block;
   vertical-align: top;
@@ -1837,8 +1869,12 @@ input.state-ok {
   color: #7f7f7f;
 }
 
-.popup__buttons-col .popup__btn-white {
-  background: url('../img/icons/paypal.png') center/80px 21px no-repeat;
+.popup__buttons-col .popup__btn-crypto {
+  font-weight: 700;
+  font-size: 17px;
+  line-height: 130%;
+  text-align: center;
+  color: #1749b3;
 }
 
 .popup__payment-type-row {
@@ -2050,12 +2086,20 @@ input.state-ok {
   -ms-flex-item-align: start;
   -ms-grid-row-align: start;
   align-self: start;
-  color: #1749b3;
+  display: inline-block;
+  align-self: start;
+  background-color: #333333;
+  color: #fff;
+  min-width: 135px;
+  line-height: 32px;
+  padding: 0 24px;
+  border-radius: 12px;
+  font-size: 16px;
+  font-family: 'Gotham';
+  text-decoration: none;
 }
 
-.subscribe__item a:hover {
-  text-decoration: underline;
-}
+
 
 .subscribe__item-content {
   padding: 32px;
@@ -2451,15 +2495,15 @@ input.state-ok {
   position: relative;
 }
 
-.service__period button:nth-child(1) {
+.service__period area:nth-child(1) {
   border-radius: 12px 0 0 12px;
 }
 
-.service__period button:nth-child(2) {
+.service__period a:nth-child(2) {
   border-radius: 0px 12px 12px 0px;
 }
 
-.service__period button {
+.service__period a {
   -webkit-box-flex: 0;
   -ms-flex: 0 0 50%;
   flex: 0 0 50%;
@@ -2483,13 +2527,15 @@ input.state-ok {
   border: 1px solid #1749b3;
 }
 
-.service__period button:hover {
+
+
+.service__period a:hover {
   background: #4b84fd;
   border: 1px solid #4b84fd;
   color: #fff;
 }
 
-.service__period button.active {
+.service__period a.active {
   color: #fff;
   border: 1px solid #1749b3;
   background: #1749b3;
@@ -2899,6 +2945,365 @@ input.state-ok {
   background: #fe0000;
 }
 
+.pay-crypto h1 {
+  margin-bottom: 16px;
+}
+
+.pay-crypto__label {
+  margin-bottom: 75px;
+}
+
+.pay-crypto__body {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.pay-crypto__progress {
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 320px;
+  flex: 0 0 320px;
+  padding: 40px;
+  margin-right: 60px;
+}
+
+.pay-crypto__progress .pay-crypto__progress-step:last-child .pay-crypto__progress-name {
+  padding-bottom: 0;
+}
+
+.pay-crypto__progress .pay-crypto__progress-step:last-child .pay-crypto__progress-number::before {
+  height: 0;
+}
+
+.pay-crypto__progress-step {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  position: relative;
+}
+
+.pay-crypto__progress-step.current .pay-crypto__progress-number {
+  background-color: #1749b3;
+  color: #fff;
+}
+
+.pay-crypto__progress-step.done .pay-crypto__progress-number {
+  background: #25cd89 url(../img/icons/checbox.svg) center/17px 12px no-repeat;
+  border: 1px solid #25cd89;
+}
+
+.pay-crypto__progress-step.done .pay-crypto__progress-number span {
+  display: none;
+}
+
+.pay-crypto__progress-number {
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 40px;
+  flex: 0 0 40px;
+  height: 40px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 50%;
+  margin-right: 24px;
+  border: 1px solid #1749b3;
+  background-color: #fff;
+}
+
+.pay-crypto__progress-number span {
+  font-weight: 700;
+  position: relative;
+  top: 2px;
+}
+
+.pay-crypto__progress-number::before {
+  content: '';
+  position: absolute;
+  left: 19px;
+  top: 40px;
+  width: 2px;
+  background-color: #1749b3;
+  height: calc(100% - 40px);
+}
+
+.pay-crypto__progress-number.current {
+  background-color: #1749b3;
+  color: #fff;
+}
+
+.pay-crypto__progress-number.done {
+  background: #25cd89 url(../img/icons/checbox.svg) center/17px 12px no-repeat;
+  border: 1px solid #25cd89;
+}
+
+.pay-crypto__progress-number.done span {
+  display: none;
+}
+
+.pay-crypto__progress-name {
+  padding-bottom: 50px;
+  letter-spacing: 0.01em;
+}
+
+.pay-crypto__progress-name strong {
+  font-weight: 700;
+  margin-bottom: 7px;
+  display: block;
+  line-height: 130%;
+}
+
+.pay-crypto__progress-name p {
+  font-size: 14px;
+  line-height: 130%;
+  color: #8f8f8f;
+}
+
+.pay-crypto__action {
+  -webkit-box-flex: 1;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+}
+
+.pay-crypto__action-step {
+  display: none;
+}
+
+.pay-crypto__action-step.active {
+  display: block;
+}
+
+.pay-crypto__action h4 {
+  margin-bottom: 32px;
+  max-width: 600px;
+}
+
+.pay-crypto__action h4 span:not(:last-child)::after {
+  content: ' | ';
+}
+
+.pay-crypto__action form {
+  margin-bottom: 28px;
+}
+
+.pay-crypto__action form label {
+  margin-bottom: 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.pay-crypto__action form label span {
+  font-size: 17px;
+  line-height: 130%;
+  letter-spacing: 0.01em;
+  color: #171717;
+  position: relative;
+  padding-left: 32px;
+}
+
+.pay-crypto__action form label span::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: -3px;
+  width: 24px;
+  height: 24px;
+  background-color: #fff;
+  border: 2px solid #333333;
+  border-radius: 50%;
+  -webkit-transition: all 0.3s ease 0s;
+  -o-transition: all 0.3s ease 0s;
+  transition: all 0.3s ease 0s;
+}
+
+.pay-crypto__action form label span::after {
+  content: '';
+  position: absolute;
+  left: 5px;
+  top: 2px;
+  width: 14px;
+  height: 14px;
+  background-color: #1749b3;
+  border-radius: 50%;
+  -webkit-transform: scale(0);
+  -ms-transform: scale(0);
+  transform: scale(0);
+  -webkit-transition: all 0.3s ease 0s;
+  -o-transition: all 0.3s ease 0s;
+  transition: all 0.3s ease 0s;
+}
+
+.pay-crypto__action form label input[type='radio'] {
+  position: absolute;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  clip: rect(0 0 0 0);
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+}
+
+.pay-crypto__action form label input:checked ~ span::before {
+  border: 2px solid #1749b3;
+}
+
+.pay-crypto__action form label input:checked ~ span::after {
+  -webkit-transform: scale(1);
+  -ms-transform: scale(1);
+  transform: scale(1);
+}
+
+.pay-crypto__action form p {
+  margin-bottom: 12px;
+  font-size: 14px;
+  line-height: 130%;
+}
+
+.pay-crypto__action form input[type='text'] {
+  max-width: 720px;
+  width: 100%;
+  height: 54px;
+  padding: 16px 24px;
+  font-size: 16px;
+  line-height: 130%;
+  letter-spacing: 0.01em;
+  font-family: 'Gotham';
+}
+
+.pay-crypto__action form input[type='text']::-webkit-input-placeholder {
+  color: #8f8f8f;
+}
+
+.pay-crypto__action form input[type='text']::-moz-placeholder {
+  color: #8f8f8f;
+}
+
+.pay-crypto__action form input[type='text']:-ms-input-placeholder {
+  color: #8f8f8f;
+}
+
+.pay-crypto__action form input[type='text']::-ms-input-placeholder {
+  color: #8f8f8f;
+}
+
+.pay-crypto__action form input[type='text']::placeholder {
+  color: #8f8f8f;
+}
+
+.pay-crypto__action-count {
+  font-size: 14px;
+  line-height: 130%;
+  letter-spacing: 0.01em;
+  color: #8f8f8f;
+  margin-bottom: 8px;
+}
+
+.pay-crypto__action-pay-info {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-bottom: 42px;
+}
+
+.pay-crypto__action-pay-info .qr-code {
+  width: 256px;
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 256px;
+  flex: 0 0 256px;
+  height: 256px;
+  background-color: #fff;
+  margin-right: 48px;
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+}
+
+.pay-crypto__action-pay-info .qr-code img {
+  -o-object-fit: contain;
+  object-fit: contain;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.pay-crypto__action-pay-info ul {
+  padding-top: 24px;
+}
+
+.pay-crypto__action-pay-info li {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.pay-crypto__action-pay-info span {
+  margin-right: 32px;
+}
+
+.pay-crypto__action-pay-info strong {
+  font-weight: 700;
+  text-align: right;
+}
+
+.pay-crypto__action-buttons {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.pay-crypto__action-buttons button {
+  font-size: 17px;
+  line-height: 130%;
+  font-family: 'Gotham';
+}
+
+.pay-crypto__action-buttons button.action-next {
+  min-width: 160px;
+}
+
+.pay-crypto__action-buttons button.action-prew {
+  padding: 0 40px;
+  height: 54px;
+  background-color: transparent;
+}
+
+.pay-crypto__congrats {
+  display: none;
+}
+
+.pay-crypto__congrats img {
+  display: inline-block;
+  max-width: 145px;
+  margin-bottom: 34px;
+}
+
+.pay-crypto__congrats h3 {
+  max-width: 310px;
+  font-weight: 500;
+}
+
 @media (min-width: 769px) {
   .tariff:hover {
     -webkit-transform: scale(103%);
@@ -2912,10 +3317,15 @@ input.state-ok {
     background-color: #1749b3;
   }
 
-  .subscribe__item.active .subscribe__item-content a,
+ 
   .subscribe__item.active .subscribe__item-content h3,
   .subscribe__item.active .subscribe__item-content p {
     color: #fff;
+  }
+
+  .subscribe__item.active .subscribe__item-content a {
+	color: #333333;
+	background-color: #fff;
   }
 }
 
@@ -2946,6 +3356,13 @@ input.state-ok {
     flex: 0 0 35%;
     padding: 40px;
   }
+
+  .pay-crypto__action-pay-info {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+  }
 }
 
 @media (max-width: 992px) {
@@ -2964,6 +3381,10 @@ input.state-ok {
     right: 0;
     left: auto;
     margin-top: 10px;
+  }
+
+  .header__btn-login {
+    display: none;
   }
 
   .header__content {
@@ -3295,6 +3716,11 @@ input.state-ok {
   .account__nav a {
     min-width: auto;
   }
+
+  .pay-crypto__progress {
+    padding: 20px;
+    margin-right: 30px;
+  }
 }
 
 @media (max-width: 992px) and (max-width: 768px) {
@@ -3387,6 +3813,7 @@ input.state-ok {
   .popup__btn-close {
     width: 28px;
     height: 28px;
+	flex: 0 0 28px;
   }
 
   .popup__btn-close svg {
@@ -3591,7 +4018,7 @@ input.state-ok {
     width: 240px;
   }
 
-  .service__period button {
+  .service__period a {
     font-size: 17px;
   }
 
@@ -3709,6 +4136,25 @@ input.state-ok {
     -ms-grid-row: 2;
     -ms-grid-column: 1;
     -ms-grid-column-span: 1;
+  }
+
+  .pay-crypto__body {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+  }
+
+  .pay-crypto__progress {
+    -webkit-box-flex: 1;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    margin-bottom: 32px;
+    margin-right: 0px;
+  }
+
+  .pay-crypto__action {
+    padding: 20px;
   }
 }
 
@@ -3954,8 +4400,9 @@ input.state-ok {
   }
 
   .popup__btn-close {
-    right: 32px;
-    top: 32px;
+    right: 16px;
+    top: 16px;
+	margin-top: 0;
   }
 
   .popup__title {
