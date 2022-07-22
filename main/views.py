@@ -18,13 +18,24 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.http import Http404
 import logging
+from config import settings
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger('main')
 
 
 class IndexView(ListView):
     template_name = 'main/index.html'
     model = Product
+
+    def get(self, request):
+        ref_id = request.GET.get('ref')
+        response = super().get(self, request)
+        if ref_id:
+            response = redirect(reverse_lazy('index'))
+            response.set_cookie(key='ref_link', value=ref_id.strip())
+            logger.info(f'Save refer id {ref_id}')
+
+        return response
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

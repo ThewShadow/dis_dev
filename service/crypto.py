@@ -1,6 +1,12 @@
+import os.path
+
 import requests
 import qrcode
 from config import settings
+import logging
+
+logger = logging.getLogger('main')
+
 BINANCE_PRICES_API_URL = 'https://api.binance.com/api/v1/klines'
 
 CRYPTO_WALLETS = {
@@ -26,14 +32,34 @@ def gen_crypto_pay_link(currency, blockchain):
     try:
         return CRYPTO_WALLETS[currency][blockchain]
     except KeyError:
+        logger.error(f'Crypto wallet not found, args: {currency}, {blackchain}')
         return None
 
 
 
 def get_crypto_amount(currency, amount):
     price_url = f'{BINANCE_PRICES_API_URL}?symbol={currency}USDT&interval=1m'
-    data = requests.get(price_url).json()
-    crypto_amount = float(amount) / float(data[-1][4])
+    response = requests.get(price_url)
+
+    logging.debug(f'Binance price response: {str(response)}')
+
+    try:
+        prises = response.json()
+    except requests.RequestsJSONDecodeError:
+        prises = []
+        logger.error('Price parsing error')
+
+    try:
+        price = prises[-1][4]
+    except IndexError:
+        price = 0
+        logger.error('Price parsing error')
+
+    try:
+        crypto_amount = float(amount) / float(price)
+    except ZeroDivisionError:
+        crypto_amount = 0
+        logger.error(f'Crypto amount not calculated. price: {price}, amount: {amount}')
 
     return str(round(crypto_amount, 8))+' '+currency
 
@@ -41,19 +67,26 @@ def get_crypto_amount(currency, amount):
 
 def gen_qrcode(payment_code):
 
-    fileName = str(settings.BASE_DIR) + '/static/img/QR/' + str(payment_code) + '.jpg'
+    if not isinstance(payment_code, str)\
+            or not payment_code:
+        return None
 
-    qr = qrcode.QRCode(
-        version=1,
-        error_correction=qrcode.constants.ERROR_CORRECT_L,
-        box_size=10,
-        border=4,
-    )
+    file_name = str(settings.BASE_DIR) \
+               + '/static/img/QR/' \
+               + str(payment_code) + '.jpg'
 
-    qr.add_data(payment_code)
-    qr.make(fit=True)
+    if not os.path.exists(file_name):
+        qr = qrcode.QRCode(
+            version=1,
+            error_correction=qrcode.constants.ERROR_CORRECT_L,
+            box_size=10,
+            border=4,
+        )
 
-    img = qr.make_image()
-    img.save(fileName) #write qrcode encoded data to the image file.
+        qr.add_data(payment_code)
+        qr.make(fit=True)
 
-    return fileName.replace(str(settings.BASE_DIR), '')
+        img = qr.make_image()
+        img.save(file_name)
+
+    return file_name.replace(str(settings.BASE_DIR), '')

@@ -1,4 +1,5 @@
 {% load i18n %}
+{% if request.user.is_authenticated %}
 <div class="invite bg-blue">
     <div class="invite__content">
         <h3>{% trans 'Invite friends' %}</h3>
@@ -7,8 +8,9 @@
     <div class="invite__link-block">
         <p>{% trans 'Click on the link' %}</p>
         <div class="invite__link">
-            <a href="https://t.me/DiscountsOnServices_bot?start=343964809">Discounts On Services</a>
+            <a href="https://t.me/DiscountsOnServices_bot?start=343964809">{{ refer_link }}</a>
             <button></button>
         </div>
     </div>
 </div>
+{% endif %}

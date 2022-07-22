@@ -156,11 +156,17 @@ function register() {
     var register_form = $("#"+form_id).serializeArray();
     var json = getJson(register_form);
 
+    if ($('input[name=agreement]').is(':checked')) {
+        json['agreement'] = true;
+    } else {
+        json['agreement'] = false;
+    }
+
     $("#"+form_id+" .password_errors").empty();
     $("#"+form_id+" .email_errors").empty();
     $("#"+form_id+" .username_errors").empty();
     $("#"+form_id+" .message").empty();
-
+    $('.agreement_error').empty();
     $.post(document.location.origin+"/service/accounts/register/", json)
      .done(function (resp) {
         if (resp['success']) {
@@ -169,6 +175,8 @@ function register() {
         }
     }).fail(function (resp) {
         showMessages(resp, form_id);
+
+        $('.agreement_error').append(resp["responseJSON"]["error_messages"]["agreement"][0])
     });
 }
 

@@ -15,6 +15,11 @@
   box-sizing: border-box;
 }
 
+.text_error span {
+    color: red;
+
+}
+
 :focus,
 :active {
   outline: none;
@@ -4511,4 +4516,6 @@ select[name='language']::after {
   .account__title {
     margin-bottom: 28px;
   }
+
 }
+
