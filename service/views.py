@@ -157,6 +157,7 @@ class GoogleLoginComplete(View):
         if not user_info:
             return redirect(reverse_lazy('index'))
 
+        customer = None
         try:
             customer = CustomUser.objects.get(google_access_token=access_token)
         except CustomUser.DoesNotExist:
@@ -164,7 +165,10 @@ class GoogleLoginComplete(View):
             init.update({
                 'username': user_info['given_name'],
                 'ref_link': request.COOKIES.get('ref_link', '').lstrip('0'),
-                'google_access_token': access_token
+                'google_access_token': access_token,
+                'email': user_info['email'],
+                'agreement': True
+
             })
             form = self.class_form(init)
             if form.is_valid():
