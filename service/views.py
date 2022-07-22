@@ -14,7 +14,7 @@ from main.forms import VerifyEmailForm
 from main.forms import CustomUserCreationForm
 from main.forms import ResetPasswordForm
 from main.forms import ResetPasswordVerifyForm
-from main.forms import NewPasswordForm, TransactionForm
+from main.forms import NewPasswordForm, TransactionForm, CustomUserSocialCreationForm
 from django.contrib.auth import authenticate, login
 from django.utils.translation import gettext as _
 from django.core.exceptions import ObjectDoesNotExist
@@ -170,7 +170,7 @@ class GoogleLoginComplete(View):
                 'agreement': True
 
             })
-            form = self.class_form(init)
+            form = CustomUserSocialCreationForm(init)
             if form.is_valid():
                 customer = form.save()
             else:
