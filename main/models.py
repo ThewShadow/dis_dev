@@ -32,9 +32,9 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
     objects = CustomUserManager()
+    social_sign_up = models.BooleanField(default=False)
 
     agent = models.ForeignKey('CustomUser', on_delete=models.SET_DEFAULT, default=1)
-    google_access_token = models.CharField(max_length=255, null=True)
 
     def __str__(self):
         return self.email

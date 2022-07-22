@@ -15,7 +15,13 @@ class CustomUserSocialCreationForm(ModelForm):
 
     class Meta(UserCreationForm):
         model = CustomUser
-        fields = ('email', 'username',)
+        fields = (
+            'email',
+            'username',
+            'social_sign_up',
+            'is_active',
+            'is_verified'
+        )
 
     def clean_email(self):
         email = self.cleaned_data['email']
@@ -25,15 +31,14 @@ class CustomUserSocialCreationForm(ModelForm):
 
     def save(self, commit=True):
         user = super().save(commit=False)
-        user.set_password(self.cleaned_data["password"])
-
+        user.set_agent(self.cleaned_data["ref_link"])
         if commit:
             user.save()
         return user
 
 class CustomUserCreationForm(ModelForm):
 
-    #ref_link = forms.CharField(max_length=255, required=False)
+    ref_link = forms.CharField(max_length=255, required=False)
     agreement = forms.BooleanField(required=True)
 
     class Meta(UserCreationForm):
@@ -49,7 +54,7 @@ class CustomUserCreationForm(ModelForm):
     def save(self, commit=True):
         user = super().save(commit=False)
         user.set_password(self.cleaned_data["password"])
-        #user.set_agent(self.cleaned_data["ref_link"])
+        user.set_agent(self.cleaned_data["ref_link"])
 
         if commit:
             user.save()
@@ -80,7 +85,7 @@ class SubscribeForm(ModelForm):
 class SupportCreateTaskForm(ModelForm):
     class Meta:
         model = SupportTask
-        fields = ('user', 'title', 'text', 'pub_date', 'email')
+        fields = ('user', 'title', 'text', 'pub_date', 'email',)
 
         widgets = {
             'pub_date': DateTimeInput(attrs={
