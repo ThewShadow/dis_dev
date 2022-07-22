@@ -74,6 +74,7 @@ def gen_auth_url():
         'response_type': 'code',
         'client_id': GOOGLE_CLIENT_ID,
         'scope': ' '.join(GOOGLE_SCOPES),
+            'access_type': 'offline'
     }
 
     query_string = urllib.parse.urlencode(parameters)
