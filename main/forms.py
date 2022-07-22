@@ -13,6 +13,8 @@ logger = logging.getLogger('main')
 
 class CustomUserSocialCreationForm(ModelForm):
 
+    ref_link = forms.CharField(max_length=255, required=False)
+
     class Meta(UserCreationForm):
         model = CustomUser
         fields = (
