@@ -27,23 +27,24 @@
 					<div class="popup__input-block">
 						<p>{% trans 'User name' %}</p>
 						{{ register_form.username }}
-						<div class="username_errors"></div>
+						<div class="username_errors text_error"></div>
 					</div>
 					<div class="popup__input-block">
 						<p>{% trans 'Email Address' %}</p>
 						{{ register_form.email }}
-						<div class="email_errors"></div>
+						<div class="email_errors text_error"></div>
 					</div>
 					<div class="popup__input-block popup__input-password">
 						<button class="toggle-show hide"></button>
 						<p>{% trans 'Password' %}</p>
 						{{ register_form.password }}
-						<div class="password_errors"></div>
+						<div class="password_errors text_error"></div>
 					</div>
-					<span class="message"></span>
+
 				</form>
 			</div>
 
+			<span class="agreement_error text_error"></span>
 			<div class="popup__agree">
 				<label>
 					<input type="checkbox" name="agree" tabindex="4">
@@ -53,7 +54,9 @@
 					{% trans 'By creating an account you agree to our' %} <a href="##">{% trans 'Privacy Policy' %}</a> {% trans 'and' %}
 					<a href="##">{% trans 'Terms of Service.' %}</a>
 				</span>
+
 			</div>
+
 			<div>
 				<button class="popup__btn-blue popup__btn-full register-button" tabindex="5">{% trans 'Sing up' %}</button>
 			</div>

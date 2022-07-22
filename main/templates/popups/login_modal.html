@@ -26,13 +26,13 @@
                     <div class="popup__input-block">
                         <p>{% trans 'Email Address' %}</p>
                         {{ login_form.email }}
-                        <div class="email_errors"></div>
+                        <div class="email_errors text_error"></div>
                     </div>
                     <div class="popup__input-block popup__input-password">
                         <button class="toggle-show hide"></button>
                         <p>{% trans 'Password' %}</p>
                         {{ login_form.password }}
-                        <div class="password_errors"></div>
+                        <div class="password_errors text_error"></div>
                     </div>
                     <span class="message"></span>
                 </form>

@@ -25,10 +25,10 @@ import threading
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 from config import settings
+from main.forms import TransactionForm
+import json
 
-logging.config.dictConfig(settings.LOGGING)
-
-logger = logging.Logger(__name__)
+logger = logging.getLogger('main')
 
 
 class SubscriptionCreate(View):
@@ -42,7 +42,7 @@ class SubscriptionCreate(View):
                                 status=400)
 
         offer = get_object_or_404(Offer, id=form.cleaned_data['offer_id'])
-
+        request.session['current_offer_id'] = form.cleaned_data['offer_id']
         new_subscription = None
         try:
             new_subscription = Subscription.objects.get(
@@ -92,6 +92,8 @@ class CryptoPayCreate(View):
         except Offer.DoesNotExist:
             amount = None
 
+        logger.debug(f'Crypto payment data: {offer_id} {link} {amount} {qrcode_path}')
+
         if not offer_id \
                 or not link \
                 or not amount\
@@ -110,11 +112,10 @@ class CryptoPayCreate(View):
                 currency = 'USDT'
 
             if currency in ['BTC', 'ETH']:
-                try:
-                    crypto_amount = crypto.get_crypto_amount(currency, amount)
-                except:
+                crypto_amount = crypto.get_crypto_amount(currency, amount)
+                if crypto_amount == 0:
                     return JsonResponse({'success': False,
-                                         'message': _('Bad Request')},
+                                        'message': _('Bad Request')},
                                         status=400)
             else:
                 crypto_amount = str(amount) + ' ' + currency
@@ -139,25 +140,41 @@ class GoogleLogin(View):
 
 
 class GoogleLoginComplete(View):
+    class_form = CustomUserCreationForm
 
     def get(self, request, **kwargs):
-        code = request.GET.get('code')
-        if not code:
+        try:
+            code = request.GET['code']
+        except KeyError:
+            logger.warning('The user was unable to register with Google.')
             return redirect(reverse_lazy('index'))
 
         access_token = google.get_user_auth_token(code)
+        if not access_token:
+            return redirect(reverse_lazy('index'))
 
         user_info = google.get_user_info(access_token)
+        if not user_info:
+            return redirect(reverse_lazy('index'))
 
         try:
-            user = CustomUser.objects.get(email=user_info['email'])
-        except:
-            user = CustomUser()
-            user.email = user_info['email']
-            user.username = user_info['given_name']
-            user.save()
-        finally:
-            login(self.request, user, backend='main.backends.EmailBackend')
+            customer = CustomUser.objects.get(google_access_token=access_token)
+        except CustomUser.DoesNotExist:
+            init = dict(self.request.POST)
+            init.update({
+                'username': user_info['given_name'],
+                'ref_link': request.COOKIES.get('ref_link', '').lstrip('0'),
+                'google_access_token': access_token
+            })
+            form = self.class_form(init)
+            if form.is_valid():
+                customer = form.save()
+            else:
+                logger.warning(f': {init}')
+
+        if isinstance(customer, CustomUser):
+            login(self.request, customer,
+                  backend='main.backends.EmailBackend')
 
         return redirect(reverse_lazy('profile'))
 
@@ -166,8 +183,7 @@ class GoogleLoginComplete(View):
 class PayPalPaymentReceiving(View):
 
     def post(self, request, **kwargs):
-        from main.forms import TransactionForm
-        import json
+
         payment_data = json.loads(request.body)
 
         if 'purchase_units' not in payment_data:
@@ -199,7 +215,7 @@ class PayPalPaymentReceiving(View):
                 customer_subscription.paid = True
                 customer_subscription.save()
 
-                logger.error('PayPalPaymentReceiving: payment reveiving success')
+                logger.error('PayPalPaymentReceiving: payment receiving success')
                 return JsonResponse({'success': True}, status=200)
             else:
                 logger.error('PayPalPaymentReceiving: form not valid')
@@ -251,11 +267,14 @@ class Login(View):
             password=form.cleaned_data['password'])
 
         if user is None:
+            logger.warning(f'Autentification failed: '
+                           f'{form.cleaned_data["email"]} '
+                           f'{form.cleaned_data["password"]}')
             return JsonResponse({'success': False,
                                  'message': _('Wrong login or password')},
                                 status=401)
 
-        if not user.verified and not user.is_superuser:
+        if not user.is_verified and not user.is_superuser:
             return JsonResponse({'success': False,
                                  'message': _('Email not verified')},
                                 status=401)
@@ -276,18 +295,20 @@ class Registration(View):
                                 'error_messages': dict(form.errors)},
                                 status=400)
 
-        customer_email = form.cleaned_data['email']
+        new_customer = form.save(commit=False)
+        new_customer.set_agent(request.COOKIES.get('ref_link'))
+        new_customer.save()
+
         activation_code = service.gen_verify_code()
 
+        #service.send_activation_account_code(activation_code, new_customer.email)
         send_code = threading.Thread(
             target=service.send_activation_account_code,
-            args=(activation_code, customer_email))
+            args=(activation_code, new_customer.email))
         send_code.start()
 
         request.session['activation_code'] = activation_code
-        request.session['activation_email'] = customer_email
-
-        form.save()
+        request.session['activation_email'] = new_customer.email
 
         return JsonResponse({'success': True}, status=201)
 
@@ -394,7 +415,7 @@ class ActivationEmail(View):
 
         try:
             user = CustomUser.objects.get(email=activation_email)
-            user.verified = True
+            user.is_verified = True
             user.save()
         except ObjectDoesNotExist:
             return JsonResponse({"success": False,

@@ -15,6 +15,11 @@
   box-sizing: border-box;
 }
 
+.text_error span {
+    color: red;
+
+}
+
 :focus,
 :active {
   outline: none;
@@ -2099,8 +2104,6 @@ select[name='language']::after {
   text-decoration: none;
 }
 
-
-
 .subscribe__item-content {
   padding: 32px;
   background-color: #ffffff;
@@ -2495,7 +2498,7 @@ select[name='language']::after {
   position: relative;
 }
 
-.service__period area:nth-child(1) {
+.service__period a:nth-child(1) {
   border-radius: 12px 0 0 12px;
 }
 
@@ -2526,8 +2529,6 @@ select[name='language']::after {
   cursor: pointer;
   border: 1px solid #1749b3;
 }
-
-
 
 .service__period a:hover {
   background: #4b84fd;
@@ -3317,15 +3318,14 @@ select[name='language']::after {
     background-color: #1749b3;
   }
 
- 
   .subscribe__item.active .subscribe__item-content h3,
   .subscribe__item.active .subscribe__item-content p {
     color: #fff;
   }
 
   .subscribe__item.active .subscribe__item-content a {
-	color: #333333;
-	background-color: #fff;
+    color: #333333;
+    background-color: #fff;
   }
 }
 
@@ -3813,7 +3813,7 @@ select[name='language']::after {
   .popup__btn-close {
     width: 28px;
     height: 28px;
-	flex: 0 0 28px;
+    flex: 0 0 28px;
   }
 
   .popup__btn-close svg {
@@ -3854,7 +3854,8 @@ select[name='language']::after {
     flex-wrap: wrap;
   }
 
-  .popup__logout-buttons button {
+  .popup__logout-buttons button,
+  .popup__logout-buttons a {
     -webkit-box-flex: 0;
     -ms-flex: 0 0 100%;
     flex: 0 0 100%;
@@ -4402,7 +4403,7 @@ select[name='language']::after {
   .popup__btn-close {
     right: 16px;
     top: 16px;
-	margin-top: 0;
+    margin-top: 0;
   }
 
   .popup__title {
@@ -4515,4 +4516,6 @@ select[name='language']::after {
   .account__title {
     margin-bottom: 28px;
   }
+
 }
+

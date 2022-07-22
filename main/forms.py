@@ -6,8 +6,15 @@ from .models import CustomUser
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext as _
 from .models import Transaction
+import logging
+
+logger = logging.getLogger('main')
+
 
 class CustomUserCreationForm(ModelForm):
+
+    #ref_link = forms.CharField(max_length=255, required=False)
+    agreement = forms.BooleanField(required=True)
 
     class Meta(UserCreationForm):
         model = CustomUser
@@ -22,6 +29,8 @@ class CustomUserCreationForm(ModelForm):
     def save(self, commit=True):
         user = super().save(commit=False)
         user.set_password(self.cleaned_data["password"])
+        #user.set_agent(self.cleaned_data["ref_link"])
+
         if commit:
             user.save()
         return user
@@ -105,6 +114,9 @@ class RegistrationForm(Form):
     username = forms.CharField(max_length=250, required=True)
     email = forms.CharField(max_length=250, required=True)
     password = forms.CharField(max_length=250, required=True)
+
+
+
 
 
 class VerifyEmailForm(Form):

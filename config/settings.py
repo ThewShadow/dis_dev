@@ -79,6 +79,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'main.middleware.ExceptionLoggingMiddleware'
 
 ]
 
@@ -217,27 +218,33 @@ VERIFY_CODE_LENGTH = 6
 
 LOGGING = {
     'version': 1,
+    'disable_existing_loggers': False,
     'formatters': {
         'verbose': {
-            'format': '{levelname} {asctime} {module} {process:d} {thread:d} {message}',
+            'format': '[{asctime}] [{module}] [{levelname}]: {message}',
             'style': '{',
+            'datefmt': '%Y/%m/%d %H:%M:%S'
         },
         'simple': {
             'format': '{levelname} {message}',
             'style': '{',
         },
     },
-    'disable_existing_loggers': False,
     'handlers': {
         'file': {
+            'level': 'DEBUG',
             'class': 'logging.FileHandler',
-            'filename': 'debug.log',
             'formatter': 'verbose',
+            'filename': 'debug.log'
         },
     },
-    'root': {
-        'handlers': ['file'],
-        'level': 'DEBUG',
+    'loggers': {
+        'main': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
+            'propagate': False,
+
+        }
     },
 }
 

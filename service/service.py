@@ -1,3 +1,4 @@
+import smtplib
 from config import settings
 import random
 from main import models
@@ -5,6 +6,9 @@ from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 from django.utils.translation import gettext as _
 from django.core.mail import send_mail
+import logging
+
+logger = logging.getLogger('main')
 
 
 def gen_verify_code():
@@ -25,7 +29,11 @@ def send_activation_account_code(code, to):
                                     {'code': code})
     msg = EmailMultiAlternatives(subject, html_content, from_email, [to])
     msg.content_subtype = "html"
-    msg.send()
+
+    try:
+        msg.send()
+    except Exception as e:
+        logger.error(f'Account activation message not sent. error: {e}')
 
 
 def send_reset_password_code(code, to):
@@ -35,7 +43,10 @@ def send_reset_password_code(code, to):
                                     {'code': code})
     msg = EmailMultiAlternatives(subject, html_content, from_email, [to])
     msg.content_subtype = "html"
-    msg.send()
+    try:
+        msg.send()
+    except smtplib.SMTPDataError as e:
+        logger.error(f'Account activation message not sent. error: {e}')
 
 
 def user_email_uniq(user, email):

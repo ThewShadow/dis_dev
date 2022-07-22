@@ -1,3 +1,4 @@
+import telebot
 from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
 from django.contrib.auth.models import AbstractBaseUser
@@ -8,22 +9,43 @@ from django.template.loader import render_to_string
 import config.settings
 from .managers import CustomUserManager
 from django.core.mail import EmailMultiAlternatives
+import logging
+import smtplib
+from telebot import TeleBot
+from config.settings import TELEGRAM_BOT_API_KEY
+
+logger = logging.getLogger('main')
+
+try:
+    bot = TeleBot(TELEGRAM_BOT_API_KEY)
+except telebot.apihelper.ApiHTTPException as e:
+    logger.error(f'Telegram bot not created. error: {e}')
 
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(_('email address'), unique=True)
     username = models.CharField(max_length=250)
     is_staff = models.BooleanField(default=False)
-    is_active = models.BooleanField(default=True)
-    verified = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=False)
+    is_verified = models.BooleanField(default=False)
     date_joined = models.DateTimeField(default=timezone.now)
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
     objects = CustomUserManager()
 
+    agent = models.ForeignKey('CustomUser', on_delete=models.SET_DEFAULT, default=1)
+    google_access_token = models.CharField(max_length=255, null=True)
+
     def __str__(self):
         return self.email
 
+    def set_agent(self, agent_id):
+        if not agent_id:
+            return
+        try:
+            self.agent = CustomUser.objects.get(id=agent_id.lstrip('0'))
+        except CustomUser.DoesNotExist:
+            logger.warning(f'Agent not found. ref_link: {agent_id.lstrip("0")}')
 
 class Rate(models.Model):
     name = models.CharField(max_length=200, default='')
@@ -121,7 +143,10 @@ class Subscription(models.Model):
         msg = EmailMultiAlternatives(subject, html_content, config.settings.DEFAULT_FROM_EMAIL,
                                      to=to,  headers={'From': 'noreplyexample@mail.com'})
         msg.content_subtype = "html"
-        msg.send()
+        try:
+            msg.send()
+        except smtplib.SMTPDataError as e:
+            logger.error(f'Subscription activate message not sent. error: {e}')
 
 
 class SupportTask(models.Model):
@@ -149,7 +174,6 @@ class Transaction(models.Model):
     ]
     pay_type = models.CharField(max_length=255, choices=paytypes)
 
-
     def __str__(self):
         return self.transaction_id
 
@@ -166,10 +190,9 @@ class Transaction(models.Model):
 
 
 def send_to_telegram(message):
-    from telebot import TeleBot
-    from config.settings import TELEGRAM_BOT_API_KEY
     from config.settings import TELEGRAM_GROUP_MANAGERS_ID as chat_id
 
-    bot = TeleBot(TELEGRAM_BOT_API_KEY)
-    bot.send_message(chat_id=chat_id, text=message)
-
+    try:
+        bot.send_message(chat_id=chat_id, text=message)
+    except telebot.apihelper.ApiHTTPException as e:
+        logger.error(f'Telegram message not sent. error: {e}')
