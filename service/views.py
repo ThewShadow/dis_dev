@@ -143,6 +143,7 @@ class GoogleLoginComplete(View):
     class_form = CustomUserCreationForm
 
     def get(self, request, **kwargs):
+
         try:
             code = request.GET['code']
         except KeyError:
@@ -157,28 +158,34 @@ class GoogleLoginComplete(View):
         if not user_info:
             return redirect(reverse_lazy('index'))
 
-        customer = None
         try:
-            customer = CustomUser.objects.get(google_access_token=access_token)
-        except CustomUser.DoesNotExist:
-            init = dict(self.request.POST)
-            init.update({
-                'username': user_info['given_name'],
-                'ref_link': request.COOKIES.get('ref_link', '').lstrip('0'),
-                'google_access_token': access_token,
-                'email': user_info['email'],
-                'agreement': True
+            customer = CustomUser.objects.get(email=user_info['email'])
 
+            if not customer.social_sign_up:
+                raise Exception('User is exist')
+
+        except CustomUser.DoesNotExist:
+            ref_link = request.COOKIES.get('ref_link', '').lstrip('0')
+
+            form = CustomUserSocialCreationForm({
+                'username': user_info['given_name'],
+                'ref_link': ref_link,
+                'social_sign_up': True,
+                'email': user_info['email'],
+                'is_active': True,
+                'is_verified': True
             })
-            form = CustomUserSocialCreationForm(init)
+
             if form.is_valid():
                 customer = form.save()
             else:
-                logger.warning(f': {init}')
+                customer = None
+                logger.warning(f':Social user create error. '
+                               f'Form not valid. \n'
+                               f'form errors: {form.errors}')
 
         if isinstance(customer, CustomUser):
-            login(self.request, customer,
-                  backend='main.backends.EmailBackend')
+            login(self.request, customer, backend='main.backends.EmailBackend')
 
         return redirect(reverse_lazy('profile'))
 
