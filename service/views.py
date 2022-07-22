@@ -274,7 +274,7 @@ class Login(View):
                                  'message': _('Wrong login or password')},
                                 status=401)
 
-        if not user.verified and not user.is_superuser:
+        if not user.is_verified and not user.is_superuser:
             return JsonResponse({'success': False,
                                  'message': _('Email not verified')},
                                 status=401)
