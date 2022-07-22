@@ -291,7 +291,6 @@ class Registration(View):
 
         form = self.class_form(self.request.POST)
         if not form.is_valid():
-            print(dict(form.errors))
             return JsonResponse({'success': False,
                                 'error_messages': dict(form.errors)},
                                 status=400)
@@ -301,6 +300,8 @@ class Registration(View):
         new_customer.save()
 
         activation_code = service.gen_verify_code()
+
+        #service.send_activation_account_code(activation_code, new_customer.email)
         send_code = threading.Thread(
             target=service.send_activation_account_code,
             args=(activation_code, new_customer.email))

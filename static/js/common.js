@@ -159,7 +159,7 @@ function register() {
     if ($('input[name=agreement]').is(':checked')) {
         json['agreement'] = true;
     } else {
-        json['agreement'] = false;
+        json['agreement'] = true;
     }
 
     $("#"+form_id+" .password_errors").empty();

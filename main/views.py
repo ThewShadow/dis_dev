@@ -190,7 +190,7 @@ class PaidCompleteView(View):
 
 
 class ManagerPanelView(LoginRequiredMixin, TemplateView):
-    template_name = 'main/manager_panel.html'
+    template_name = 'main/managment.html'
 
     def get(self, request, **kwargs):
         if not request.user.is_staff:

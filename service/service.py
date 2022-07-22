@@ -32,7 +32,7 @@ def send_activation_account_code(code, to):
 
     try:
         msg.send()
-    except smtplib.SMTPDataError as e:
+    except Exception as e:
         logger.error(f'Account activation message not sent. error: {e}')
 
 
