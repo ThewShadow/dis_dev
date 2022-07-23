@@ -23,11 +23,13 @@
 					</div>
 					<div class="managment__subtitle">Subscription requests</div>
 
-					<form class="managment__filters">
+					<form method="GET"  class="managment__filters">
+						{% csrf_token %}
 						<div class="managment__show-sort-wrap">
 							<label class="managment__show-count">
 								<span>Show</span>
-								<input type="number" value="10">
+								<input type="number" name="show_pages" value="{{ show_pages }}">
+								<input type="hidden" name="page" value="{{current_page}}">
 								<div class="managment__show-count-arrows">
 									<span></span><span></span>
 								</div>
@@ -41,8 +43,9 @@
 								</select>
 							</label>
 						</div>
+
 						<div class="managment__search">
-							<input type="text" placeholder="Search ...">
+							<input type="text" name="search" placeholder="Search ...">
 							<button type="submit">
 								<svg width="18" height="18" viewBox="0 0 18 18" fill="none"
 									xmlns="http://www.w3.org/2000/svg">
@@ -59,13 +62,13 @@
 						<div class="table">
 							<ul class="table__row table__row-head">
 								<li class=" table__date">
-									<p>Orther date</p>
+									<p>Order date</p>
 								</li>
 								<li class=" table__sub-id">
 									<p>Sub ID</p>
 								</li>
 								<li class=" table__other">
-									<p>Orther</p>
+									<p>Order</p>
 								</li>
 								<li class=" table__user-id">
 									<p>User ID</p>
@@ -84,36 +87,37 @@
 								</li>
 							</ul>
 
+							{% for item in new_subscriptions %}
 							<ul class="table__row">
 								<li class=" table__date">
-									<p>Orther date</p>
-									<span>June 14, 2022 10:30 a.m</span>
+									<p>Order date</p>
+									<span>{{ item.order_date }}</span>
 								</li>
 								<li class=" table__sub-id">
 									<p>Sub ID</p>
-									<span>46</span>
+									<span>{{ item.id }}</span>
 								</li>
 								<li class=" table__other">
-									<p>Other</p>
-									<span>Netflix, Basic, 1Years; 150 USD</span>
+									<p>Order</p>
+									<span>{{ item.offer }}</span>
 								</li>
 								<li class=" table__user-id">
 									<p>User ID</p>
-									<span>20</span>
+									<span>{{ item.user.id }}</span>
 								</li>
 								<li class=" table__email">
 									<p>Email</p>
-									<span>asaa97580@gmail.com</span>
+									<span>{{ item.email }}</span>
 								</li>
 								<li class=" table__phone">
 									<p>Phone</p>
-									<span>+380953157991</span>
+									<span>{{ item.phone_number }}</span>
 								</li>
 								<li class=" table__active">
 									<p>Active</p>
 									<span>
 										<label>
-											<input type="radio" disabled checked>
+											<input type="radio" disabled {% if not item.is_active %} checked {% endif %}>
 											<span>
 												<svg width="14" height="12" viewBox="0 0 14 12" fill="none"
 													xmlns="http://www.w3.org/2000/svg">
@@ -125,164 +129,34 @@
 										</label>
 									</span>
 								</li>
+
 								<li class=" table__confirm">
 									<p></p>
-									<span><a href="##">Confirm</a></span>
+									<form method="POST">
+										{% csrf_token %}
+										<input type="hidden" name="sub_id" value="{{ item.id }}">
+										<span><button>Confirm</button></span>
+									</form>
 								</li>
+
 							</ul>
-							<ul class="table__row">
-								<li class=" table__date">
-									<p>Orther date</p>
-									<span>June 14, 2022 10:30 a.m</span>
-								</li>
-								<li class=" table__sub-id">
-									<p>Sub ID</p>
-									<span>46</span>
-								</li>
-								<li class=" table__other">
-									<p>Other</p>
-									<span>Netflix, Basic, 1Years; 150 USD</span>
-								</li>
-								<li class=" table__user-id">
-									<p>User ID</p>
-									<span>20</span>
-								</li>
-								<li class=" table__email">
-									<p>Email</p>
-									<span>asaa97580@gmail.com</span>
-								</li>
-								<li class=" table__phone">
-									<p>Phone</p>
-									<span>+380953157991</span>
-								</li>
-								<li class=" table__active">
-									<p>Active</p>
-									<span>
-										<label>
-											<input type="radio" disabled>
-											<span>
-												<svg width="14" height="12" viewBox="0 0 14 12" fill="none"
-													xmlns="http://www.w3.org/2000/svg">
-													<path
-														d="M5.02807 11.4257C4.76869 11.4257 4.51557 11.3226 4.33119 11.1382L0.390566 7.1945C-0.531309 6.22887 0.959316 4.94137 1.78432 5.80075L4.98432 9.00387L12.1718 0.913245C13.0218 -0.0398795 14.4937 1.27262 13.6437 2.22262L5.76244 11.0945C5.58119 11.2976 5.32494 11.4164 5.05619 11.4257C5.04682 11.4257 5.03744 11.4257 5.02807 11.4257Z"
-														fill="white" />
-												</svg>
-											</span>
-										</label>
-									</span>
-								</li>
-								<li class=" table__confirm">
-									<p></p>
-									<span><a href="##">Confirm</a></span>
-								</li>
-							</ul>
-							<ul class="table__row">
-								<li class=" table__date">
-									<p>Orther date</p>
-									<span>June 14, 2022 10:30 a.m</span>
-								</li>
-								<li class=" table__sub-id">
-									<p>Sub ID</p>
-									<span>46</span>
-								</li>
-								<li class=" table__other">
-									<p>Other</p>
-									<span>Netflix, Basic, 1Years; 150 USD</span>
-								</li>
-								<li class=" table__user-id">
-									<p>User ID</p>
-									<span>20</span>
-								</li>
-								<li class=" table__email">
-									<p>Email</p>
-									<span>asaa97580@gmail.com</span>
-								</li>
-								<li class=" table__phone">
-									<p>Phone</p>
-									<span>+380953157991</span>
-								</li>
-								<li class=" table__active">
-									<p>Active</p>
-									<span>
-										<label>
-											<input type="radio" disabled checked>
-											<span>
-												<svg width="14" height="12" viewBox="0 0 14 12" fill="none"
-													xmlns="http://www.w3.org/2000/svg">
-													<path
-														d="M5.02807 11.4257C4.76869 11.4257 4.51557 11.3226 4.33119 11.1382L0.390566 7.1945C-0.531309 6.22887 0.959316 4.94137 1.78432 5.80075L4.98432 9.00387L12.1718 0.913245C13.0218 -0.0398795 14.4937 1.27262 13.6437 2.22262L5.76244 11.0945C5.58119 11.2976 5.32494 11.4164 5.05619 11.4257C5.04682 11.4257 5.03744 11.4257 5.02807 11.4257Z"
-														fill="white" />
-												</svg>
-											</span>
-										</label>
-									</span>
-								</li>
-								<li class=" table__confirm">
-									<p></p>
-									<span><a href="##">Confirm</a></span>
-								</li>
-							</ul>
-							<ul class="table__row">
-								<li class=" table__date">
-									<p>Orther date</p>
-									<span>June 14, 2022 10:30 a.m</span>
-								</li>
-								<li class=" table__sub-id">
-									<p>Sub ID</p>
-									<span>46</span>
-								</li>
-								<li class=" table__other">
-									<p>Other</p>
-									<span>Netflix, Basic, 1Years; 150 USD</span>
-								</li>
-								<li class=" table__user-id">
-									<p>User ID</p>
-									<span>20</span>
-								</li>
-								<li class=" table__email">
-									<p>Email</p>
-									<span>asaa97580@gmail.com</span>
-								</li>
-								<li class=" table__phone">
-									<p>Phone</p>
-									<span>+380953157991</span>
-								</li>
-								<li class=" table__active">
-									<p>Active</p>
-									<span>
-										<label>
-											<input type="radio" disabled>
-											<span>
-												<svg width="14" height="12" viewBox="0 0 14 12" fill="none"
-													xmlns="http://www.w3.org/2000/svg">
-													<path
-														d="M5.02807 11.4257C4.76869 11.4257 4.51557 11.3226 4.33119 11.1382L0.390566 7.1945C-0.531309 6.22887 0.959316 4.94137 1.78432 5.80075L4.98432 9.00387L12.1718 0.913245C13.0218 -0.0398795 14.4937 1.27262 13.6437 2.22262L5.76244 11.0945C5.58119 11.2976 5.32494 11.4164 5.05619 11.4257C5.04682 11.4257 5.03744 11.4257 5.02807 11.4257Z"
-														fill="white" />
-												</svg>
-											</span>
-										</label>
-									</span>
-								</li>
-								<li class=" table__confirm">
-									<p></p>
-									<span><a href="##">Confirm</a></span>
-								</li>
-							</ul>
+							{% endfor %}
 						</div>
 					</div>
 
 					<div class="managment__footer">
 						<div class="pagination-info">
 							Showing
-							<span>1</span>
+							<span>{{ start_index }}</span>
 							to
-							<span>10</span>
+							<span>{{ end_index }}</span>
 							of
-							<span>45</span>
+							<span>{{ num_count }}</span>
 							entries
 						</div>
 						<div class="pagination">
-							<a href="##" class="pagination__btn pagination__prew">
+							{% if new_subscriptions.has_previous %}
+							<a href="?page={{new_subscriptions.previous_page_number }}" class="pagination__btn pagination__prew">
 								<svg width="34" height="16" viewBox="0 0 34 16" fill="none"
 									xmlns="http://www.w3.org/2000/svg">
 									<path
@@ -290,14 +164,16 @@
 										fill="#1749B3" />
 								</svg>
 							</a>
+							{% endif %}
+
 							<div class="pagination__pages">
-								<a href="##" class="pagination__page current">1</a>
-								<a href="##" class="pagination__page">2</a>
-								<a href="##" class="pagination__page">3</a>
-								<a href="##" class="pagination__page">4</a>
-								<a href="##" class="pagination__page">5</a>
+								{% for page in page_range %}
+									<a href="?page={{ page }}" class="pagination__page {% if current_page == page %} current {% endif %}">{{ page }}</a>
+
+								{% endfor %}
 							</div>
-							<a href="##" class="pagination__btn pagination__next">
+							{% if new_subscriptions.has_next %}
+							<a href="?page={{ new_subscriptions.next_page_number }}" class="pagination__btn pagination__next">
 								<svg width="34" height="16" viewBox="0 0 34 16" fill="none"
 									xmlns="http://www.w3.org/2000/svg">
 									<path
@@ -305,6 +181,7 @@
 										fill="#1749B3" />
 								</svg>
 							</a>
+							{% endif %}
 						</div>
 					</div>
 				</div>

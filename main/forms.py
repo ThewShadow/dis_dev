@@ -72,12 +72,9 @@ class CustomUserChangeForm(UserChangeForm):
 class SubscribeForm(ModelForm):
     class Meta:
         model = Subscription
-        fields = ('offer', 'status', 'email', 'user', 'phone_number',)
+        fields = ('offer', 'email', 'user', 'phone_number',)
 
         widgets = {
-            'status': NumberInput(attrs={
-                'type': 'hidden'
-            }),
             'user': TextInput(attrs={
                 'type': 'hidden'
             }),
@@ -109,10 +106,7 @@ class ChangeUserInfoForm(Form):
 
 class ChangeSubscibeStatusForm(Form):
     sub_id = forms.IntegerField()
-    status_value = forms.IntegerField()
 
-    class Meta:
-        fields = ('sub_id', 'status_value')
 
 
 class SubscribeCreateForm(Form):

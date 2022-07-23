@@ -14,6 +14,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="shortcut icon" type="image/png" href="{% static 'favicon.png' %}"/>
 
 </head>
 
@@ -194,6 +195,7 @@
 									</span>
 									<a href="{% url 'profile' %}">{% trans 'My profile' %}</a>
 								</li>
+								{% if request.user.is_authenticated and request.user.is_staff %}
 								<li>
 									<span>
 										<svg width="19" height="20" viewBox="0 0 19 20" fill="none"
@@ -204,10 +206,25 @@
 										</svg>
 
 									</span>
-									{% if request.user.is_authenticated %}
-										<a href="" class="logout-button">{% trans 'Logout' %}</a>
-									{% endif %}
+
+										<a href="{% url 'manager_panel' %}">{% trans 'Control panel' %}</a>
+
 								</li>
+								{% endif %}
+								{% if request.user.is_authenticated %}
+								<li>
+									<span>
+										<svg width="19" height="20" viewBox="0 0 19 20" fill="none"
+											xmlns="http://www.w3.org/2000/svg">
+											<path
+												d="M1 20C0.734784 20 0.48043 19.8946 0.292893 19.7071C0.105357 19.5196 0 19.2652 0 19V1C0 0.734784 0.105357 0.48043 0.292893 0.292893C0.48043 0.105357 0.734784 0 1 0H15C15.2652 0 15.5196 0.105357 15.7071 0.292893C15.8946 0.48043 16 0.734784 16 1V4H14V2H2V18H14V16H16V19C16 19.2652 15.8946 19.5196 15.7071 19.7071C15.5196 19.8946 15.2652 20 15 20H1ZM14 14V11H7V9H14V6L19 10L14 14Z"
+												fill="#333333" />
+										</svg>
+
+									</span>
+									<a href="" class="logout-button">{% trans 'Logout' %}</a>
+								</li>
+								{% endif %}
 							</ul>
 						</div>
 						{% endif %}

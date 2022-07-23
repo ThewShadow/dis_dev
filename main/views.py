@@ -1,3 +1,4 @@
+import django.core.paginator
 from django.shortcuts import redirect, get_object_or_404, HttpResponse, render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, FormView, CreateView, TemplateView, View
@@ -19,6 +20,7 @@ from django.contrib.auth.models import User
 from django.http import Http404
 import logging
 from config import settings
+from django.core.paginator import Paginator
 
 logger = logging.getLogger('main')
 
@@ -192,11 +194,25 @@ class PaidCompleteView(View):
 class ManagerPanelView(LoginRequiredMixin, TemplateView):
     template_name = 'main/managment.html'
 
+    show_pages_default = 5
+    page_number_default = 1
+
     def get(self, request, **kwargs):
         if not request.user.is_staff:
             raise PermissionDenied()
 
-        return super().get(request, **kwargs)
+        response = super().get(request, **kwargs)
+
+        current_page = self.request.GET.get('page')
+        show_pages = self.request.GET.get('show_pages')
+
+        if current_page:
+            response.set_cookie(key='current_page', value=current_page)
+
+        if show_pages:
+            response.set_cookie(key='show_pages', value=show_pages)
+
+        return response
 
     def post(self, request, **kwargs):
         form = ChangeSubscibeStatusForm(request.POST)
@@ -205,7 +221,6 @@ class ManagerPanelView(LoginRequiredMixin, TemplateView):
                 Subscription,
                 id=form.cleaned_data['sub_id'])
 
-            subscr_obj.status = form.cleaned_data['status_value']
             subscr_obj.is_active = True
             subscr_obj.save()
             subscr_obj.notify_customer()
@@ -214,12 +229,56 @@ class ManagerPanelView(LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['all_statuses'] = Subscription.STATUSES
-        new_subs = Subscription.objects\
-                               .filter(status=1)\
-                               .order_by('-order_date')
 
-        context['new_subscriptions'] = new_subs
+        show_pages = self.request.GET.get('show_pages')
+        if not show_pages:
+            show_pages = self.request.COOKIES.get(
+                'show_pages',
+                self.show_pages_default)
+
+        page_number = self.request.GET.get('page')
+        if not page_number:
+            page_number = self.request.COOKIES.get(
+                'current_page',
+                self.page_number_default)
+
+        search = self.request.GET.get('search')
+        if search:
+            from django.db.models import Q
+            new_subs = Subscription.objects.filter(
+                Q(offer__name__contains=search)
+                | Q(phone_number__contains=search)
+                | Q(offer__product__name__contains=search)
+                | Q(email__contains=search)
+            ).order_by('-order_date')
+        else:
+            new_subs = Subscription.objects.order_by('-order_date')
+
+        pag = Paginator(new_subs, show_pages)
+        try:
+            page = pag.page(page_number)
+        except django.core.paginator.EmptyPage:
+            page = pag.page(self.page_number_default)
+            page_number = self.page_number_default
+
+        context['page_range'] = pag.page_range
+        context['current_page'] = int(page_number)
+        context['new_subscriptions'] = page
+        context['show_pages'] = show_pages
+        context['num_count'] = pag.count
+        context['start_index'] = page.start_index()
+        context['end_index'] = page.end_index()
+
+        try:
+            context['next_page'] = page.next_page_number()
+        except:
+            pass
+
+        try:
+            context['previous_page'] = page.previous_page_number()
+        except:
+            pass
+
         return context
 
 
