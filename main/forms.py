@@ -181,3 +181,6 @@ class TransactionForm(ModelForm):
             'pay_type',
             'comment'
         )
+
+
+
