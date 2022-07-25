@@ -16,8 +16,7 @@
 }
 
 .text_error span {
-    color: red;
-
+  color: red;
 }
 
 :focus,
@@ -451,6 +450,7 @@ input:focus {
 
 input.state-error {
   border: 1px solid #fd4646;
+  color: #fd4646 !important;
   background: url('../img/icons/state-error.svg') calc(100% - 18px) center/18px no-repeat;
 }
 
@@ -1196,6 +1196,14 @@ select[name='language']::after {
 
 .footer__copyright a:hover::before {
   width: 110%;
+}
+
+.password_errors {
+  margin-top: 6px;
+  color: #c93636;
+  font-size: 15px;
+  padding-left: 24px;
+  background: url('../img/icons/inputError.svg') 0 calc(50% - 1px) / 16px no-repeat;
 }
 
 .popup {
@@ -2223,12 +2231,13 @@ select[name='language']::after {
   text-decoration-thickness: 1px;
   color: #1749b3;
   margin-right: 20px;
-  white-space: nowrap;
+  word-break: break-all;
 }
 
 .invite__link-block button {
   width: 20px;
   height: 20px;
+  flex: 0 0 20px;
   background-repeat: no-repeat;
   background-size: contain;
   background-image: url('../img/icons/copy.svg');
@@ -2795,7 +2804,6 @@ select[name='language']::after {
   -webkit-transition: all 0.4s ease 0s;
   -o-transition: all 0.4s ease 0s;
   transition: all 0.4s ease 0s;
-  white-space: nowrap;
 }
 
 .account__nav a svg {
@@ -4306,7 +4314,7 @@ select[name='language']::after {
     width: 100%;
     max-height: 62px;
     overflow: hidden;
-    padding: 4px 54px 0 16px;
+    padding: 4px 54px 0 4px;
     position: relative;
   }
 
@@ -4516,6 +4524,4 @@ select[name='language']::after {
   .account__title {
     margin-bottom: 28px;
   }
-
 }
-
