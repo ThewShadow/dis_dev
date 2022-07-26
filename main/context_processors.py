@@ -16,6 +16,6 @@ def base_context(request):
     common_context['PAYPAL_CLIENT_ID'] = settings.PAYPAL_CLIENT_ID
 
     if request.user.is_authenticated:
-        common_context['refer_link'] = f'{settings.BASE_URL}/?ref={str(request.user.id).zfill(7)}'
+        common_context['refer_link'] = f'ref={str(request.user.id).zfill(7)}'
 
     return common_context

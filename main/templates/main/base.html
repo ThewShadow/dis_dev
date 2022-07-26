@@ -9,7 +9,7 @@
 	<meta charset="UTF-8">
 	<meta name="format-detection" content="telephone=no">
 	<link rel="stylesheet" href="{% static 'css/style.css' %} ">
-	<link rel="stylesheet" href="{% static 'css/managment.css' %} ">
+	<link rel="stylesheet" href="{% static 'css/management.css' %} ">
 	<link rel="shortcut icon" href="{% static 'img/favicon.ico' %}">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -310,18 +310,18 @@
 	</footer>
 	</div>
 
-	{% include 'popups/email_verification_modal.html' %}
-	{% include 'popups/login_modal.html' %}
-	{% include 'popups/payment_modal.html' %}
-	{% include 'popups/registration_modal.html' %}
+	{% include 'popups/email_verification.html' %}
+	{% include 'popups/login.html' %}
+	{% include 'popups/payment.html' %}
+	{% include 'popups/registration.html' %}
 	{% include 'popups/subscription_app.html' %}
-	{% include 'popups/success_registration_modal.html' %}
-	{% include 'popups/forget_password_code_modal.html' %}
-	{% include 'popups/forget_password_email_modal.html' %}
-	{% include 'popups/new_password_modal.html' %}
+	{% include 'popups/success_registration.html' %}
+	{% include 'popups/forget_password_code.html' %}
+	{% include 'popups/forget_password_email.html' %}
+	{% include 'popups/new_password.html' %}
 	{% include 'popups/logout.html' %}
-	{% include 'popups/subscription_paid_modal.html' %}
-	{% include 'popups/crypto_payment_modal.html' %}
+	{% include 'popups/subscription_paid.html' %}
+	{% include 'popups/crypto_payment.html' %}
 
 
 
@@ -335,7 +335,7 @@
 <script src="{% static 'js/common.js' %}"></script>
 <script src="{% static 'js/account.js' %}"></script>
 <script src="{% static 'js/payCryptoWallet.js' %}"></script>
-<script src="{% static 'js/managment.js' %}"></script>
+<script src="{% static 'js/management.js' %}"></script>
 <script src="https://www.paypal.com/sdk/js?client-id={{ PAYPAL_CLIENT_ID }}&disable-funding=credit,card"></script>
 <script src="{% static 'js/paypal.js' %}"></script>
 

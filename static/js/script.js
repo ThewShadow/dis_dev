@@ -213,10 +213,11 @@ function togglePreview(current) {
 const inviteLink = document.querySelector('.invite__link')
 
 inviteLink.addEventListener('click', (e) => {
-	if (e.target.localName === 'button') {
-		const linkText = inviteLink.querySelector('a')
+    e.preventDefault()
+	if (e.target.localName === 'a') {
+		const linkText = inviteLink.innerText
 		const url = window.location.origin
 		const fullInviteLink = `${url}/?${linkText}`
-		navigator.clipboard.writeText(fullInviteLink)
+		navigator.clipboard.writeText(fullInviteLink.toLowerCase())
 	}
 })
