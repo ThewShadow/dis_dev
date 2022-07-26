@@ -200,6 +200,9 @@ class GoogleLoginComplete(View):
                 logger.warning(f':Social user create error. '
                                f'Form not valid. \n'
                                f'form errors: {form.errors}')
+        except:
+            return redirect(reverse_lazy('unauthorized'))
+
 
         if isinstance(customer, CustomUser):
             login(self.request, customer, backend='main.backends.EmailBackend')
