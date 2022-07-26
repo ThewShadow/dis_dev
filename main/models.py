@@ -114,16 +114,6 @@ class Subscription(models.Model):
     paid = models.BooleanField(default=False)
     is_active = models.BooleanField(default=False)
 
-    STATUSES = [
-        (1, 'being processed'),
-        (2, 'done'),
-        (3, 'canceled'),
-    ]
-    status = models.IntegerField(
-        choices=STATUSES,
-        default=1,
-    )
-
     def __str__(self):
         return f'{self.user} - {self.offer}'
 
@@ -145,7 +135,7 @@ class Subscription(models.Model):
         msg.content_subtype = "html"
         try:
             msg.send()
-        except smtplib.SMTPDataError as e:
+        except (smtplib.SMTPDataError, smtplib.SMTPAuthenticationError) as e:
             logger.error(f'Subscription activate message not sent. error: {e}')
 
 

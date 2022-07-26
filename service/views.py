@@ -201,37 +201,44 @@ class PayPalPaymentReceiving(View):
             logger.error('PayPalPaymentReceiving: purchase_units not found')
             return JsonResponse({'success': False}, status=400)
 
-        for data in payment_data['purchase_units']:
-            sub_id = data['custom_id']
-            if not sub_id:
-                logger.error('PayPalPaymentReceiving: custom_id is empty')
-                return JsonResponse({'success': False}, status=400)
+        try:
+            data = payment_data['purchase_units'][0]
+        except KeyError:
+            logger.error('PayPal receiving error. purchase_units not found.')
+            return JsonResponse({'success': False}, status=400)
+        except IndexError:
+            logger.error('PayPal receiving error. purchase_units is empty.')
+            return JsonResponse({'success': False}, status=400)
 
-            customer_subscription = Subscription.objects.filter(id=sub_id).first()
+        sub_id = data['custom_id']
+        if not sub_id:
+            logger.error('PayPalPaymentReceiving: custom_id is empty')
+            return JsonResponse({'success': False}, status=400)
 
-            init = {
-                'transaction_id': payment_data['id'],
-                'date_create': datetime.datetime.now(),
-                'subscription': customer_subscription,
-                'pay_type': 'paypal',
+        customer_subscription = Subscription.objects.filter(id=sub_id).first()
 
-            }
+        form = TransactionForm({
+            'transaction_id': payment_data['id'],
+            'date_create': datetime.datetime.now(),
+            'subscription': customer_subscription,
+            'pay_type': 'paypal',
+        })
 
-            form = TransactionForm(init)
+        if not form.is_valid():
+            logger.error('PayPalPaymentReceiving: form not valid')
+            logger.error(dict(form.errors))
 
-            if form.is_valid():
-                transaction = form.save()
-                transaction.notify_managers()
+            return JsonResponse({'success': False}, status=400)
 
-                customer_subscription.paid = True
-                customer_subscription.save()
+        transaction = form.save()
+        customer_subscription.paid = True
+        customer_subscription.save()
+        transaction.notify_managers()
 
-                logger.error('PayPalPaymentReceiving: payment receiving success')
-                return JsonResponse({'success': True}, status=200)
-            else:
-                logger.error('PayPalPaymentReceiving: form not valid')
-                logger.error(dict(form.errors))
-                return JsonResponse({'success': False}, status=400)
+        logger.error('PayPalPaymentReceiving: payment receiving success')
+
+        return JsonResponse({'success': True}, status=200)
+
 
 
 class CryptoPaymentReceiving(View):
@@ -311,8 +318,6 @@ class Registration(View):
         new_customer.save()
 
         activation_code = service.gen_verify_code()
-
-        #service.send_activation_account_code(activation_code, new_customer.email)
         send_code = threading.Thread(
             target=service.send_activation_account_code,
             args=(activation_code, new_customer.email))

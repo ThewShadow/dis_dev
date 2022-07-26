@@ -7,6 +7,7 @@ from django.core.exceptions import ValidationError
 from django.utils.translation import gettext as _
 from .models import Transaction
 import logging
+from phonenumber_field.formfields import PhoneNumberField
 
 logger = logging.getLogger('main')
 
@@ -37,6 +38,7 @@ class CustomUserSocialCreationForm(ModelForm):
         if commit:
             user.save()
         return user
+
 
 class CustomUserCreationForm(ModelForm):
 
@@ -72,12 +74,9 @@ class CustomUserChangeForm(UserChangeForm):
 class SubscribeForm(ModelForm):
     class Meta:
         model = Subscription
-        fields = ('offer', 'status', 'email', 'user', 'phone_number',)
+        fields = ('offer', 'email', 'user', 'phone_number',)
 
         widgets = {
-            'status': NumberInput(attrs={
-                'type': 'hidden'
-            }),
             'user': TextInput(attrs={
                 'type': 'hidden'
             }),
@@ -109,21 +108,17 @@ class ChangeUserInfoForm(Form):
 
 class ChangeSubscibeStatusForm(Form):
     sub_id = forms.IntegerField()
-    status_value = forms.IntegerField()
-
-    class Meta:
-        fields = ('sub_id', 'status_value')
 
 
 class SubscribeCreateForm(Form):
     offer_id = forms.IntegerField()
     email = forms.EmailField()
-    phone_number = forms.CharField(max_length=15)
+    phone_number = PhoneNumberField()
     user_name = forms.CharField(max_length=250)
 
 
 class LoginForm(Form):
-    email = forms.CharField(max_length=250, required=True)
+    email = forms.EmailField(max_length=250, required=True)
     password = forms.CharField(max_length=250, required=True)
 
     def clean_email(self):
@@ -139,11 +134,8 @@ class LoginForm(Form):
 
 class RegistrationForm(Form):
     username = forms.CharField(max_length=250, required=True)
-    email = forms.CharField(max_length=250, required=True)
+    email = forms.EmailField(max_length=250, required=True)
     password = forms.CharField(max_length=250, required=True)
-
-
-
 
 
 class VerifyEmailForm(Form):
@@ -187,3 +179,6 @@ class TransactionForm(ModelForm):
             'pay_type',
             'comment'
         )
+
+
+
