@@ -28,7 +28,7 @@ def get_user_auth_token(code):
         'client_secret': GOOGLE_CLIENT_SECRET,
         'redirect_uri': gen_login_callback_url(),
         'grant_type': 'authorization_code',
-        'code': code
+        'code': code,
     }
 
     response = requests.post(GOOGLE_TOKEN_URI, data=payload, headers=headers)
@@ -74,7 +74,8 @@ def gen_auth_url():
         'response_type': 'code',
         'client_id': GOOGLE_CLIENT_ID,
         'scope': ' '.join(GOOGLE_SCOPES),
-            'access_type': 'offline'
+        'access_type': 'offline',
+        'prompt': 'select_account consent'
     }
 
     query_string = urllib.parse.urlencode(parameters)
