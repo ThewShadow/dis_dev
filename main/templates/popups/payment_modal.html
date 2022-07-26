@@ -48,34 +48,6 @@
 				<p>{% trans 'We do not collect information on your cards, everything is safe' %}</p>
 			</div>
 
-			<div class="popup__subtitle">{% trans 'Payment by crypto wallet' %}</div>
-			<form id="crypto-payment-form">
-				{% csrf_token %}
-				<div class="popup__selects">
-
-					<div class="popup__select-block">
-						<p>{% trans 'Select currency' %}</p>
-						<select name="type-payment" class="select select-currency">
-							<option value="Bitcoin" selected>Bitcoin</option>
-							<option value="Ethereum">Ethereum</option>
-							<option value="USDT">USDT</option>
-						</select>
-					</div>
-
-					<div class="popup__select-block">
-						<p>{% trans 'Select Blockchain' %}</p>
-						<select name="type-blockchain" class="select select-blockchain">
-							<option value="Blockchain BTC network" selected>Blockchain BTC network</option>
-							<option value="Blockchain Solana network">Blockchain Solana network</option>
-							<option value="Blockchain BSC network">Blockchain BSC network</option>
-						</select>
-					</div>
-
-				</div>
-			</form>
-			<div>
-				<button id="crypto-pay-button" class="popup__btn-blue popup__btn-full payment-button">{% trans 'Pay' %}</button>
-			</div>
 		</div>
 	</div>
 </div>

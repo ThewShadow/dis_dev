@@ -466,7 +466,7 @@
   text-align: center;
 }
 
-.table__confirm a {
+.table__confirm button {
   color: #2e5aac;
   font-weight: 600;
   font-size: 12px;
@@ -481,7 +481,7 @@
   display: inline-block;
 }
 
-.table__confirm a:hover {
+.table__confirm button:hover {
   background-color: #89a7e0;
   color: #fff;
 }

@@ -15,10 +15,6 @@
   box-sizing: border-box;
 }
 
-.text_error span {
-  color: red;
-}
-
 :focus,
 :active {
   outline: none;
@@ -1198,7 +1194,7 @@ select[name='language']::after {
   width: 110%;
 }
 
-.password_errors {
+.text_error {
   margin-top: 6px;
   color: #c93636;
   font-size: 15px;
