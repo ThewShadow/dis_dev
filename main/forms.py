@@ -110,11 +110,28 @@ class ChangeSubscibeStatusForm(Form):
     sub_id = forms.IntegerField()
 
 
-class SubscribeCreateForm(Form):
-    offer_id = forms.IntegerField()
+class SubscribeCreateForm(ModelForm):
     email = forms.EmailField()
     phone_number = PhoneNumberField()
     user_name = forms.CharField(max_length=250)
+
+    class Meta:
+        model = Subscription
+        fields = (
+            'email',
+            'phone_number',
+            'user_name',
+            'user',
+            'offer',
+        )
+
+    def save(self, commit=True):
+        subscription = super().save(commit=False)
+        subscription.set_service_password()
+
+        if commit:
+            subscription.save()
+        return subscription
 
 
 class LoginForm(Form):

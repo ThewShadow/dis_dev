@@ -102,27 +102,6 @@ def notify_managers_of_new_subscription(subscription_id):
         except Exception as e:
             logger.error(f'notify_managers error {e}')
 
-def check_payment():
-    pass
 
-
-def gen_refer_link(user):
-    pass
-
-
-def create_payment(data):
-    pass
-
-
-def send_status_change_notification(user, data):
-    pass
-
-
-def senf_notification_new_subscription(data):
-    pass
-
-
-def get_refer_link(user):
-    pass
 
 

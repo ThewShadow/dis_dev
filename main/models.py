@@ -13,6 +13,8 @@ import logging
 import smtplib
 from telebot import TeleBot
 from config.settings import TELEGRAM_BOT_API_KEY
+import string
+import random
 
 logger = logging.getLogger('main')
 
@@ -46,6 +48,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
             self.agent = CustomUser.objects.get(id=agent_id.lstrip('0'))
         except CustomUser.DoesNotExist:
             logger.warning(f'Agent not found. ref_link: {agent_id.lstrip("0")}')
+
 
 class Rate(models.Model):
     name = models.CharField(max_length=200, default='')
@@ -89,7 +92,7 @@ class Offer(models.Model):
     features = models.ManyToManyField('Feature')
 
     def __str__(self):
-        return f'{self.product.name} - {self.name} - {self.rate}: {self.price} {self.currency.code}'
+        return f'{self.product.name} | {self.name} | {self.rate} | {self.price} {self.currency.code}'
 
 
 class Product(models.Model):
@@ -113,6 +116,7 @@ class Subscription(models.Model):
     user_name = models.CharField(max_length=250, null=True)
     paid = models.BooleanField(default=False)
     is_active = models.BooleanField(default=False)
+    service_password = models.CharField(max_length=20)
 
     def __str__(self):
         return f'{self.user} - {self.offer}'
@@ -137,6 +141,17 @@ class Subscription(models.Model):
             msg.send()
         except (smtplib.SMTPDataError, smtplib.SMTPAuthenticationError) as e:
             logger.error(f'Subscription activate message not sent. error: {e}')
+
+    def set_service_password(self, length=7):
+        chars = list(string.ascii_letters + string.digits)
+        random.shuffle(chars)
+
+        password = []
+        for i in range(length):
+            password.append(random.choice(chars))
+
+        random.shuffle(password)
+        self.service_password = "".join(password)
 
 
 class SupportTask(models.Model):

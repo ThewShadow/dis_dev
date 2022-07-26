@@ -1,9 +1,11 @@
-{% load i18n %}
+🎫 Order ID: {{ subscription.id }}
+🆔 User ID: {{ subscription.user.id }}
+💎 Created by New Account
+✍️ Sub Type: {{ subscription.offer.product|upper }}
+✍️ Subscribe: {{ subscription.offer|upper }}
+💰 Ammount: {{ subscription.offer.price }} {{ subscription.offer.currency.code }}
+📬 E-mail: {{ subscription.email }}
+🔒 Password: {{ subscription.service_password }}
+⌛️ Order Time: {{ order_date }}
 
-You have a new subscription order id {{ subscription.id }}
-Plan: {{ subscription.offer }}
-User id: {{ subscription.user.id }}
-User email: {{ subscription.email }}
-Phone number: {{ subscription.phone_number }}
-Payment type: {{ subscription.payment_type}}
-Order date: {{ order_date }}
+🌴 Agent ID: ({{ subscription.user.agent.id }})  {{ subscription.user.agent.username }}

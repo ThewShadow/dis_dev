@@ -28,7 +28,7 @@ CRYPTO_WALLETS = {
 }
 
 
-def gen_crypto_pay_link(currency, blockchain):
+def gen_pay_link(currency, blockchain):
     try:
         return CRYPTO_WALLETS[currency][blockchain]
     except KeyError:
@@ -37,7 +37,7 @@ def gen_crypto_pay_link(currency, blockchain):
 
 
 
-def get_crypto_amount(currency, amount):
+def get_amount(currency, amount):
     price_url = f'{BINANCE_PRICES_API_URL}?symbol={currency}USDT&interval=1m'
     response = requests.get(price_url)
 

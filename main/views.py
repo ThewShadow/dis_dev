@@ -192,7 +192,7 @@ class PaidCompleteView(View):
 
 
 class ManagerPanelView(LoginRequiredMixin, TemplateView):
-    template_name = 'main/managment.html'
+    template_name = 'main/management.html'
 
     show_pages_default = 5
     page_number_default = 1
@@ -289,17 +289,20 @@ class Unauthorized(TemplateView):
 class PayPalErrorView(TemplateView):
     template_name = 'main/paypal_error.html'
 
+
 class CryptoPayment(View):
 
     def get(self, request, **kwargs):
-        if 'sub_id' not in request.COOKIES:
+        try:
+            current_sub_id = request.session['current_sub_id']
+        except KeyError:
             raise Http404
 
-        subscr = get_object_or_404(
+        subscription = get_object_or_404(
             Subscription,
-            id=request.COOKIES['sub_id'])
+            id=current_sub_id)
 
-        offer_descr = str(subscr.offer)
+        offer_descr = str(subscription.offer)
 
         return render(
             request,
