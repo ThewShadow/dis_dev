@@ -98,7 +98,6 @@ let fakeArrows = document.querySelectorAll('.language__fake-arrow')
 
 window.addEventListener('load', () => {
 	setSelectLang()
-	setPayment()
 });
 
 //^ style custom selects
@@ -170,53 +169,7 @@ function setSelectLang() {
 	});
 }
 
-//^ set payment & blockchain
-function setPayment() {
-	const selectCurrency = document.querySelectorAll('.select-currency');
 
-	const listCurrency = {
-		'bitcoin': ['Blockchain BTC network', 'Blockchain Solana network', 'Blockchain BSC network',],
-		'ethereum': ['Blockchain ETH network', 'Blockchain Solana network', 'Blockchain BSC network',],
-		'usdt': ['Blockchain ERC20 network', 'Blockchain Solana network', 'Blockchain BSC network',],
-	}
-
-	if (selectCurrency !== null) {
-		selectCurrency.forEach(el => {
-			let parent = el.closest('div.select')
-			let list = parent.querySelector('.select__list')
-			list.addEventListener('click', (e) => {
-				let chooseCurrency = e.target.innerText.toLowerCase();
-				setBlockchains(chooseCurrency)
-			})
-		})
-	}
-
-	function setBlockchains(selectedCurrency) {
-
-		selectCurrency.forEach((select) => {
-
-			let selectedBlockchains = listCurrency[selectedCurrency]
-			let mainWrap = select.closest('.popup__selects')
-
-			let blockchain = mainWrap.querySelector('.select-blockchain')
-			let blockchainOptions = blockchain.querySelectorAll('option')
-
-			let blockchainWrap = blockchain.closest('div.select')
-			let fakeBlockchainOptions = blockchainWrap.querySelectorAll('.select__item')
-			let fakeBlockchainHead = blockchainWrap.querySelector('.select__gap')
-
-			blockchainOptions.forEach((el, i) => {
-				el.value = selectedBlockchains[i]
-				el.innerText = selectedBlockchains[i]
-			})
-			fakeBlockchainOptions.forEach((el, i) => {
-				el.setAttribute('data-value', selectedBlockchains[i])
-				el.querySelector('span').innerText = selectedBlockchains[i]
-			})
-			fakeBlockchainHead.innerText = listCurrency[selectedCurrency][0];
-		});
-	}
-}
 
 
 //^ toggle services
