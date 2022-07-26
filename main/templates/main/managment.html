@@ -1,344 +1,312 @@
-{% extends 'main/base.html' %} {% load i18n %} {% load static %} {% block title %}
-<title>Manager panel</title>
+{% extends 'main/base.html' %}
 
-{% endblock %} {% block main %}
-<section class="managment">
-  <div class="container">
-    <div class="managment__head">
-      <h1>Managment panel</h1>
-      <a class="account__btn-exit link-icon">
-        <svg
-          width="19"
-          height="20"
-          viewBox="0 0 19 20"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M1 20C0.734784 20 0.48043 19.8946 0.292893 19.7071C0.105357 19.5196 0 19.2652 0 19V1C0 0.734784 0.105357 0.48043 0.292893 0.292893C0.48043 0.105357 0.734784 0 1 0H15C15.2652 0 15.5196 0.105357 15.7071 0.292893C15.8946 0.48043 16 0.734784 16 1V4H14V2H2V18H14V16H16V19C16 19.2652 15.8946 19.5196 15.7071 19.7071C15.5196 19.8946 15.2652 20 15 20H1ZM14 14V11H7V9H14V6L19 10L14 14Z"
-            fill="#333333"
-          />
-        </svg>
-        <span>Exit the office</span>
-      </a>
-    </div>
-    <div class="managment__subtitle">Subscription requests</div>
+{% load i18n %}
+{% load static %}
+{% block title %}
+	<title>Manager panel</title>
 
-    <form class="managment__filters">
-      <div class="managment__show-sort-wrap">
-        <label class="managment__show-count">
-          <span>Show</span>
-          <input type="number" value="10" />
-          <div class="managment__show-count-arrows"><span></span><span></span></div>
-        </label>
-      </div>
-      <div class="managment__search">
-        <input type="text" placeholder="Search ..." />
-        <button type="submit">
-          <svg
-            width="18"
-            height="18"
-            viewBox="0 0 18 18"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M14.0252 12.8488L17.5943 16.4171L16.4152 17.5963L12.8469 14.0271C11.5191 15.0915 9.86768 15.6704 8.16602 15.668C4.02602 15.668 0.666016 12.308 0.666016 8.16797C0.666016 4.02797 4.02602 0.667969 8.16602 0.667969C12.306 0.667969 15.666 4.02797 15.666 8.16797C15.6684 9.86964 15.0895 11.5211 14.0252 12.8488ZM12.3535 12.2305C13.4111 11.1429 14.0017 9.68499 13.9993 8.16797C13.9993 4.94464 11.3885 2.33464 8.16602 2.33464C4.94268 2.33464 2.33268 4.94464 2.33268 8.16797C2.33268 11.3905 4.94268 14.0013 8.16602 14.0013C9.68304 14.0037 11.1409 13.4131 12.2285 12.3555L12.3535 12.2305Z"
-              fill="#8F8F8F"
-            />
-          </svg>
-        </button>
-      </div>
-    </form>
+{% endblock %}
+{% block main %}
+			<section class="managment">
+				<div class="container">
+					<div class="managment__head">
+						<h1>Managment panel</h1>
+						<a class="account__btn-exit link-icon">
+							<svg width="19" height="20" viewBox="0 0 19 20" fill="none"
+								xmlns="http://www.w3.org/2000/svg">
+								<path
+									d="M1 20C0.734784 20 0.48043 19.8946 0.292893 19.7071C0.105357 19.5196 0 19.2652 0 19V1C0 0.734784 0.105357 0.48043 0.292893 0.292893C0.48043 0.105357 0.734784 0 1 0H15C15.2652 0 15.5196 0.105357 15.7071 0.292893C15.8946 0.48043 16 0.734784 16 1V4H14V2H2V18H14V16H16V19C16 19.2652 15.8946 19.5196 15.7071 19.7071C15.5196 19.8946 15.2652 20 15 20H1ZM14 14V11H7V9H14V6L19 10L14 14Z"
+									fill="#333333" />
+							</svg>
+							<span>Exit the office</span>
+						</a>
+					</div>
+					<div class="managment__subtitle">Subscription requests</div>
 
-    <div class="managment__table">
-      <div class="table">
-        <ul class="table__row table__row-head">
-          <li class="table__date">
-            <p>Orther date</p>
-          </li>
-          <li class="table__sub-id">
-            <p>Sub ID</p>
-          </li>
-          <li class="table__other">
-            <p>Orther</p>
-          </li>
-          <li class="table__user-id">
-            <p>User ID</p>
-          </li>
-          <li class="table__email">
-            <p>Email</p>
-          </li>
-          <li class="table__phone">
-            <p>Phone</p>
-          </li>
-          <li class="table__active">
-            <p>Active</p>
-          </li>
-          <li class="table__confirm">
-            <p></p>
-          </li>
-        </ul>
+					<form class="managment__filters">
+						<div class="managment__show-sort-wrap">
+							<label class="managment__show-count">
+								<span>Show</span>
+								<input type="number" value="10">
+								<div class="managment__show-count-arrows">
+									<span></span><span></span>
+								</div>
+							</label>
+							<label class="managment__sort">
+								<span>Sort by</span>
+								<select name="sort-request" class="select">
+									<option value="Date">Date</option>
+									<option value="From A to Z">From A to Z</option>
+									<option value="From Z to A">From Z to A</option>
+								</select>
+							</label>
+						</div>
+						<div class="managment__search">
+							<input type="text" placeholder="Search ...">
+							<button type="submit">
+								<svg width="18" height="18" viewBox="0 0 18 18" fill="none"
+									xmlns="http://www.w3.org/2000/svg">
+									<path
+										d="M14.0252 12.8488L17.5943 16.4171L16.4152 17.5963L12.8469 14.0271C11.5191 15.0915 9.86768 15.6704 8.16602 15.668C4.02602 15.668 0.666016 12.308 0.666016 8.16797C0.666016 4.02797 4.02602 0.667969 8.16602 0.667969C12.306 0.667969 15.666 4.02797 15.666 8.16797C15.6684 9.86964 15.0895 11.5211 14.0252 12.8488ZM12.3535 12.2305C13.4111 11.1429 14.0017 9.68499 13.9993 8.16797C13.9993 4.94464 11.3885 2.33464 8.16602 2.33464C4.94268 2.33464 2.33268 4.94464 2.33268 8.16797C2.33268 11.3905 4.94268 14.0013 8.16602 14.0013C9.68304 14.0037 11.1409 13.4131 12.2285 12.3555L12.3535 12.2305Z"
+										fill="#8F8F8F" />
+								</svg>
 
-        <ul class="table__row">
-          <li class="table__date">
-            <p>Orther date</p>
-            <span>June 14, 2022 10:30 a.m</span>
-          </li>
-          <li class="table__sub-id">
-            <p>Sub ID</p>
-            <span>46</span>
-          </li>
-          <li class="table__other">
-            <p>Other</p>
-            <span>Netflix, Basic, 1Years; 150 USD</span>
-          </li>
-          <li class="table__user-id">
-            <p>User ID</p>
-            <span>20</span>
-          </li>
-          <li class="table__email">
-            <p>Email</p>
-            <span>asaa97580@gmail.com</span>
-          </li>
-          <li class="table__phone">
-            <p>Phone</p>
-            <span>+380953157991</span>
-          </li>
-          <li class="table__active">
-            <p>Active</p>
-            <span>
-              <label>
-                <input type="radio" disabled checked />
-                <span>
-                  <svg
-                    width="14"
-                    height="12"
-                    viewBox="0 0 14 12"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M5.02807 11.4257C4.76869 11.4257 4.51557 11.3226 4.33119 11.1382L0.390566 7.1945C-0.531309 6.22887 0.959316 4.94137 1.78432 5.80075L4.98432 9.00387L12.1718 0.913245C13.0218 -0.0398795 14.4937 1.27262 13.6437 2.22262L5.76244 11.0945C5.58119 11.2976 5.32494 11.4164 5.05619 11.4257C5.04682 11.4257 5.03744 11.4257 5.02807 11.4257Z"
-                      fill="white"
-                    />
-                  </svg>
-                </span>
-              </label>
-            </span>
-          </li>
-          <li class="table__confirm">
-            <p></p>
-            <span><a href="##">Confirm</a></span>
-          </li>
-        </ul>
-        <ul class="table__row">
-          <li class="table__date">
-            <p>Orther date</p>
-            <span>June 14, 2022 10:30 a.m</span>
-          </li>
-          <li class="table__sub-id">
-            <p>Sub ID</p>
-            <span>46</span>
-          </li>
-          <li class="table__other">
-            <p>Other</p>
-            <span>Netflix, Basic, 1Years; 150 USD</span>
-          </li>
-          <li class="table__user-id">
-            <p>User ID</p>
-            <span>20</span>
-          </li>
-          <li class="table__email">
-            <p>Email</p>
-            <span>asaa97580@gmail.com</span>
-          </li>
-          <li class="table__phone">
-            <p>Phone</p>
-            <span>+380953157991</span>
-          </li>
-          <li class="table__active">
-            <p>Active</p>
-            <span>
-              <label>
-                <input type="radio" disabled />
-                <span>
-                  <svg
-                    width="14"
-                    height="12"
-                    viewBox="0 0 14 12"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M5.02807 11.4257C4.76869 11.4257 4.51557 11.3226 4.33119 11.1382L0.390566 7.1945C-0.531309 6.22887 0.959316 4.94137 1.78432 5.80075L4.98432 9.00387L12.1718 0.913245C13.0218 -0.0398795 14.4937 1.27262 13.6437 2.22262L5.76244 11.0945C5.58119 11.2976 5.32494 11.4164 5.05619 11.4257C5.04682 11.4257 5.03744 11.4257 5.02807 11.4257Z"
-                      fill="white"
-                    />
-                  </svg>
-                </span>
-              </label>
-            </span>
-          </li>
-          <li class="table__confirm">
-            <p></p>
-            <span><a href="##">Confirm</a></span>
-          </li>
-        </ul>
-        <ul class="table__row">
-          <li class="table__date">
-            <p>Orther date</p>
-            <span>June 14, 2022 10:30 a.m</span>
-          </li>
-          <li class="table__sub-id">
-            <p>Sub ID</p>
-            <span>46</span>
-          </li>
-          <li class="table__other">
-            <p>Other</p>
-            <span>Netflix, Basic, 1Years; 150 USD</span>
-          </li>
-          <li class="table__user-id">
-            <p>User ID</p>
-            <span>20</span>
-          </li>
-          <li class="table__email">
-            <p>Email</p>
-            <span>asaa97580@gmail.com</span>
-          </li>
-          <li class="table__phone">
-            <p>Phone</p>
-            <span>+380953157991</span>
-          </li>
-          <li class="table__active">
-            <p>Active</p>
-            <span>
-              <label>
-                <input type="radio" disabled checked />
-                <span>
-                  <svg
-                    width="14"
-                    height="12"
-                    viewBox="0 0 14 12"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M5.02807 11.4257C4.76869 11.4257 4.51557 11.3226 4.33119 11.1382L0.390566 7.1945C-0.531309 6.22887 0.959316 4.94137 1.78432 5.80075L4.98432 9.00387L12.1718 0.913245C13.0218 -0.0398795 14.4937 1.27262 13.6437 2.22262L5.76244 11.0945C5.58119 11.2976 5.32494 11.4164 5.05619 11.4257C5.04682 11.4257 5.03744 11.4257 5.02807 11.4257Z"
-                      fill="white"
-                    />
-                  </svg>
-                </span>
-              </label>
-            </span>
-          </li>
-          <li class="table__confirm">
-            <p></p>
-            <span><a href="##">Confirm</a></span>
-          </li>
-        </ul>
-        <ul class="table__row">
-          <li class="table__date">
-            <p>Orther date</p>
-            <span>June 14, 2022 10:30 a.m</span>
-          </li>
-          <li class="table__sub-id">
-            <p>Sub ID</p>
-            <span>46</span>
-          </li>
-          <li class="table__other">
-            <p>Other</p>
-            <span>Netflix, Basic, 1Years; 150 USD</span>
-          </li>
-          <li class="table__user-id">
-            <p>User ID</p>
-            <span>20</span>
-          </li>
-          <li class="table__email">
-            <p>Email</p>
-            <span>asaa97580@gmail.com</span>
-          </li>
-          <li class="table__phone">
-            <p>Phone</p>
-            <span>+380953157991</span>
-          </li>
-          <li class="table__active">
-            <p>Active</p>
-            <span>
-              <label>
-                <input type="radio" disabled />
-                <span>
-                  <svg
-                    width="14"
-                    height="12"
-                    viewBox="0 0 14 12"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M5.02807 11.4257C4.76869 11.4257 4.51557 11.3226 4.33119 11.1382L0.390566 7.1945C-0.531309 6.22887 0.959316 4.94137 1.78432 5.80075L4.98432 9.00387L12.1718 0.913245C13.0218 -0.0398795 14.4937 1.27262 13.6437 2.22262L5.76244 11.0945C5.58119 11.2976 5.32494 11.4164 5.05619 11.4257C5.04682 11.4257 5.03744 11.4257 5.02807 11.4257Z"
-                      fill="white"
-                    />
-                  </svg>
-                </span>
-              </label>
-            </span>
-          </li>
-          <li class="table__confirm">
-            <p></p>
-            <span><a href="##">Confirm</a></span>
-          </li>
-        </ul>
-      </div>
-    </div>
+							</button>
+						</div>
+					</form>
 
-    <div class="managment__footer">
-      <div class="pagination-info">
-        Showing
-        <span>1</span>
-        to
-        <span>10</span>
-        of
-        <span>45</span>
-        entries
-      </div>
-      <div class="pagination">
-        <a href="##" class="pagination__btn pagination__prew">
-          <svg
-            width="34"
-            height="16"
-            viewBox="0 0 34 16"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M33 9C33.5523 9 34 8.55228 34 8C34 7.44772 33.5523 7 33 7L33 9ZM0.292893 7.29289C-0.0976295 7.68341 -0.0976296 8.31658 0.292892 8.7071L6.65685 15.0711C7.04738 15.4616 7.68054 15.4616 8.07107 15.0711C8.46159 14.6805 8.46159 14.0474 8.07107 13.6569L2.41421 8L8.07107 2.34314C8.46159 1.95262 8.46159 1.31945 8.07107 0.92893C7.68054 0.538406 7.04738 0.538406 6.65686 0.92893L0.292893 7.29289ZM33 7L1 7L1 9L33 9L33 7Z"
-              fill="#1749B3"
-            />
-          </svg>
-        </a>
-        <div class="pagination__pages">
-          <a href="##" class="pagination__page current">1</a>
-          <a href="##" class="pagination__page">2</a>
-          <a href="##" class="pagination__page">3</a>
-          <a href="##" class="pagination__page">4</a>
-          <a href="##" class="pagination__page">5</a>
-        </div>
-        <a href="##" class="pagination__btn pagination__next">
-          <svg
-            width="34"
-            height="16"
-            viewBox="0 0 34 16"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M1 7C0.447715 7 0 7.44772 0 8C0 8.55228 0.447715 9 1 9V7ZM33.7071 8.70711C34.0976 8.31658 34.0976 7.68342 33.7071 7.29289L27.3431 0.928932C26.9526 0.538408 26.3195 0.538408 25.9289 0.928932C25.5384 1.31946 25.5384 1.95262 25.9289 2.34315L31.5858 8L25.9289 13.6569C25.5384 14.0474 25.5384 14.6805 25.9289 15.0711C26.3195 15.4616 26.9526 15.4616 27.3431 15.0711L33.7071 8.70711ZM1 9H33V7H1V9Z"
-              fill="#1749B3"
-            />
-          </svg>
-        </a>
-      </div>
-    </div>
-  </div>
-</section>
+					<div class="managment__table">
+						<div class="table">
+							<ul class="table__row table__row-head">
+								<li class=" table__date">
+									<p>Orther date</p>
+								</li>
+								<li class=" table__sub-id">
+									<p>Sub ID</p>
+								</li>
+								<li class=" table__other">
+									<p>Orther</p>
+								</li>
+								<li class=" table__user-id">
+									<p>User ID</p>
+								</li>
+								<li class=" table__email">
+									<p>Email</p>
+								</li>
+								<li class=" table__phone">
+									<p>Phone</p>
+								</li>
+								<li class=" table__active">
+									<p>Active</p>
+								</li>
+								<li class=" table__confirm">
+									<p></p>
+								</li>
+							</ul>
+
+							<ul class="table__row">
+								<li class=" table__date">
+									<p>Orther date</p>
+									<span>June 14, 2022 10:30 a.m</span>
+								</li>
+								<li class=" table__sub-id">
+									<p>Sub ID</p>
+									<span>46</span>
+								</li>
+								<li class=" table__other">
+									<p>Other</p>
+									<span>Netflix, Basic, 1Years; 150 USD</span>
+								</li>
+								<li class=" table__user-id">
+									<p>User ID</p>
+									<span>20</span>
+								</li>
+								<li class=" table__email">
+									<p>Email</p>
+									<span>asaa97580@gmail.com</span>
+								</li>
+								<li class=" table__phone">
+									<p>Phone</p>
+									<span>+380953157991</span>
+								</li>
+								<li class=" table__active">
+									<p>Active</p>
+									<span>
+										<label>
+											<input type="radio" disabled checked>
+											<span>
+												<svg width="14" height="12" viewBox="0 0 14 12" fill="none"
+													xmlns="http://www.w3.org/2000/svg">
+													<path
+														d="M5.02807 11.4257C4.76869 11.4257 4.51557 11.3226 4.33119 11.1382L0.390566 7.1945C-0.531309 6.22887 0.959316 4.94137 1.78432 5.80075L4.98432 9.00387L12.1718 0.913245C13.0218 -0.0398795 14.4937 1.27262 13.6437 2.22262L5.76244 11.0945C5.58119 11.2976 5.32494 11.4164 5.05619 11.4257C5.04682 11.4257 5.03744 11.4257 5.02807 11.4257Z"
+														fill="white" />
+												</svg>
+											</span>
+										</label>
+									</span>
+								</li>
+								<li class=" table__confirm">
+									<p></p>
+									<span><a href="##">Confirm</a></span>
+								</li>
+							</ul>
+							<ul class="table__row">
+								<li class=" table__date">
+									<p>Orther date</p>
+									<span>June 14, 2022 10:30 a.m</span>
+								</li>
+								<li class=" table__sub-id">
+									<p>Sub ID</p>
+									<span>46</span>
+								</li>
+								<li class=" table__other">
+									<p>Other</p>
+									<span>Netflix, Basic, 1Years; 150 USD</span>
+								</li>
+								<li class=" table__user-id">
+									<p>User ID</p>
+									<span>20</span>
+								</li>
+								<li class=" table__email">
+									<p>Email</p>
+									<span>asaa97580@gmail.com</span>
+								</li>
+								<li class=" table__phone">
+									<p>Phone</p>
+									<span>+380953157991</span>
+								</li>
+								<li class=" table__active">
+									<p>Active</p>
+									<span>
+										<label>
+											<input type="radio" disabled>
+											<span>
+												<svg width="14" height="12" viewBox="0 0 14 12" fill="none"
+													xmlns="http://www.w3.org/2000/svg">
+													<path
+														d="M5.02807 11.4257C4.76869 11.4257 4.51557 11.3226 4.33119 11.1382L0.390566 7.1945C-0.531309 6.22887 0.959316 4.94137 1.78432 5.80075L4.98432 9.00387L12.1718 0.913245C13.0218 -0.0398795 14.4937 1.27262 13.6437 2.22262L5.76244 11.0945C5.58119 11.2976 5.32494 11.4164 5.05619 11.4257C5.04682 11.4257 5.03744 11.4257 5.02807 11.4257Z"
+														fill="white" />
+												</svg>
+											</span>
+										</label>
+									</span>
+								</li>
+								<li class=" table__confirm">
+									<p></p>
+									<span><a href="##">Confirm</a></span>
+								</li>
+							</ul>
+							<ul class="table__row">
+								<li class=" table__date">
+									<p>Orther date</p>
+									<span>June 14, 2022 10:30 a.m</span>
+								</li>
+								<li class=" table__sub-id">
+									<p>Sub ID</p>
+									<span>46</span>
+								</li>
+								<li class=" table__other">
+									<p>Other</p>
+									<span>Netflix, Basic, 1Years; 150 USD</span>
+								</li>
+								<li class=" table__user-id">
+									<p>User ID</p>
+									<span>20</span>
+								</li>
+								<li class=" table__email">
+									<p>Email</p>
+									<span>asaa97580@gmail.com</span>
+								</li>
+								<li class=" table__phone">
+									<p>Phone</p>
+									<span>+380953157991</span>
+								</li>
+								<li class=" table__active">
+									<p>Active</p>
+									<span>
+										<label>
+											<input type="radio" disabled checked>
+											<span>
+												<svg width="14" height="12" viewBox="0 0 14 12" fill="none"
+													xmlns="http://www.w3.org/2000/svg">
+													<path
+														d="M5.02807 11.4257C4.76869 11.4257 4.51557 11.3226 4.33119 11.1382L0.390566 7.1945C-0.531309 6.22887 0.959316 4.94137 1.78432 5.80075L4.98432 9.00387L12.1718 0.913245C13.0218 -0.0398795 14.4937 1.27262 13.6437 2.22262L5.76244 11.0945C5.58119 11.2976 5.32494 11.4164 5.05619 11.4257C5.04682 11.4257 5.03744 11.4257 5.02807 11.4257Z"
+														fill="white" />
+												</svg>
+											</span>
+										</label>
+									</span>
+								</li>
+								<li class=" table__confirm">
+									<p></p>
+									<span><a href="##">Confirm</a></span>
+								</li>
+							</ul>
+							<ul class="table__row">
+								<li class=" table__date">
+									<p>Orther date</p>
+									<span>June 14, 2022 10:30 a.m</span>
+								</li>
+								<li class=" table__sub-id">
+									<p>Sub ID</p>
+									<span>46</span>
+								</li>
+								<li class=" table__other">
+									<p>Other</p>
+									<span>Netflix, Basic, 1Years; 150 USD</span>
+								</li>
+								<li class=" table__user-id">
+									<p>User ID</p>
+									<span>20</span>
+								</li>
+								<li class=" table__email">
+									<p>Email</p>
+									<span>asaa97580@gmail.com</span>
+								</li>
+								<li class=" table__phone">
+									<p>Phone</p>
+									<span>+380953157991</span>
+								</li>
+								<li class=" table__active">
+									<p>Active</p>
+									<span>
+										<label>
+											<input type="radio" disabled>
+											<span>
+												<svg width="14" height="12" viewBox="0 0 14 12" fill="none"
+													xmlns="http://www.w3.org/2000/svg">
+													<path
+														d="M5.02807 11.4257C4.76869 11.4257 4.51557 11.3226 4.33119 11.1382L0.390566 7.1945C-0.531309 6.22887 0.959316 4.94137 1.78432 5.80075L4.98432 9.00387L12.1718 0.913245C13.0218 -0.0398795 14.4937 1.27262 13.6437 2.22262L5.76244 11.0945C5.58119 11.2976 5.32494 11.4164 5.05619 11.4257C5.04682 11.4257 5.03744 11.4257 5.02807 11.4257Z"
+														fill="white" />
+												</svg>
+											</span>
+										</label>
+									</span>
+								</li>
+								<li class=" table__confirm">
+									<p></p>
+									<span><a href="##">Confirm</a></span>
+								</li>
+							</ul>
+						</div>
+					</div>
+
+					<div class="managment__footer">
+						<div class="pagination-info">
+							Showing
+							<span>1</span>
+							to
+							<span>10</span>
+							of
+							<span>45</span>
+							entries
+						</div>
+						<div class="pagination">
+							<a href="##" class="pagination__btn pagination__prew">
+								<svg width="34" height="16" viewBox="0 0 34 16" fill="none"
+									xmlns="http://www.w3.org/2000/svg">
+									<path
+										d="M33 9C33.5523 9 34 8.55228 34 8C34 7.44772 33.5523 7 33 7L33 9ZM0.292893 7.29289C-0.0976295 7.68341 -0.0976296 8.31658 0.292892 8.7071L6.65685 15.0711C7.04738 15.4616 7.68054 15.4616 8.07107 15.0711C8.46159 14.6805 8.46159 14.0474 8.07107 13.6569L2.41421 8L8.07107 2.34314C8.46159 1.95262 8.46159 1.31945 8.07107 0.92893C7.68054 0.538406 7.04738 0.538406 6.65686 0.92893L0.292893 7.29289ZM33 7L1 7L1 9L33 9L33 7Z"
+										fill="#1749B3" />
+								</svg>
+							</a>
+							<div class="pagination__pages">
+								<a href="##" class="pagination__page current">1</a>
+								<a href="##" class="pagination__page">2</a>
+								<a href="##" class="pagination__page">3</a>
+								<a href="##" class="pagination__page">4</a>
+								<a href="##" class="pagination__page">5</a>
+							</div>
+							<a href="##" class="pagination__btn pagination__next">
+								<svg width="34" height="16" viewBox="0 0 34 16" fill="none"
+									xmlns="http://www.w3.org/2000/svg">
+									<path
+										d="M1 7C0.447715 7 0 7.44772 0 8C0 8.55228 0.447715 9 1 9V7ZM33.7071 8.70711C34.0976 8.31658 34.0976 7.68342 33.7071 7.29289L27.3431 0.928932C26.9526 0.538408 26.3195 0.538408 25.9289 0.928932C25.5384 1.31946 25.5384 1.95262 25.9289 2.34315L31.5858 8L25.9289 13.6569C25.5384 14.0474 25.5384 14.6805 25.9289 15.0711C26.3195 15.4616 26.9526 15.4616 27.3431 15.0711L33.7071 8.70711ZM1 9H33V7H1V9Z"
+										fill="#1749B3" />
+								</svg>
+							</a>
+						</div>
+					</div>
+				</div>
+			</section>
 {% endblock %}
