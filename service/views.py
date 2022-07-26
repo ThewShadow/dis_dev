@@ -338,6 +338,10 @@ class Login(View):
 
         return JsonResponse({'success': True}, status=200)
 
+    def get(self, request, **kwargs):
+        response = redirect('index')
+        response.set_cookie(key='show_login', value=True)
+        return response
 
 class Registration(View):
     class_form = CustomUserCreationForm

@@ -132,7 +132,11 @@ class Subscription(models.Model):
         subject, to = 'Subscription activated!', [self.email]
         html_content = render_to_string(
             'email_templates/subscription_activated.html',
-            {'subscription': self})
+            {
+                'subscription': self,
+                'service_password': self.service_password
+            }
+        )
 
         msg = EmailMultiAlternatives(subject, html_content, config.settings.DEFAULT_FROM_EMAIL,
                                      to=to,  headers={'From': 'noreplyexample@mail.com'})
