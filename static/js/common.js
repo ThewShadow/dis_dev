@@ -356,3 +356,8 @@ if (getCookie("paid_success") == "True") {
     document.cookie = "paid_success=null; path=/"
     popupOpen(SubscriptionPaidPopUp)
 }
+
+if (getCookie("show_login") == "True") {
+    document.cookie = "show_login=null; path=/"
+    popupOpen(loginPopUp)
+}
