@@ -103,7 +103,7 @@ window.addEventListener('load', () => {
 
 //^ style custom selects
 function setSelectLang() {
-	
+
 	$('.select').each(function () {
 		// Variables
 		var $this = $(this),
@@ -254,3 +254,16 @@ function togglePreview(current) {
 	previewImage.src = logo;
 
 }
+
+//^ copy invite link in boofer
+
+const inviteLink = document.querySelector('.invite__link')
+
+inviteLink.addEventListener('click', (e) => {
+	if (e.target.localName === 'button') {
+		const linkText = inviteLink.querySelector('a')
+		const url = window.location.origin
+		const fullInviteLink = `${url}/?${linkText}`
+		navigator.clipboard.writeText(fullInviteLink)
+	}
+})
