@@ -510,6 +510,7 @@ class ActivationEmail(View):
         try:
             user = CustomUser.objects.get(email=activation_email)
             user.is_verified = True
+            user.is_active = True
             user.save()
         except ObjectDoesNotExist:
             return JsonResponse({
