@@ -188,9 +188,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_URL = '/service/accounts/login/'
-LOGIN_REDIRECT_URL = '/site/'
-LOGOUT_REDIRECT_URL = '/site/'
-LOGIN_ERROR_URL = 'site/'
+LOGIN_REDIRECT_URL = '/profile/info/'
+LOGOUT_REDIRECT_URL = '/'
+LOGIN_ERROR_URL = '/unauthorized/'
 ACCOUNT_ACTIVATION_DAYS = 3
 AUTH_USER_EMAIL_UNIQUE = True
 
