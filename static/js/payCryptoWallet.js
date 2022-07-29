@@ -148,9 +148,11 @@ const listCurrency = {
 	'usdt': ['Blockchain ERC20 network', 'Blockchain Solana network', 'Blockchain BSC network',],
 }
 
-inputsCurrency.forEach(input => {
-	input.addEventListener('click', selectCurrency)
-})
+if (inputsCurrency !== null) {
+	inputsCurrency.forEach(input => {
+		input.addEventListener('click', selectCurrency)
+	})
+}
 
 function selectCurrency() {
 	inputsCurrency.forEach(input => {

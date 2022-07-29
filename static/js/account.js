@@ -10,7 +10,7 @@ if (btnInfo !== null) {
 	btnInfo.addEventListener('click', (e) => toggleBlocks(e.target));
 }
 
-if (btnSubscr !== null) {
+if (btnInfo !== null) {
 	btnSubscr.addEventListener('click', (e) => toggleBlocks(e.target));
 }
 
@@ -20,4 +20,6 @@ function toggleBlocks(curent) {
 	}
 }
 
-navBlock.addEventListener('click', () => navBlock.classList.toggle('opened'));
+if (navBlock !== null) {
+	navBlock.addEventListener('click', () => navBlock.classList.toggle('opened'));
+}
