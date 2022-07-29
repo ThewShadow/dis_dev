@@ -6,13 +6,18 @@ const allElems = [btnInfo, btnSubscr, blockInfo, blockSubscr];
 
 const navBlock = document.querySelector('.account__nav');
 
-btnInfo.addEventListener('click', (e) => toggleBlocks(e.target));
-btnSubscr.addEventListener('click', (e) => toggleBlocks(e.target));
+if (btnInfo !== null) {
+	btnInfo.addEventListener('click', (e) => toggleBlocks(e.target));
+}
+
+if (btnSubscr !== null) {
+	btnSubscr.addEventListener('click', (e) => toggleBlocks(e.target));
+}
 
 function toggleBlocks(curent) {
-  if (!curent.classList.contains('active')) {
-    allElems.forEach((el) => el.classList.toggle('active'));
-  }
+	if (!curent.classList.contains('active')) {
+		allElems.forEach((el) => el.classList.toggle('active'));
+	}
 }
 
 navBlock.addEventListener('click', () => navBlock.classList.toggle('opened'));

@@ -164,7 +164,6 @@ function setSelectLang() {
 				selectList.slideUp(dur);
 			}
 		});
-		console.log(fakeArrows)
 		fakeArrows.forEach(el => el.style.display = 'none')
 	});
 }
@@ -212,12 +211,15 @@ function togglePreview(current) {
 
 const inviteLink = document.querySelector('.invite__link')
 
-inviteLink.addEventListener('click', (e) => {
-    e.preventDefault()
-	if (e.target.localName === 'a') {
-		const linkText = inviteLink.innerText
-		const url = window.location.origin
-		const fullInviteLink = `${url}/?${linkText}`
-		navigator.clipboard.writeText(fullInviteLink.toLowerCase())
-	}
-})
+if (inviteLink !== null) {
+
+	inviteLink.addEventListener('click', (e) => {
+		e.preventDefault()
+		if (e.target.localName === 'a') {
+			const linkText = inviteLink.innerText
+			const url = window.location.origin
+			const fullInviteLink = `${url}/?${linkText}`
+			navigator.clipboard.writeText(fullInviteLink.toLowerCase())
+		}
+	})
+}
