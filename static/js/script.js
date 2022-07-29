@@ -180,17 +180,18 @@ const preview = document.querySelector('.subscribe__preview')
 const previewImage = document.querySelector('.subscribe__preview img')
 
 
-
-sudscribeWrap.addEventListener('click', (e) => {
-	let widthWindow = document.body.clientWidth;
-	if (widthWindow > 768) {
-		let current = e.target.closest('.subscribe__item')
-		if (current) {
-			toggleClass(current, sudscribeItems, 'active')
-			togglePreview(current)
-		}
-	}
-})
+if (sudscribeWrap != null) {
+    sudscribeWrap.addEventListener('click', (e) => {
+        let widthWindow = document.body.clientWidth;
+        if (widthWindow > 768) {
+            let current = e.target.closest('.subscribe__item')
+            if (current) {
+                toggleClass(current, sudscribeItems, 'active')
+                togglePreview(current)
+            }
+        }
+    })
+}
 
 
 
@@ -213,11 +214,13 @@ function togglePreview(current) {
 const inviteLink = document.querySelector('.invite__link')
 
 inviteLink.addEventListener('click', (e) => {
+
+
     e.preventDefault()
-	if (e.target.localName === 'a') {
-		const linkText = inviteLink.innerText
-		const url = window.location.origin
-		const fullInviteLink = `${url}/?${linkText}`
-		navigator.clipboard.writeText(fullInviteLink.toLowerCase())
-	}
+    const linkText = inviteLink.innerText
+    const url = window.location.origin
+    const fullInviteLink = `${url}/?${linkText}`
+    navigator.clipboard.writeText(fullInviteLink.toLowerCase()).then(function(x) {
+      alert("Link copied");
+    });
 })

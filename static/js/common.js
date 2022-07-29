@@ -361,3 +361,8 @@ if (getCookie("show_login") == "True") {
     document.cookie = "show_login=null; path=/"
     popupOpen(loginPopUp)
 }
+
+$('.register_success__button_ok').click((e)=>{
+    popupClose(VerifySuccessPopUp)
+
+})
