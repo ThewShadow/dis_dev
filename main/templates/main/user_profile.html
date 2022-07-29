@@ -1,12 +1,12 @@
 {% extends 'main/base.html' %}
 {% load i18n %}
-
+{% load static %}
 
 {% block title %}
 
 <title xmlns="http://www.w3.org/1999/html">{% trans "Profile" %}</title>
 
-{% endblock%}
+{% endblock %}
 
 {% block main %}
 <section class="account">
@@ -72,7 +72,7 @@
 			</div>
 
 		</div>
-		{% include 'blocks/invite.html' %}
+		{% include 'blocks/invite.html' %}s
 	</div>
 </section>
 
