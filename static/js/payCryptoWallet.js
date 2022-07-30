@@ -51,7 +51,9 @@ function next() {
 function setCountAndButtons() {
 	if (count <= 1) {
 		count = 1
-		btnPrew.style.display = 'none'
+		if (btnPrew !== null) {
+			btnPrew.style.display = 'none'
+		}
 	}
 
 	else if (count >= maxCount) {
@@ -146,9 +148,11 @@ const listCurrency = {
 	'usdt': ['Blockchain ERC20 network', 'Blockchain Solana network', 'Blockchain BSC network',],
 }
 
-inputsCurrency.forEach(input => {
-	input.addEventListener('click', selectCurrency)
-})
+if (inputsCurrency !== null) {
+	inputsCurrency.forEach(input => {
+		input.addEventListener('click', selectCurrency)
+	})
+}
 
 function selectCurrency() {
 	inputsCurrency.forEach(input => {

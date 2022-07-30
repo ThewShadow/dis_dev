@@ -164,7 +164,6 @@ function setSelectLang() {
 				selectList.slideUp(dur);
 			}
 		});
-		console.log(fakeArrows)
 		fakeArrows.forEach(el => el.style.display = 'none')
 	});
 }
@@ -181,16 +180,16 @@ const previewImage = document.querySelector('.subscribe__preview img')
 
 
 if (sudscribeWrap != null) {
-    sudscribeWrap.addEventListener('click', (e) => {
-        let widthWindow = document.body.clientWidth;
-        if (widthWindow > 768) {
-            let current = e.target.closest('.subscribe__item')
-            if (current) {
-                toggleClass(current, sudscribeItems, 'active')
-                togglePreview(current)
-            }
-        }
-    })
+	sudscribeWrap.addEventListener('click', (e) => {
+		let widthWindow = document.body.clientWidth;
+		if (widthWindow > 768) {
+			let current = e.target.closest('.subscribe__item')
+			if (current) {
+				toggleClass(current, sudscribeItems, 'active')
+				togglePreview(current)
+			}
+		}
+	})
 }
 
 
@@ -213,14 +212,16 @@ function togglePreview(current) {
 
 const inviteLink = document.querySelector('.invite__link')
 
-inviteLink.addEventListener('click', (e) => {
+if (inviteLink !== null) {
+	inviteLink.addEventListener('click', (e) => {
 
 
-    e.preventDefault()
-    const linkText = inviteLink.innerText
-    const url = window.location.origin
-    const fullInviteLink = `${url}/?${linkText}`
-    navigator.clipboard.writeText(fullInviteLink.toLowerCase()).then(function(x) {
-      alert("Link copied");
-    });
-})
+		e.preventDefault()
+		const linkText = inviteLink.innerText
+		const url = window.location.origin
+		const fullInviteLink = `${url}/?${linkText}`
+		navigator.clipboard.writeText(fullInviteLink.toLowerCase()).then(function (x) {
+			alert("Link copied");
+		});
+	})
+}
