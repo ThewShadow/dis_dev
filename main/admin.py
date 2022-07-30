@@ -11,11 +11,20 @@ class CustomUserAdmin(UserAdmin):
     form = CustomUserChangeForm
     model = CustomUser
     readonly_fields = ('id',)
-    list_display = ('email', 'is_staff', 'is_active', 'username', 'agent', 'is_verified', 'social_sign_up')
+    list_display = (
+        'email',
+        'is_staff',
+        'is_active',
+        'username',
+        'agent',
+        'is_verified',
+        'social_sign_up',
+    )
+
     list_filter = ('email', 'is_staff', 'is_active', 'username',)
     fieldsets = (
         (None, {'fields': ('id', 'username', 'email', 'password', 'agent', 'social_sign_up')}),
-        ('Permissions', {'fields': ('is_staff', 'is_active', 'is_verified')}),
+        ('Permissions', {'fields': ('is_staff', 'is_active', 'is_verified', 'user_permissions')}),
     )
     add_fieldsets = (
         (None, {
@@ -23,6 +32,7 @@ class CustomUserAdmin(UserAdmin):
             'fields': ('username', 'email', 'password1', 'password2', 'is_staff', 'is_active', 'id')}
         ),
     )
+    filter_horizontal = ('groups', 'user_permissions',)
     search_fields = ('email',)
     ordering = ('email',)
 
