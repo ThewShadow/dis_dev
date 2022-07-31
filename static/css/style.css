@@ -2279,6 +2279,10 @@ select[name='language']::after {
   transition: all 0.4s ease 0s;
 }
 
+.invite__msg-copied.active {
+	top: 100px;
+  }
+
 .about {
   position: relative;
 }
