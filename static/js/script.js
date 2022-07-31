@@ -216,14 +216,15 @@ let msgCopied = document.querySelector('.invite__msg-copied')
 
 if (inviteLink !== null) {
 	inviteLink.addEventListener('click', (e) => {
-		e.preventDefault()
-		const linkText = inviteLink.querySelector('span').innerText
-		const url = window.location.origin
-		const fullInviteLink = `${url}/?${linkText}`
-		navigator.clipboard.writeText(fullInviteLink.toLowerCase())
-		msgCopied.classList.add('active')
-		setTimeout(() => {
-			msgCopied.classList.remove('active')
-		}, 1500)
+		if (e.target.localName === 'button') {
+			const linkText = inviteLink.querySelector('span').innerText
+			const url = window.location.origin
+			const fullInviteLink = `${url}/?${linkText}`
+			navigator.clipboard.writeText(fullInviteLink.toLowerCase())
+			msgCopied.classList.add('active')
+			setTimeout(() => {
+				msgCopied.classList.remove('active')
+			}, 1500)
+		}
 	})
 }
