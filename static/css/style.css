@@ -2219,7 +2219,7 @@ select[name='language']::after {
   font-size: 20px;
 }
 
-.invite__link-block a {
+.invite__link-block span {
   font-weight: 500;
   font-size: 20px;
   text-decoration: underline;
@@ -2259,6 +2259,26 @@ select[name='language']::after {
   justify-content: center;
   margin: 0 auto;
 }
+
+.invite__msg-copied {
+  position: fixed;
+  top: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  min-height: 80px;
+  width: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f1f4f8;
+  border-radius: 16px;
+  z-index: 300;
+  font-size: 26px;
+  padding: 20px;
+  border: 1px solid #1749b3;
+  transition: all 0.4s ease 0s;
+}
+
 .about {
   position: relative;
 }
@@ -3941,7 +3961,7 @@ select[name='language']::after {
     font-size: 18px;
   }
 
-  .invite__link-block a {
+  .invite__link-block span {
     font-size: 18px;
   }
 
@@ -4486,7 +4506,7 @@ select[name='language']::after {
     font-size: 16px;
   }
 
-  .invite__link-block a {
+  .invite__link-block span {
     font-size: 14px;
   }
 

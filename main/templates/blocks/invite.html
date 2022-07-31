@@ -8,10 +8,13 @@
     </div>
     <div class="invite__link-block">
         <p>{% trans 'Click on the link' %}</p>
-        <div class="">
-            <a href="" class="invite__link">{{ refer_link }}</a>
-
+        <div class="invite__link">
+            <span>{{ refer_link }}</span>
+			<button></button>
         </div>
+		<div class="invite__msg-copied">
+			Link copied
+		</div>
     </div>
 </div>
 {% endif %}
