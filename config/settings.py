@@ -66,6 +66,7 @@ INSTALLED_APPS = [
     'main.apps.MainConfig',
     'phonenumber_field',
     'service.apps.ServiceConfig',
+    'debug_toolbar',
 ]
 
 SITE_ID = 1
@@ -79,8 +80,13 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'main.middleware.ExceptionLoggingMiddleware'
+    'main.middleware.ExceptionLoggingMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 
+]
+
+INTERNAL_IPS = [
+    "127.0.0.1",
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -198,7 +204,6 @@ AUTH_USER_MODEL = 'main.CustomUser'
 
 
 AUTHENTICATION_BACKENDS = (
-    #'django.contrib.auth.backends.ModelBackend',
     'main.backends.EmailBackend',
 )
 

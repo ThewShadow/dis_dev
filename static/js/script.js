@@ -208,20 +208,23 @@ function togglePreview(current) {
 
 }
 
+
 //^ copy invite link in boofer
 
 const inviteLink = document.querySelector('.invite__link')
+let msgCopied = document.querySelector('.invite__msg-copied')
 
 if (inviteLink !== null) {
 	inviteLink.addEventListener('click', (e) => {
-
-
-		e.preventDefault()
-		const linkText = inviteLink.innerText
-		const url = window.location.origin
-		const fullInviteLink = `${url}/?${linkText}`
-		navigator.clipboard.writeText(fullInviteLink.toLowerCase()).then(function (x) {
-			alert("Link copied");
-		});
+		if (e.target.localName === 'button') {
+			const linkText = inviteLink.querySelector('span').innerText
+			const url = window.location.origin
+			const fullInviteLink = `${url}/?${linkText}`
+			navigator.clipboard.writeText(fullInviteLink.toLowerCase())
+			msgCopied.classList.add('active')
+			setTimeout(() => {
+				msgCopied.classList.remove('active')
+			}, 1500)
+		}
 	})
 }

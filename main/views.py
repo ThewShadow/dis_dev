@@ -15,7 +15,7 @@ from .forms import ChangeUserInfoForm
 from .forms import ChangeSubscibeStatusForm
 from .forms import SubscribeCreateForm
 from django.contrib.auth import logout
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth.models import User
 from django.http import Http404
 import logging
@@ -126,6 +126,7 @@ class ProfileView(LoginRequiredMixin, FormView):
         context['object'] = get_object_or_404(CustomUser, id=self.request.user.id)
         context['form'] = ChangeUserInfoForm(initial=initial_data)
         context['questions_list'] = FAQ.objects.all()
+        context['agent'] = user_inst.agent
         return context
 
     def post(self, *args, **kwargs):

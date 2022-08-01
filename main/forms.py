@@ -58,8 +58,6 @@ class CustomUserCreationForm(ModelForm):
     def save(self, commit=True):
         user = super().save(commit=False)
         user.set_password(self.cleaned_data["password"])
-        user.set_agent(self.cleaned_data["ref_link"])
-
         if commit:
             user.save()
         return user
