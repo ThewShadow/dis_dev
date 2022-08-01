@@ -334,7 +334,7 @@ class Login(View):
                 status=401
             )
 
-        login(self.request, user)
+        login(self.request, user=user, backend='main.backends.EmailBackend')
 
         return JsonResponse({'success': True}, status=200)
 
@@ -343,11 +343,11 @@ class Login(View):
         response.set_cookie(key='show_login', value=True)
         return response
 
+
 class Registration(View):
     class_form = CustomUserCreationForm
 
     def post(self, request, **kwargs):
-
         form = self.class_form(self.request.POST)
         if not form.is_valid():
             return JsonResponse({
@@ -357,8 +357,11 @@ class Registration(View):
                 status=400
             )
 
+        agent_id = request.COOKIES.get('ref_link', '').lstrip('0')
+
         new_customer = form.save(commit=False)
-        new_customer.set_agent(request.COOKIES.get('ref_link'))
+        if agent_id:
+            new_customer.set_agent(agent_id)
         new_customer.save()
 
         activation_code = service.gen_verify_code()
@@ -512,13 +515,15 @@ class ActivationEmail(View):
             user.is_verified = True
             user.is_active = True
             user.save()
-        except ObjectDoesNotExist:
+        except CustomUser.DoesNotExist:
             return JsonResponse({
                     'success': False,
                     'message': _('User is not found')
                 },
                 status=400
             )
+
+        login(self.request, user=user, backend='main.backends.EmailBackend')
 
         return JsonResponse({"success": True})
 

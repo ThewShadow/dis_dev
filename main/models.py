@@ -36,18 +36,30 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     objects = CustomUserManager()
     social_sign_up = models.BooleanField(default=False)
 
-    agent = models.ForeignKey('CustomUser', on_delete=models.SET_DEFAULT, default=1)
+    agent = models.ForeignKey(
+        'self',
+        on_delete=models.SET_DEFAULT,
+        default=1,
+        related_name='referrals')
 
     def __str__(self):
         return self.email
 
     def set_agent(self, agent_id):
-        if not agent_id:
+        if not agent_id.strip():
             return
+
+        if self.agent:
+            logger.warning(f'Agent is already installedref_link: {agent_id}')
+            return
+
         try:
-            self.agent = CustomUser.objects.get(id=agent_id.lstrip('0'))
+            agent = CustomUser.objects.get(id=agent_id)
         except CustomUser.DoesNotExist:
-            logger.warning(f'Agent not found. ref_link: {agent_id.lstrip("0")}')
+            logger.warning(f'Agent not found. ref_link: {agent_id=}')
+            return
+
+        self.agent = agent
 
 
 class Rate(models.Model):
@@ -84,10 +96,10 @@ class Feature(models.Model):
 
 class Offer(models.Model):
     name = models.CharField(max_length=200, default='')
-    rate = models.ForeignKey('Rate', on_delete=models.CASCADE, null=True)
+    rate = models.ForeignKey('Rate', on_delete=models.SET_NULL, null=True)
     price = models.IntegerField(default=0)
-    product = models.ForeignKey('Product', on_delete=models.CASCADE)
-    currency = models.ForeignKey('Currency', on_delete=models.CASCADE, null=True)
+    product = models.ForeignKey('Product', on_delete=models.PROTECT)
+    currency = models.ForeignKey('Currency', on_delete=models.SET_NULL, null=True)
     description = models.TextField(null=True)
     features = models.ManyToManyField('Feature')
 
@@ -109,7 +121,7 @@ class Product(models.Model):
 
 class Subscription(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True)
-    offer = models.ForeignKey('Offer', on_delete=models.CASCADE, null=True)
+    offer = models.ForeignKey('Offer', on_delete=models.PROTECT, null=True)
     email = models.EmailField(max_length=250)
     phone_number = PhoneNumberField(null=True)
     order_date = models.DateTimeField(auto_now_add=True, null=True)

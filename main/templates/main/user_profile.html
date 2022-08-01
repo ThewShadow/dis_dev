@@ -44,8 +44,31 @@
 						</svg>
 						{% trans 'My Subscriptions' %}
 					</a>
+					<br>
+					<h4>Agent</h4>
+					<p>{{ agent }}</p>
+					<h4>Referrals</h4>
+					<p></p>
+					<br>
+					<ul>
+					{% for referr in referrals %}
 
+						<li><b>&nbsp - referr: {{ referr }}</b>
+
+						</li>
+					{% endfor %}
+					</ul>
+
+					<br>
+					<h4>Agents</h4>
+						{% for agent in agents %}
+
+						<li><b>&nbsp - agent: {{ agent }})</b>
+
+						</li>
+					{% endfor %}
 				</div>
+
 				<div class="account__edit-data">
 					<div class="account__info bg-white active">
 						<h3>{% trans 'Account info' %}</h3>
@@ -72,7 +95,7 @@
 			</div>
 
 		</div>
-		{% include 'blocks/invite.html' %}s
+		{% include 'blocks/invite.html' %}
 	</div>
 </section>
 

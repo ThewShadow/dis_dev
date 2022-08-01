@@ -17,5 +17,7 @@ def base_context(request):
 
     if request.user.is_authenticated:
         common_context['refer_link'] = f'ref={str(request.user.id).zfill(7)}'
+        common_context['referrals'] = request.user.referrals.all()
+        common_context['agents'] = CustomUser.objects.all().only('agent', 'username')
 
     return common_context
