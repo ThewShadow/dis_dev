@@ -357,7 +357,10 @@ class Registration(View):
                 status=400
             )
 
-        agent_id = request.COOKIES.get('ref_link', '').lstrip('0')
+        try:
+            agent_id = int(request.COOKIES.get('ref_link', '').lstrip('0'))
+        except ValueError:
+            agent_id = None
 
         new_customer = form.save(commit=False)
         if agent_id:

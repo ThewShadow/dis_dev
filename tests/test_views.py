@@ -66,11 +66,19 @@ class TestRegistration(TestCase):
         agent.is_superuser = True
         agent.save()
 
+        agent1 = CustomUser.objects.create_user(email='www1@gmail.com', password='123')
+        agent1.is_verified = True
+        agent1.is_active = True
+        agent1.is_superuser = True
+        agent1.save()
+
     def setUp(self):
         pass
 
     def test_user_registration(self):
         c = Client(HTTP_USER_AGENT='Mozilla/5.0')
+
+        c.cookies.load({'ref_link': '0000002'})
 
         resp = c.post(reverse('service:registration'), data=self.register_data)
         self.assertEqual(resp.status_code, 201, msg=f'Register fail {resp.json()}')
@@ -94,5 +102,5 @@ class TestRegistration(TestCase):
 
         user = CustomUser.objects.filter(email=auth_data.email).first()
         self.assertEqual(type(user.agent), CustomUser, msg='User agent not set')
-        self.assertEqual(user.agent.email, 'www@gmail.com', msg='User agent different')
+        self.assertEqual(user.agent.email, 'www1@gmail.com', msg='User agent different')
 
