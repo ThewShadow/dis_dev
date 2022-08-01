@@ -46,15 +46,11 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         return self.email
 
     def set_agent(self, agent_id):
-        if not agent_id.strip():
-            return
-
-        if self.agent:
-            logger.warning(f'Agent is already installedref_link: {agent_id}')
+        if not agent_id or not isinstance(agent_id, int):
             return
 
         try:
-            agent = CustomUser.objects.get(id=agent_id)
+            agent = CustomUser.objects.get(id=int(agent_id))
         except CustomUser.DoesNotExist:
             logger.warning(f'Agent not found. ref_link: {agent_id=}')
             return
