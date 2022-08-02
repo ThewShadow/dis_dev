@@ -2780,6 +2780,7 @@ select[name='language']::after {
   -webkit-transition: all 0.4s ease 0s;
   -o-transition: all 0.4s ease 0s;
   transition: all 0.4s ease 0s;
+  margin-bottom: 30px;	
 }
 
 .account__nav::before {
@@ -2855,14 +2856,21 @@ select[name='language']::after {
   flex: 1 1 auto;
 }
 
+.account__edit-data > div[data-block] {
+	display: none;
+}
+.account__edit-data > div[data-block].active {
+	display: block;
+}
+
 .account__info {
-  display: none;
+  /* display: none; */
   padding: 40px;
 }
 
-.account__info.active {
+/* .account__info.active {
   display: block;
-}
+} */
 
 .account__info h3 {
   font-weight: 700;
@@ -2927,13 +2935,13 @@ select[name='language']::after {
   width: 100%;
 }
 
-.account__subscr {
+/* .account__subscr {
   display: none;
 }
 
 .account__subscr.active {
   display: block;
-}
+} */
 
 .account__subscr .account__subscr-item:not(:last-child) {
   margin-bottom: 16px;
