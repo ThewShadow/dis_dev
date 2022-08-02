@@ -2280,12 +2280,12 @@ select[name='language']::after {
   opacity: 70%;
 }
 .invite__msg-copied img {
-    opacity: 70%;
+  opacity: 70%;
 }
 
 .invite__msg-copied.active {
-	top: 100px;
-  }
+  top: 100px;
+}
 
 .about {
   position: relative;
@@ -2780,7 +2780,7 @@ select[name='language']::after {
   -webkit-transition: all 0.4s ease 0s;
   -o-transition: all 0.4s ease 0s;
   transition: all 0.4s ease 0s;
-  margin-bottom: 30px;	
+  margin-bottom: 30px;
 }
 
 .account__nav::before {
@@ -2857,10 +2857,10 @@ select[name='language']::after {
 }
 
 .account__edit-data > div[data-block] {
-	display: none;
+  display: none;
 }
 .account__edit-data > div[data-block].active {
-	display: block;
+  display: block;
 }
 
 .account__info {
@@ -3345,6 +3345,10 @@ select[name='language']::after {
   font-weight: 500;
 }
 
+.menu__list .submenu-block__support_svg {
+  display: block !important;
+}
+
 @media (min-width: 769px) {
   .tariff:hover {
     -webkit-transform: scale(103%);
@@ -3408,6 +3412,30 @@ select[name='language']::after {
 @media (max-width: 992px) {
   .submenu-block__services {
     display: none !important;
+  }
+
+  .submenu-block__support {
+    display: none !important;
+  }
+
+  .header__mobile__support {
+    margin-top: 24px;
+  }
+  .header__mobile__support li:first-child {
+    margin-bottom: 30px;
+  }
+  .header__mobile__support li:first-child a {
+    position: relative;
+    top: 6px;
+    padding-left: 17px;
+  }
+  .header__mobile__support li:not(first-child) a {
+    padding-left: 0;
+    margin-bottom: 10px;
+  }
+  .header__mobile__support li:not(first-child) {
+    margin-bottom: 10px;
+    min-height: 10px;
   }
 
   .select {
