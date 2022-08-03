@@ -61,3 +61,31 @@ function lockBody(action) {
     body.classList.remove('lock');
   }
 }
+
+
+//^ Input image file
+
+const inputFileWrapper = document.querySelector('.popup__input-file');
+const inputFile = inputFileWrapper.querySelector('input');
+const showResult = inputFileWrapper.querySelector('.popup__input-file-preview');
+
+const verifiedTypes = ['image/jpg', 'image/jpeg', 'image/png', 'image/gif'];
+
+if (inputFileWrapper !== null) {
+  inputFile.addEventListener('change', () => {
+    let file = inputFile.files[0];
+    if (!verifiedTypes.includes(file.type)) {
+      showResult.innerHTML = 'Помилка. Дозволені тільки зображення';
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      showResult.innerHTML = `<img src="${e.target.result}" alt="upload image" />`;
+    };
+    reader.onerror = () => {
+      showResult.innerHTML = 'Помилка. Спробуйте ще раз';
+    };
+    reader.readAsDataURL(file);
+  });
+}

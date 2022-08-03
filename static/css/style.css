@@ -1447,6 +1447,54 @@ select[name='language']::after {
   color: #8f8f8f;
 }
 
+/* popup-support */
+
+.popup__textarea-block {
+  margin-bottom: 0 !important;
+}
+
+.popup__textarea-block textarea {
+  resize: none;
+  background: #f1f4f8;
+  border: 1px solid #f1f4f8;
+  border-radius: 8px;
+  width: 100%;
+  min-height: 160px;
+  padding: 16px 24px;
+  font-size: 15px;
+  font-family: 'Inter';
+}
+.popup__textarea-block textarea::placeholder {
+  color: #8f8f8f;
+}
+
+.popup__input-file input {
+  position: absolute;
+  clip: rect(0 0 0 0);
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+}
+.popup__input-file p {
+  display: flex;
+  align-items: center;
+  color: #070033;
+  cursor: pointer;
+}
+.popup__input-file svg {
+  margin-right: 16px;
+  max-width: 19px;
+  max-height: 19px;
+}
+
+.popup__input-file-preview {
+  padding-top: 15px;
+}
+
+.popup__input-file-preview img {
+  max-width: 50px;
+}
+
 .popup__input-password {
   position: relative;
 }
