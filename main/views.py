@@ -21,8 +21,20 @@ from django.http import Http404
 import logging
 from config import settings
 from django.core.paginator import Paginator
+from slick_reporting.views import SlickReportView
+from slick_reporting.fields import SlickReportField
 
 logger = logging.getLogger('main')
+
+
+class TotalProductSales(SlickReportView):
+    date_field = 'date_joined'
+    report_model = CustomUser
+    group_by = 'agent'
+    columns = [
+        'username',
+        'email'
+    ]
 
 
 class IndexView(ListView):

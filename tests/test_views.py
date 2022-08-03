@@ -32,7 +32,7 @@ class TestLogin(TestCase):
         c = Client(HTTP_USER_AGENT='Mozilla/5.0')
         c.logout()
 
-    def test_login_if_user_exists(self):
+    def test_login(self):
         c = Client(HTTP_USER_AGENT='Mozilla/5.0')
         login_data = {
             'email': auth_data.email,
@@ -41,7 +41,7 @@ class TestLogin(TestCase):
         resp = c.post(reverse('service:login'), data=login_data)
         self.assertEqual(resp.status_code, 200, msg=resp.json())
 
-    def test_authorized_users_can_go_to_profile(self):
+    def test_login_ajax(self):
         c = Client(HTTP_USER_AGENT='Mozilla/5.0')
         login = c.login(username=auth_data.email, password=auth_data.password)
         self.assertEqual(login, True, msg='login is fall')
@@ -75,7 +75,7 @@ class TestRegistration(TestCase):
     def setUp(self):
         pass
 
-    def test_user_registration(self):
+    def test_registration_ajax(self):
         c = Client(HTTP_USER_AGENT='Mozilla/5.0')
 
         c.cookies.load({'ref_link': '0000002'})

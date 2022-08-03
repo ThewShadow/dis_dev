@@ -72,13 +72,14 @@ class CustomUserChangeForm(UserChangeForm):
 class SubscribeForm(ModelForm):
     class Meta:
         model = Subscription
-        fields = ('offer', 'email', 'user', 'phone_number',)
+        fields = ('offer', 'email', 'user', 'phone_number', 'service_password', 'is_exist_account')
 
         widgets = {
             'user': TextInput(attrs={
                 'type': 'hidden'
             }),
         }
+
 
 
 class SupportCreateTaskForm(ModelForm):
@@ -112,6 +113,13 @@ class SubscribeCreateForm(ModelForm):
     email = forms.EmailField()
     phone_number = PhoneNumberField()
     user_name = forms.CharField(max_length=250)
+    service_password = forms.CharField(max_length=250, required=False)
+    is_exist_account = forms.BooleanField(required=False)
+    communication_preferences = forms.ChoiceField(
+        choices=Subscription.communication_choices,
+        widget=forms.RadioSelect,
+        initial='wa'
+    )
 
     class Meta:
         model = Subscription
@@ -121,7 +129,21 @@ class SubscribeCreateForm(ModelForm):
             'user_name',
             'user',
             'offer',
+            'service_password',
+            'is_exist_account',
+            'communication_preferences'
         )
+
+    def clean(self):
+        super().clean()
+        service_password = self.cleaned_data['service_password']
+        is_exist_account = self.cleaned_data['is_exist_account']
+        print(len(service_password.strip()))
+        if len(service_password.strip()) == 0 \
+                and is_exist_account:
+            self.add_error('service_password', _('This field is required for existing account'))
+
+
 
     def save(self, commit=True):
         subscription = super().save(commit=False)

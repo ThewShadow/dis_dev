@@ -38,21 +38,16 @@ class SubscriptionCreate(View):
         selected_offer_id = request.POST.get('offer_id', 0)
         offer = get_object_or_404(Offer, id=selected_offer_id)
 
-        try:
-            instance = Subscription.objects.get(
-                id=request.session['current_sub_id']
-            )
-        except (KeyError, Subscription.DoesNotExist):
-            instance = None
-
         form = self.class_form({
                 'user': request.user,
                 'email': request.POST.get('email'),
                 'phone_number': request.POST.get('phone_number'),
                 'offer': offer,
                 'user_name': request.POST.get('user_name'),
+                'service_password': request.POST.get('service_password'),
+                'is_exist_account': request.POST.get('is_exist_account'),
+                'communication_preferences': request.POST.get('communication_preferences')
             },
-            instance=instance
         )
 
         if form.is_valid():
@@ -67,11 +62,9 @@ class SubscriptionCreate(View):
                 status=400
             )
 
-        if not instance:
-            # this is a new subscription, management must be notified.
-            thread = threading.Thread(
-                target=new_subscription.notify_managers)
-            thread.start()
+        thread = threading.Thread(
+            target=new_subscription.notify_managers)
+        thread.start()
 
         return JsonResponse({
                 'success': True,

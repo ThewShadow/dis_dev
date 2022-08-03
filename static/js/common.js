@@ -25,6 +25,7 @@ $('.logout-button').click(function (event) {
     event.preventDefault();
     popupOpen(LogoutPopUp);
 });
+
 $('.popup__logout-cancel').click(function (event) {
     event.preventDefault();
     popupClose(LogoutPopUp);
@@ -45,6 +46,13 @@ $('.register-button').click(function (event){
     event.preventDefault();
     register();
 });
+
+
+$('.register_success__button_ok').click((e)=>{
+    popupClose(VerifySuccessPopUp)
+})
+
+
 
 $(".get-started-button").click(function (event){
     event.preventDefault();
@@ -277,6 +285,7 @@ function createSubscription() {
     $("#"+form_id+" .email_errors").empty();
     $("#"+form_id+" .user_name_errors").empty();
     $("#"+form_id+" .phone_number_errors").empty();
+    $("#"+form_id+" .service_password_errors").empty();
     $("#"+form_id+" .message").empty();
 
     if (offer_id.length) {
@@ -351,7 +360,6 @@ function getJson(data_array) {
     return post_data;
 }
 
-
 if (getCookie("paid_success") == "True") {
     document.cookie = "paid_success=null; path=/"
     popupOpen(SubscriptionPaidPopUp)
@@ -361,8 +369,3 @@ if (getCookie("show_login") == "True") {
     document.cookie = "show_login=null; path=/"
     popupOpen(loginPopUp)
 }
-
-$('.register_success__button_ok').click((e)=>{
-    popupClose(VerifySuccessPopUp)
-
-})

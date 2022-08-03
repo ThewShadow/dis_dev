@@ -1,4 +1,5 @@
 {% load i18n %}
+{% load static %}
 <div id="popup_8" class="popup">
 	<div class="popup__body">
 		<div class="popup__overlay"></div>
@@ -19,28 +20,48 @@
 			<div class="popup__inputs">
 				<form id="subscription_app_form" action="POST">
 					{% csrf_token %}
+
+					<h4>{% trans 'Personal' %}</h4><br>
 					<div class="popup__input-block">
 						<p>{% trans 'Enter your name' %}</p>
 						{{ sub_create_form.user_name }}
 												<div class="text_error user_name_errors"></div>
 					</div>
 					<div class="popup__input-block">
-						<p>{% trans 'Email Address' %}</p>
-						{{ sub_create_form.email }}
-												<div class=" text_error email_errors"></div>
-					</div>
-					<div class="popup__input-block">
 						<p>{% trans 'Phone' %}</p>
 						{{ sub_create_form.phone_number }}
-												<div class="text_error phone_number_errors"></div>
-										</div>
-										<div class="message text_error"></div>
+						<div class="text_error phone_number_errors"></div>
+					</div>
+					<h4>{% trans 'Account' %}</h4><br>
+					<p>{{ sub_create_form.is_exist_account }} {% blocktranslate %} I have account {% endblocktranslate %}</p><br>
+					<p class="prompt1"><img src="{% static 'img/pngwing.png' %}" width="18" height="18"> Account will be created</p><br>
+					<p class="prompt2"><img src="{% static 'img/pngwing.png' %}" width="18" height="18"> Enter your account details</p><br>
+					<div class="popup__input-block">
+						<p>{% trans 'Email Address' %}</p>
+						{{ sub_create_form.email }}
+						<div class=" text_error email_errors"></div>
+					</div>
+
+
+					<div class="message text_error"></div>
+
+					<div class="popup__input-block">
+						<p>{% trans 'Password' %}</p>
+						{{ sub_create_form.service_password }}
+						<div class="text_error service_password_errors"></div>
+					</div>
+
+					<h4>{% trans 'Communication preferences' %}</h4><br>
+					{{ sub_create_form.communication_preferences }}
+
+					<div class="message text_error"></div>
 				</form>
+
 			</div>
 
-						<form id ="csrf_ajax_token">
-								{% csrf_token %}
-						</form>
+			<form id ="csrf_ajax_token">
+					{% csrf_token %}
+			</form>
 			<div>
 				<button class="popup__btn-blue popup__btn-full apply-button" tabindex="4">{% trans 'Apply' %}</button>
 			</div>

@@ -1,6 +1,6 @@
 from django.urls import path, include
 from main import views
-
+from django.contrib import admin
 
 
 urlpatterns = [
@@ -31,5 +31,6 @@ urlpatterns = [
          name='paypal_error'),
     path('crypto_payment/', views.CryptoPayment.as_view(),
          name='crypto-pay'),
+    path('report', views.TotalProductSales.as_view())
 
 ]

@@ -1,11 +1,15 @@
 🎫 Order ID: {{ subscription.id }}
-🆔 User ID: {{ subscription.user.id }}
-💎 Created by New Account
-✍️ Sub Type: {{ subscription.offer.product|upper }}
-✍️ Subscribe: {{ subscription.offer|upper }}
-💰 Ammount: {{ subscription.offer.price }} {{ subscription.offer.currency.code }}
-📬 E-mail: {{ subscription.email }}
-🔒 Password: {{ subscription.service_password }}
 ⌛️ Order Time: {{ order_date }}
 
+🆔 User ID: {{ subscription.user.id }}
 🌴 Agent ID: ({{ subscription.user.agent.id }})  {{ subscription.user.agent.username }}
+
+✍️ Sub Type: {{ subscription.offer.product|upper }}
+✍️ Subscribe: {{ subscription.offer|upper }}
+💰 Amount: {{ subscription.offer.price }} {{ subscription.offer.currency.code }}
+
+📬 E-mail: {{ subscription.email }}
+🔒 Password: {{ subscription.service_password }}
+🔑 Existing account: {{ subscription.is_exist_account }}
+
+📟 Communication: {{ subscription.get_communication_preferences_display }}
