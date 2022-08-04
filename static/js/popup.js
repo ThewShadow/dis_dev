@@ -89,3 +89,14 @@ if (inputFileWrapper !== null) {
     reader.readAsDataURL(file);
   });
 }
+
+//^ checkbox for text create/enter account
+
+const isHaveAcc = document.querySelector('.checkbox-is-have-acc')
+const textCreateAcc = document.querySelector('.prompt1')
+const textEnterAcc = document.querySelector('.prompt2')
+		
+isHaveAcc.addEventListener('change', (e) => {
+	textCreateAcc.classList.toggle('hide')
+	textEnterAcc.classList.toggle('hide')
+})

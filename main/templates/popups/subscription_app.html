@@ -33,9 +33,17 @@
 						<div class="text_error phone_number_errors"></div>
 					</div>
 					<h4>{% trans 'Account' %}</h4><br>
-					<p>{{ sub_create_form.is_exist_account }} {% blocktranslate %} I have account {% endblocktranslate %}</p><br>
-					<p class="prompt1"><img src="{% static 'img/pngwing.png' %}" width="18" height="18"> Account will be created</p><br>
-					<p class="prompt2"><img src="{% static 'img/pngwing.png' %}" width="18" height="18"> Enter your account details</p><br>
+
+					<div>
+						<label>
+							<input type="checkbox" class="checkbox-is-have-acc">
+							<span>{{ sub_create_form.is_exist_account }} {% blocktranslate %} I have account {% endblocktranslate %}</span>
+						</label>
+						<p class="prompt1"><img src="{% static 'img/pngwing.png' %}" width="18" height="18"> Account will be created</p>
+						<p class="prompt2 hide"><img src="{% static 'img/pngwing.png' %}" width="18" height="18"> Enter your account details</p>
+						<br>
+					</div>
+
 					<div class="popup__input-block">
 						<p>{% trans 'Email Address' %}</p>
 						{{ sub_create_form.email }}
