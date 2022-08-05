@@ -62,7 +62,6 @@ function lockBody(action) {
   }
 }
 
-
 //^ Input image file
 
 const inputFileWrapper = document.querySelector('.popup__input-file');
@@ -92,11 +91,13 @@ if (inputFileWrapper !== null) {
 
 //^ checkbox for text create/enter account
 
-const isHaveAcc = document.querySelector('.checkbox-is-have-acc')
-const textCreateAcc = document.querySelector('.prompt1')
-const textEnterAcc = document.querySelector('.prompt2')
-		
+const isHaveAcc = document.querySelector('.checkbox-is-have-acc');
+const textCreateAcc = document.querySelector('.prompt1');
+const textEnterAcc = document.querySelector('.prompt2');
+const passwordAcc = document.querySelector('.prompt-passw');
+
 isHaveAcc.addEventListener('change', (e) => {
-	textCreateAcc.classList.toggle('hide')
-	textEnterAcc.classList.toggle('hide')
-})
+  textCreateAcc.classList.toggle('hide');
+  textEnterAcc.classList.toggle('hide');
+  passwordAcc.classList.toggle('hide');
+});
