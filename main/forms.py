@@ -114,11 +114,18 @@ class SubscribeCreateForm(ModelForm):
     phone_number = PhoneNumberField()
     user_name = forms.CharField(max_length=250)
     service_password = forms.CharField(max_length=250, required=False)
-    is_exist_account = forms.BooleanField(required=False)
+
+    is_exist_account = forms.BooleanField(
+        required=False,
+        widget=forms.CheckboxInput(attrs={
+                'class': 'checkbox-is-have-acc',
+            }),
+        initial=True)
+
     communication_preferences = forms.ChoiceField(
         choices=Subscription.communication_choices,
         widget=forms.RadioSelect,
-        initial='wa'
+        initial='wa',
     )
 
     class Meta:
@@ -133,15 +140,18 @@ class SubscribeCreateForm(ModelForm):
             'is_exist_account',
             'communication_preferences'
         )
-
+        # widgets = {
+        #     'is_exist_account': forms.CheckboxInput(attrs={
+        #         'class': 'checkbox-is-have-acc',
+        #     }),
+        # }
     def clean(self):
         super().clean()
         service_password = self.cleaned_data['service_password']
         is_exist_account = self.cleaned_data['is_exist_account']
-        print(len(service_password.strip()))
         if len(service_password.strip()) == 0 \
                 and is_exist_account:
-            self.add_error('service_password', _('This field is required for existing account'))
+            self.add_error('service_password', _('This field is required'))
 
 
 
