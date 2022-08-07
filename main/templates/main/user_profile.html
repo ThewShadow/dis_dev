@@ -24,7 +24,7 @@
 			</a>
 			<div class="account__content">
 				<div class="account__nav">
-					<a href="{% url 'profile' %}" class="account__btn-info
+					<a href="#" class="account__btn-info
 					{% if 'profile' in request.path %} active {%endif%}" data-link="1">
 						<svg width="20" height="21" viewBox="0 0 20 21" fill="none"
 							xmlns="http://www.w3.org/2000/svg">
@@ -34,7 +34,7 @@
 						</svg>
 						{% trans 'Account info' %}
 					</a>
-					<a href="{% url 'user_subscriptions' %}" class="account__btn-subscr
+					<a href="#" class="account__btn-subscr
 						{% if 'subscription' in request.path %} active {%endif%}" data-link="2">
 						<svg width="20" height="18" viewBox="0 0 20 18" fill="none"
 							xmlns="http://www.w3.org/2000/svg">
@@ -44,7 +44,7 @@
 						</svg>
 						{% trans 'My Subscriptions' %}
 					</a>
-					<a href="##" data-link="3">
+					<a href="#" data-link="3">
 						<svg
                      	 width="20"
                      	 height="20"
@@ -59,7 +59,7 @@
                    		</svg>
 						Список рефералів
 					</a>
-					<a href="##" data-link="4">
+					<a href="#" data-link="4">
 						<svg
                    		    width="19"
                   		    height="18"
@@ -74,29 +74,6 @@
                     	</svg>
 						Зведений звіт
 					</a>
-<!--					<br>-->
-<!--					<h4>Agent</h4>-->
-<!--					<p>{{ agent }}</p>-->
-<!--					<h4>Referrals</h4>-->
-<!--					<p></p>-->
-<!--					<br>-->
-<!--					<ul>-->
-<!--					{% for referr in referrals %}-->
-
-<!--						<li><b>&nbsp - referr: {{ referr }}</b>-->
-
-<!--						</li>-->
-<!--					{% endfor %}-->
-<!--					</ul>-->
-
-<!--					<br>-->
-<!--					<h4>Agents</h4>-->
-<!--						{% for agent in agents %}-->
-
-<!--						<li><b>&nbsp - agent: {{ agent }})</b>-->
-
-<!--						</li>-->
-<!--					{% endfor %}-->
 				</div>
 
 				<div class="account__edit-data">
@@ -107,7 +84,7 @@
 							<div class="account__info-inputs">
 								<label>
 									<p>{% trans 'ID user' %}</p>
-									<input disabled name="user_id" type="text" id="id_user_pk" value="{{ object.pk }}" >
+									<input disabled name="user_id" type="text" id="id_user_pk" value="{{ user_id }}" >
 								</label>
 								<label>
 									<p>{% trans 'How can I call you?' %}</p>
@@ -121,7 +98,19 @@
 							<button type="submit" class="account__btn-save btn btn-blue" tabindex="4">{% trans 'Save changes' %}</button>
 						</form>
 					</div>
-					<div data-block="2">block user_subscriptions</div>
+					<div data-block="2">
+						{% for item in user_subscriptions %}
+						<div  class="account__subscr-item account__subscr-spotify bg-white">
+							<h3 style="background: {{ item.offer.product.background_color}}">{{ item.offer.product.name }}</h3>
+							<div class="account__subscr-item-body">
+								<p>{{ item.offer.product.name }}</p>
+								<a href="{% url 'offers' slug=item.offer.product.slug rate_slug=item.offer.rate.slug %}">
+									{% trans 'Change plan' %}
+								</a>
+							</div>
+						</div>
+						{% endfor %}
+					</div>
 					<div data-block="3">block Список рефералів</div>
                  	<div data-block="4">block Зведений звіт</div>
 				</div>

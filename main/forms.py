@@ -1,3 +1,5 @@
+import datetime
+from django.utils import timezone
 from .models import Subscription, SupportTask
 from django.forms import ModelForm, DateTimeInput, TextInput, NumberInput, Form
 from django import forms
@@ -81,22 +83,25 @@ class SubscribeForm(ModelForm):
         }
 
 
+class SupportTaskCreateForm(ModelForm):
+    img = forms.ImageField(required=False)
+    pub_date = forms.DateTimeField(required=False)
 
-class SupportCreateTaskForm(ModelForm):
     class Meta:
         model = SupportTask
-        fields = ('user', 'title', 'text', 'pub_date', 'email',)
+        fields = ('description', 'pub_date', 'email', 'img')
 
         widgets = {
             'pub_date': DateTimeInput(attrs={
                 'type': 'hidden'
             }),
-            'user': TextInput(attrs={
-                'type': 'hidden'
-            }),
         }
-
-
+    def save(self, commit=True):
+        task = super().save(commit=False)
+        task.pub_date = timezone.now()
+        if commit:
+            task.save()
+        return task
 class ChangeUserInfoForm(Form):
     username = forms.CharField(max_length=250, label='Your name')
     email = forms.EmailField(max_length=250)
@@ -120,7 +125,7 @@ class SubscribeCreateForm(ModelForm):
         widget=forms.CheckboxInput(attrs={
                 'class': 'checkbox-is-have-acc',
             }),
-        initial=True)
+        initial=False)
 
     communication_preferences = forms.ChoiceField(
         choices=Subscription.communication_choices,
@@ -131,20 +136,10 @@ class SubscribeCreateForm(ModelForm):
     class Meta:
         model = Subscription
         fields = (
-            'email',
-            'phone_number',
-            'user_name',
-            'user',
-            'offer',
-            'service_password',
-            'is_exist_account',
-            'communication_preferences'
+            'email', 'phone_number', 'user_name', 'user', 'offer', 'service_password',
+            'is_exist_account', 'communication_preferences'
         )
-        # widgets = {
-        #     'is_exist_account': forms.CheckboxInput(attrs={
-        #         'class': 'checkbox-is-have-acc',
-        #     }),
-        # }
+
     def clean(self):
         super().clean()
         service_password = self.cleaned_data['service_password']
@@ -152,8 +147,6 @@ class SubscribeCreateForm(ModelForm):
         if len(service_password.strip()) == 0 \
                 and is_exist_account:
             self.add_error('service_password', _('This field is required'))
-
-
 
     def save(self, commit=True):
         subscription = super().save(commit=False)

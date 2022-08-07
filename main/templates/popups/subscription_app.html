@@ -35,15 +35,18 @@
 					<h4>{% trans 'Account' %}</h4><br>
 
 					<div>
+
+						{% if product.allow_existing_accounts %}
 						<label>
-							<input type="checkbox" class="checkbox-is-have-acc">
+<!--							<input type="checkbox" class="checkbox-is-have-acc">-->
 							<span>{{ sub_create_form.is_exist_account }} {% blocktranslate %} I have account {% endblocktranslate %}</span>
 
 						</label>
+						{% endif %}
+						<hr>
 						<br>
-						<br>
-						<p class="prompt1 hide"><img src="{% static 'img/pngwing.png' %}" width="18" height="18"> Account will be created</p>
-						<p class="prompt2 "><img src="{% static 'img/pngwing.png' %}" width="18" height="18"> Enter your account details</p>
+						<p class="prompt1 "><img src="{% static 'img/pngwing.png' %}" width="18" height="18"> Account will be created</p>
+						<p class="prompt2 hide"><img src="{% static 'img/pngwing.png' %}" width="18" height="18"> Enter your account details</p>
 						<br>
 					</div>
 
@@ -56,7 +59,7 @@
 
 					<div class="message text_error"></div>
 
-					<div class="popup__input-block prompt-passw">
+					<div class="popup__input-block prompt-passw hide">
 						<p>{% trans 'Password' %}</p>
 						{{ sub_create_form.service_password }}
 						<div class="text_error service_password_errors"></div>

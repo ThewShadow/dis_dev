@@ -10,7 +10,7 @@ from .models import Offer
 from .models import Subscription
 from .models import Product
 from .models import FAQ
-from .forms import SupportCreateTaskForm
+from .forms import SupportTaskCreateForm
 from .forms import ChangeUserInfoForm
 from .forms import ChangeSubscibeStatusForm
 from .forms import SubscribeCreateForm
@@ -93,22 +93,25 @@ class OffersView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         product_id = self.kwargs.get('slug')
+
         context['product'] = get_object_or_404(Product, slug=product_id)
         context['sub_create_form'] = SubscribeCreateForm()
 
+        offers_related_field = ['rate']
+
         rate_slug = self.kwargs.get('rate_slug', None)
-        if rate_slug:
+        if not rate_slug:
+            context['offers'] = Offer.objects.filter(product__slug=product_id).select_related(*offers_related_field)
+        else:
             context['rate_slug'] = rate_slug
-            context['offers'] = Offer.objects.filter(product__slug=product_id,
-                                                     rate__slug=rate_slug).order_by('price')
+            context['offers'] = Offer.objects.filter(
+                product__slug=product_id,
+                rate__slug=rate_slug).order_by('price').select_related(*offers_related_field)
             rates = []
-            for offer in Offer.objects.filter(product__slug=product_id).order_by('price'):
+            for offer in Offer.objects.filter(product__slug=product_id).order_by('price').select_related(*offers_related_field):
                 if offer.rate not in rates:
                     rates.append(offer.rate)
-
             context['rates'] = rates
-        else:
-            context['offers'] = Offer.objects.filter(product__slug=product_id)
 
         return context
 
@@ -121,12 +124,22 @@ class ProfileView(LoginRequiredMixin, FormView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data()
-        user_inst = self.request.user
-        initial_data = {'username': user_inst.username, 'email': user_inst.email}
-        context['object'] = get_object_or_404(CustomUser, id=self.request.user.id)
-        context['form'] = ChangeUserInfoForm(initial=initial_data)
+
+        user_data = CustomUser.objects.select_related('agent').get(id=self.request.user.id)
+
+        context['user_id'] = user_data.id
         context['questions_list'] = FAQ.objects.all()
-        context['agent'] = user_inst.agent
+        context['agent'] = user_data.agent.username
+        context['user_subscriptions'] = Subscription.objects.filter(
+            user__id=user_data.id).prefetch_related(
+                'offer__product',
+                'offer__rate'
+            )
+        context['form'] = ChangeUserInfoForm(initial={
+            'email': user_data.email,
+            'username': user_data.username
+        })
+
         return context
 
     def post(self, *args, **kwargs):
@@ -152,27 +165,6 @@ class UserSubscriptionsView(LoginRequiredMixin, ListView):
         context['user_subscriptions'] = Subscription.objects.filter(
             user__id=self.request.user.id)
         return context
-
-
-class SupportView(LoginRequiredMixin, CreateView):
-    template_name = 'main/support.html'
-    model = User
-    form_class = SupportCreateTaskForm
-    login_url = 'unauthorized'
-    redirect_field_name = 'redirect_to'
-    success_url = reverse_lazy('index')
-
-    def get_initial(self):
-        initial = super().get_initial()
-        initial['user'] = self.request.user
-        initial['pub_date'] = datetime.now()
-        return initial
-
-    def form_valid(self, form):
-        task_instance = form.save(commit=True)
-        service.send_support_task(task_instance.id)
-        return redirect(reverse_lazy('index'))
-
 
 class AboutUsView(TemplateView):
     template_name = 'main/about_us.html'
@@ -244,6 +236,7 @@ class ManagerPanelView(LoginRequiredMixin, TemplateView):
                 self.page_number_default)
 
         search = self.request.GET.get('search')
+        related_fields = ['offer', 'user', 'offer__product', 'offer__rate', 'offer__currency']
         if search:
             from django.db.models import Q
             new_subs = Subscription.objects.filter(
@@ -251,9 +244,9 @@ class ManagerPanelView(LoginRequiredMixin, TemplateView):
                 | Q(phone_number__contains=search)
                 | Q(offer__product__name__contains=search)
                 | Q(email__contains=search)
-            ).order_by('-order_date')
+            ).order_by('-order_date').select_related(*related_fields)
         else:
-            new_subs = Subscription.objects.order_by('-order_date')
+            new_subs = Subscription.objects.order_by('-order_date').select_related(*related_fields)
 
         pag = Paginator(new_subs, show_pages)
         try:

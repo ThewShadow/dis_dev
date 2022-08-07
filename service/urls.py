@@ -36,6 +36,7 @@ urlpatterns = [
 
     path('crypto_payment_confirm/', views.CryptoPaymentReceiving.as_view(),
          name='crypto-pay-confirm'),
+    path('create_support_task/', views.SupportTaskCreateView.as_view())
 
 ]
 

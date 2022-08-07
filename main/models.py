@@ -15,6 +15,8 @@ from telebot import TeleBot
 from config.settings import TELEGRAM_BOT_API_KEY
 import string
 import random
+from django.core.mail import send_mail
+
 
 logger = logging.getLogger('main')
 
@@ -183,14 +185,31 @@ class Subscription(models.Model):
 
 
 class SupportTask(models.Model):
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    title = models.CharField(max_length=250)
-    text = models.TextField()
+    description = models.TextField()
     pub_date = models.DateTimeField()
-    email = models.EmailField(default='')
+    email = models.EmailField()
+    img = models.ImageField(null=True)
 
     def __str__(self):
-        return f'{self.pub_date} {self.user} {self.title}'
+        return f'{self.pub_date} {self.email}'
+
+    def mail_managers(self):
+        title = f'Customer appeal from {self.email}'
+
+        msg = EmailMultiAlternatives(
+            title,
+            self.description,
+            config.settings.DEFAULT_FROM_EMAIL,
+            to=config.settings.MANAGERS_EMAILS
+        )
+
+        image = open(self.img.url, 'rb')
+        msg.attach(self.img, image)
+        try:
+            msg.send()
+        except (smtplib.SMTPDataError, smtplib.SMTPAuthenticationError) as e:
+            logger.error(f'Customer appeal message not sent. error: {e}')
+
 
 
 class Transaction(models.Model):

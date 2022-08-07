@@ -1,13 +1,18 @@
 import datetime
+
+from django.core.mail import EmailMultiAlternatives, EmailMessage
+
 import service.service as service
 from django.shortcuts import redirect, get_object_or_404, HttpResponse, HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.http import JsonResponse
 from django.views.generic import View
+
+from config import settings
 from main.models import CustomUser
 from main.models import Offer
 from main.models import Subscription
-from main.forms import LoginForm
+from main.forms import LoginForm, SupportTaskCreateForm
 from main.forms import SubscribeCreateForm
 from main.forms import VerifyEmailForm
 from main.forms import CustomUserCreationForm
@@ -523,6 +528,35 @@ class ActivationEmail(View):
 
         return JsonResponse({"success": True})
 
+
+class SupportTaskCreateView(View):
+    form_class = SupportTaskCreateForm
+
+    def post(self, request, **kwargs):
+        form = self.form_class(request.POST, request.FILES)
+        if form.is_valid():
+            support_task = form.save()
+
+            title = f'Customer appeal from {support_task.email}'
+            msg = EmailMessage(
+                title,
+                support_task.description,
+                settings.DEFAULT_FROM_EMAIL,
+                to=settings.MANAGERS_EMAILS
+            )
+            if support_task.img.name is not None:
+                msg.attach(support_task.img.name, support_task.img.read())
+
+            support_task_send = threading.Thread(target=msg.send)
+            support_task_send.start()
+            return JsonResponse({'success': True}, status=200)
+        else:
+            return JsonResponse({
+                    'success': False,
+                    'error_messages': dict(form.errors)
+                },
+                status=400
+            )
 
 class PayPalPaymentReturnView(View):
 

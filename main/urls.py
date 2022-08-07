@@ -10,8 +10,6 @@ urlpatterns = [
          name='index'),
     path('profile/info', views.ProfileView.as_view(),
          name='profile'),
-    path('profile/subscriptions/', views.UserSubscriptionsView.as_view(),
-         name='user_subscriptions'),
     path('accounts/logout/', views.LogoutView.as_view(),
          name='logout'),
     path('offers/<slug:slug>/<slug:rate_slug>/', views.OffersView.as_view(),
