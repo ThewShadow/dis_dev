@@ -47,11 +47,13 @@ class SubscriptionAdmin(admin.ModelAdmin):
     list_filter = ('user', 'offer', 'phone_number', 'order_date', 'paid', 'is_active')
     search_fields = ('phone_number',)
 
+
 class OfferAdmin(TranslationAdmin):
     filter_horizontal = ['features']
     list_display = ('name', 'product', 'rate', 'price',)
     list_filter = ('name', 'product', 'rate', 'price',)
     search_fields = ('name', 'product__name', 'user__username')
+
 
 class CurrencyAdmin(TranslationAdmin):
     pass
@@ -60,17 +62,19 @@ class CurrencyAdmin(TranslationAdmin):
 class ProductAdmin(TranslationAdmin):
     prepopulated_fields = {'slug': ('name',)}
 
+
 class FeatureAdmin(TranslationAdmin):
     pass
 
+
 class FAQAdmin(TranslationAdmin):
     pass
+
 
 class TransactionAdmin(admin.ModelAdmin):
     list_display = ('transaction_id', 'pay_type', 'date_create', 'subscription')
     list_filter = ('transaction_id', 'pay_type', 'date_create', 'subscription')
     search_fields = ('transaction_id', 'pay_type', 'subscription')
-
 
 
 admin.site.register(Rate, RateAdmin)
@@ -83,3 +87,4 @@ admin.site.register(FAQ, FAQAdmin)
 admin.site.register(CustomUser, CustomUserAdmin)
 admin.site.register(Transaction, TransactionAdmin)
 admin.site.register(Feature, FeatureAdmin)
+

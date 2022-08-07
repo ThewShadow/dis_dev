@@ -1,25 +1,23 @@
-const btnInfo = document.querySelector('.account__btn-info');
-const btnSubscr = document.querySelector('.account__btn-subscr');
-const blockInfo = document.querySelector('.account__info');
-const blockSubscr = document.querySelector('.account__subscr');
-const allElems = [btnInfo, btnSubscr, blockInfo, blockSubscr];
+const account = document.querySelector('.account')
+const navLinksBody = document.querySelector('.account__nav');
+const navLinks = document.querySelectorAll('.account__nav  a[data-link]');
+const navBlocks = document.querySelectorAll('.account__edit-data div[data-block');
 
-const navBlock = document.querySelector('.account__nav');
-
-if (btnInfo !== null) {
-	btnInfo.addEventListener('click', (e) => toggleBlocks(e.target));
+if (account !== null) {
+	navLinks.forEach((link) => {
+		link.addEventListener('click', (e) => {
+		  navLinks.forEach((link) => link.classList.remove('active'));
+		  e.currentTarget.classList.add('active');
+		  navBlocks.forEach((block) => {
+			if (block.getAttribute('data-block') === e.currentTarget.getAttribute('data-link')) {
+			  block.classList.add('active');
+			} else {
+			  block.classList.remove('active');
+			}
+		  });
+		});
+	  });
+	  
+	  navLinksBody.addEventListener('click', () => navLinksBody.classList.toggle('opened'));  
 }
 
-if (btnInfo !== null) {
-	btnSubscr.addEventListener('click', (e) => toggleBlocks(e.target));
-}
-
-function toggleBlocks(curent) {
-	if (!curent.classList.contains('active')) {
-		allElems.forEach((el) => el.classList.toggle('active'));
-	}
-}
-
-if (navBlock !== null) {
-	navBlock.addEventListener('click', () => navBlock.classList.toggle('opened'));
-}

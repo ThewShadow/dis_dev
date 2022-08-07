@@ -67,6 +67,7 @@ INSTALLED_APPS = [
     'phonenumber_field',
     'service.apps.ServiceConfig',
     'debug_toolbar',
+
 ]
 
 SITE_ID = 1

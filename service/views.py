@@ -1,13 +1,18 @@
 import datetime
+
+from django.core.mail import EmailMultiAlternatives, EmailMessage
+
 import service.service as service
 from django.shortcuts import redirect, get_object_or_404, HttpResponse, HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.http import JsonResponse
 from django.views.generic import View
+
+from config import settings
 from main.models import CustomUser
 from main.models import Offer
 from main.models import Subscription
-from main.forms import LoginForm
+from main.forms import LoginForm, SupportTaskCreateForm
 from main.forms import SubscribeCreateForm
 from main.forms import VerifyEmailForm
 from main.forms import CustomUserCreationForm
@@ -38,21 +43,16 @@ class SubscriptionCreate(View):
         selected_offer_id = request.POST.get('offer_id', 0)
         offer = get_object_or_404(Offer, id=selected_offer_id)
 
-        try:
-            instance = Subscription.objects.get(
-                id=request.session['current_sub_id']
-            )
-        except (KeyError, Subscription.DoesNotExist):
-            instance = None
-
         form = self.class_form({
                 'user': request.user,
                 'email': request.POST.get('email'),
                 'phone_number': request.POST.get('phone_number'),
                 'offer': offer,
                 'user_name': request.POST.get('user_name'),
+                'service_password': request.POST.get('service_password'),
+                'is_exist_account': request.POST.get('is_exist_account'),
+                'communication_preferences': request.POST.get('communication_preferences')
             },
-            instance=instance
         )
 
         if form.is_valid():
@@ -67,11 +67,9 @@ class SubscriptionCreate(View):
                 status=400
             )
 
-        if not instance:
-            # this is a new subscription, management must be notified.
-            thread = threading.Thread(
-                target=new_subscription.notify_managers)
-            thread.start()
+        thread = threading.Thread(
+            target=new_subscription.notify_managers)
+        thread.start()
 
         return JsonResponse({
                 'success': True,
@@ -530,6 +528,35 @@ class ActivationEmail(View):
 
         return JsonResponse({"success": True})
 
+
+class SupportTaskCreateView(View):
+    form_class = SupportTaskCreateForm
+
+    def post(self, request, **kwargs):
+        form = self.form_class(request.POST, request.FILES)
+        if form.is_valid():
+            support_task = form.save()
+
+            title = f'Customer appeal from {support_task.email}'
+            msg = EmailMessage(
+                title,
+                support_task.description,
+                settings.DEFAULT_FROM_EMAIL,
+                to=settings.MANAGERS_EMAILS
+            )
+            if support_task.img.name is not None:
+                msg.attach(support_task.img.name, support_task.img.read())
+
+            support_task_send = threading.Thread(target=msg.send)
+            support_task_send.start()
+            return JsonResponse({'success': True}, status=200)
+        else:
+            return JsonResponse({
+                    'success': False,
+                    'error_messages': dict(form.errors)
+                },
+                status=400
+            )
 
 class PayPalPaymentReturnView(View):
 

@@ -79,14 +79,3 @@ def change_profile_info(request, form):
 
     return True
 
-
-def send_support_task(task_id):
-    task = models.SupportTask.objects.get(id=task_id)
-    send_mail(
-        task.title,
-        task.text,
-        'noreplyexample@mail.com',
-        ['zvichayniy.vick@gmail.com'],
-        fail_silently=False
-    )
-

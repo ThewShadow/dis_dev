@@ -15,6 +15,8 @@ from telebot import TeleBot
 from config.settings import TELEGRAM_BOT_API_KEY
 import string
 import random
+from django.core.mail import send_mail
+
 
 logger = logging.getLogger('main')
 
@@ -35,6 +37,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     REQUIRED_FIELDS = []
     objects = CustomUserManager()
     social_sign_up = models.BooleanField(default=False)
+
 
     agent = models.ForeignKey(
         'self',
@@ -110,7 +113,7 @@ class Product(models.Model):
     description = models.TextField(null=True)
     background_color = models.CharField(max_length=12)
     icon = models.FileField(upload_to='media/products/', null=True, blank=True, default=None)
-
+    allow_existing_accounts = models.BooleanField(default=False)
     def __str__(self):
         return self.name
 
@@ -124,7 +127,19 @@ class Subscription(models.Model):
     user_name = models.CharField(max_length=250, null=True)
     paid = models.BooleanField(default=False)
     is_active = models.BooleanField(default=False)
-    service_password = models.CharField(max_length=20)
+    service_password = models.CharField(max_length=250)
+    is_exist_account = models.BooleanField(default=False)
+
+    communication_choices = [
+        ('email', 'Email'),
+        ('wa', 'Whatsapp')
+    ]
+    communication_preferences = models.CharField(
+        max_length=250,
+        choices=communication_choices,
+        default='email'
+    )
+
 
     def __str__(self):
         return f'{self.user} - {self.offer}'
@@ -155,6 +170,9 @@ class Subscription(models.Model):
             logger.error(f'Subscription activate message not sent. error: {e}')
 
     def set_service_password(self, length=7):
+        if self.is_exist_account or self.service_password:
+            return
+
         chars = list(string.ascii_letters + string.digits)
         random.shuffle(chars)
 
@@ -167,14 +185,31 @@ class Subscription(models.Model):
 
 
 class SupportTask(models.Model):
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    title = models.CharField(max_length=250)
-    text = models.TextField()
+    description = models.TextField()
     pub_date = models.DateTimeField()
-    email = models.EmailField(default='')
+    email = models.EmailField()
+    img = models.ImageField(null=True)
 
     def __str__(self):
-        return f'{self.pub_date} {self.user} {self.title}'
+        return f'{self.pub_date} {self.email}'
+
+    def mail_managers(self):
+        title = f'Customer appeal from {self.email}'
+
+        msg = EmailMultiAlternatives(
+            title,
+            self.description,
+            config.settings.DEFAULT_FROM_EMAIL,
+            to=config.settings.MANAGERS_EMAILS
+        )
+
+        image = open(self.img.url, 'rb')
+        msg.attach(self.img, image)
+        try:
+            msg.send()
+        except (smtplib.SMTPDataError, smtplib.SMTPAuthenticationError) as e:
+            logger.error(f'Customer appeal message not sent. error: {e}')
+
 
 
 class Transaction(models.Model):

@@ -13,6 +13,7 @@ const NewPasswordPopUp = document.getElementById('popup_7');
 const SubscriptionPaidPopUp = document.getElementById("popup_12")
 const CryptoPaymentPopUp = document.getElementById('popup_11')
 const LogoutPopUp = document.getElementById('popup_13')
+const SupportEmailPopUp = document.getElementById('popup_14')
 
 
 $('.login-link').click(function (event){
@@ -25,6 +26,7 @@ $('.logout-button').click(function (event) {
     event.preventDefault();
     popupOpen(LogoutPopUp);
 });
+
 $('.popup__logout-cancel').click(function (event) {
     event.preventDefault();
     popupClose(LogoutPopUp);
@@ -46,20 +48,13 @@ $('.register-button').click(function (event){
     register();
 });
 
-$(".get-started-button").click(function (event){
-    event.preventDefault();
-    var sub_id = this.id;
-    $.post(document.location.origin+"/service/is_authenticated/")
-    .done(function (resp) {
-        document.cookie = "offer_id="+ sub_id +"; path=/";
-        popupOpen(CreateSubsctiptionPopUp);
-    })
-    .fail(function (resp) {
-       if (resp.status == 401) {
-           popupOpen(loginPopUp)
-        }
-    });
-});
+
+$('.register_success__button_ok').click((e)=>{
+    popupClose(VerifySuccessPopUp)
+})
+
+
+
 
 $(".apply-button").click(function (event) {
      event.preventDefault()
@@ -101,7 +96,55 @@ $("#crypto-pay-button").click(function () {
     generate_crypto_token()
 });
 
+$('.email_support').click((e) => {
+    e.preventDefault();
+    popupOpen(SupportEmailPopUp)
+})
 
+$('#create_task').click((e) => {
+    e.preventDefault();
+    createTask()
+})
+
+$(".get-started-button").click(function (event){
+    event.preventDefault();
+    var sub_id = this.id;
+    $.post(document.location.origin+"/service/is_authenticated/")
+    .done(function (resp) {
+        document.cookie = "offer_id="+ sub_id +"; path=/";
+        popupOpen(CreateSubsctiptionPopUp);
+    })
+    .fail(function (resp) {
+       if (resp.status == 401) {
+           popupOpen(loginPopUp)
+        }
+    });
+});
+
+function createTask() {
+    var form_name = "create-task-form";
+    $(`#${form_name} .email_errors`).empty();
+    $(`#${form_name} .description_errors`).empty();
+    var data =new FormData(document.getElementById('create-task-form'));
+    //data.append('img', document.getElementById('create-task-form')[0].files[0]);
+    $.ajax({
+        type: "POST",
+        url: document.location.origin+"/service/create_support_task/",
+        data: data,
+        processData: false,
+        contentType: false,
+        statusCode: {
+            200: (resp) => {
+                if (resp['success']) {
+                    popupClose(SupportEmailPopUp);
+                }
+            },
+            400: (resp) => {
+                showMessages(resp, form_name);
+            }
+        }
+    });
+}
 
 function generate_crypto_token() {
     var form_id = "crypto-payment-form";
@@ -277,6 +320,7 @@ function createSubscription() {
     $("#"+form_id+" .email_errors").empty();
     $("#"+form_id+" .user_name_errors").empty();
     $("#"+form_id+" .phone_number_errors").empty();
+    $("#"+form_id+" .service_password_errors").empty();
     $("#"+form_id+" .message").empty();
 
     if (offer_id.length) {
@@ -351,7 +395,6 @@ function getJson(data_array) {
     return post_data;
 }
 
-
 if (getCookie("paid_success") == "True") {
     document.cookie = "paid_success=null; path=/"
     popupOpen(SubscriptionPaidPopUp)
@@ -361,8 +404,3 @@ if (getCookie("show_login") == "True") {
     document.cookie = "show_login=null; path=/"
     popupOpen(loginPopUp)
 }
-
-$('.register_success__button_ok').click((e)=>{
-    popupClose(VerifySuccessPopUp)
-
-})
