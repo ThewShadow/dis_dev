@@ -47,18 +47,12 @@
 					<h4>{% trans 'Please choose which currency you want to pay the subscription to' %}</h4>
 					<form id="crypto_currency-form" method="post">
 					<fieldset>
+						{% for currency in currencies %}
 						<label>
-							<input type="radio" name="currency" value="Bitcoin" checked>
-							<span>Bitcoin</span>
+							<input type="radio" name="currency_id" value="{{currency.id}}" checked>
+							<span>{{ currency.name }}</span>
 						</label>
-						<label>
-							<input type="radio" name="currency" value="Ethereum">
-							<span>Ethereum</span>
-						</label>
-						<label>
-							<input type="radio" name="currency" value="USDT">
-							<span>USDT</span>
-						</label>
+						{% endfor%}
 						</fieldset>
 					</form>
 
@@ -67,19 +61,7 @@
 					<p class="pay-crypto__action-count">{% trans 'Step 2/4' %}</p>
 					<h4>{% trans 'Please choose the Blockchain Network.' %}</h4>
 					<form id="blockchain-form">
-						<fieldset>
-							<label>
-								<input type="radio" name="blockchain"  value="Blockchain BTC network" checked>
-								<span>Blockchain BTC network </span>
-							</label>
-							<label>
-								<input type="radio" name="blockchain" value="Blockchain Solana network">
-								<span>Blockchain Solana network </span>
-							</label>
-							<label>
-								<input type="radio" name="blockchain" value="Blockchain BSC network">
-								<span>Blockchain BSC network</span>
-							</label>
+						<fieldset id="blockchain_list">
 						</fieldset>
 					</form>
 				</div>

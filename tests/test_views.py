@@ -2,7 +2,7 @@ import time
 from django.test import TestCase
 from django.test.client import Client
 from django.urls import reverse
-from main.models import CustomUser
+from main.models import CustomUser, CryptoWallet, Blockchain, Currency, Offer, Product, Rate, Subscription
 import dataclasses
 from django.core import mail
 import re
@@ -48,7 +48,6 @@ class TestLogin(TestCase):
 
         resp = c.get(reverse('profile'))
         self.assertEqual(resp.status_code, 200, msg='User not authorized')
-
 
 class TestRegistration(TestCase):
     register_data = {
@@ -104,3 +103,92 @@ class TestRegistration(TestCase):
         self.assertEqual(type(user.agent), CustomUser, msg='User agent not set')
         self.assertEqual(user.agent.email, 'www1@gmail.com', msg='User agent different')
 
+class TestCryptoPayment(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        bl = Blockchain()
+        bl.blockchain_name = 'Blockchain BTC network'
+        bl.save()
+
+        curr = Currency()
+        curr.name = 'Bitcoin'
+        curr.code = 'BTC'
+        curr.crypto = True
+        curr.save()
+
+        cw = CryptoWallet()
+        cw.blockchain = bl
+        cw.currency = curr
+        cw.paycode = 'q4fw5etv5ewgcwe5cfumow'
+        cw.save()
+
+        product = Product()
+        product.name = 'Netflix'
+        product.description = 'xxx'
+        product.slug = 'xxx'
+        product.save()
+
+        rate = Rate()
+        rate.name = 'mounth'
+        rate.count = 12
+        rate.slug = 'xxx'
+        rate.save()
+
+        offer = Offer()
+        offer.product = product
+        offer.price = 40
+        offer.name = 'basic'
+        offer.currency = curr
+        offer.description = 'xxx'
+        offer.rate = rate
+        offer.save()
+
+        user = CustomUser.objects.create_user(
+            email=auth_data.email,
+            password=auth_data.password)
+        user.is_verified = True
+        user.is_active = True
+        user.save()
+
+        subscr = Subscription()
+        subscr.user = user
+        subscr.email = auth_data.email
+        subscr.service_password = 'xxx'
+        subscr.offer = offer
+        subscr.user_name = 'xxx'
+        subscr.phone_number = '1231231232'
+        subscr.save()
+
+    def setUp(self):
+        c = Client(HTTP_USER_AGENT='Mozilla/5.0')
+        pass
+
+    def test_payment_view(self):
+        c = Client(HTTP_USER_AGENT='Mozilla/5.0')
+
+        session = c.session
+        session['current_sub_id'] = 1
+        session.save()
+        resp = c.get(reverse('crypto-pay'))
+        self.assertEqual(resp.status_code, 200)
+
+    def test_create_payment(self):
+        c = Client(HTTP_USER_AGENT='Mozilla/5.0')
+        json = {
+            'wallet_id': 1,
+        }
+
+        session = c.session
+        session['current_sub_id'] = 1
+        session.save()
+        resp = c.post(reverse('service:crypto-pay-create'), data=json)
+
+        self.assertEqual(resp.status_code, 200)
+        import json
+        resp_data = json.loads(resp.content.decode())
+        payment_data = resp_data['payment_data']
+        self.assertIsNotNone(payment_data['paycode'])
+        self.assertIsNotNone(payment_data['qrcode'])
+        self.assertIsNotNone(payment_data['price'])
+        self.assertIsNotNone(payment_data['blockchain'])
+        self.assertIsNotNone(payment_data['currency'])

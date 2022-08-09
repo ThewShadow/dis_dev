@@ -16,7 +16,7 @@ from config.settings import TELEGRAM_BOT_API_KEY
 import string
 import random
 from django.core.mail import send_mail
-
+from django.db.models import F
 
 logger = logging.getLogger('main')
 
@@ -73,6 +73,7 @@ class Rate(models.Model):
 class Currency(models.Model):
     name = models.CharField(max_length=40, default='')
     code = models.CharField(max_length=4, default='')
+    crypto = models.BooleanField(default=False)
 
     def __str__(self):
         return f'{self.name} ({self.code})'
@@ -105,6 +106,9 @@ class Offer(models.Model):
     def __str__(self):
         return f'{self.product.name} | {self.name} | {self.rate} | {self.price} {self.currency.code}'
 
+    @classmethod
+    def get_price_by_id(cls, id):
+        return cls.objects.filter(id=id).first().price
 
 class Product(models.Model):
     name = models.CharField(max_length=200, default='')
@@ -239,6 +243,34 @@ class Transaction(models.Model):
             {'subscription': self.subscription,
              'transaction': self})
         send_to_telegram(message)
+
+
+class Blockchain(models.Model):
+    blockchain_name = models.CharField(max_length=250)
+
+    def __str__(self):
+        return self.blockchain_name
+
+class CryptoWallet(models.Model):
+    blockchain = models.ForeignKey('Blockchain', on_delete=models.PROTECT, null=True, related_name='wallets')
+    currency = models.ForeignKey('Currency', on_delete=models.SET_NULL, null=True, related_name='crypto_wallets')
+    paycode = models.CharField(max_length=250)
+
+    def __str__(self):
+        return f'{self.blockchain} | {self.currency}'
+
+    @staticmethod
+    def get_wallets_by_currency_id(currency_id) -> list:
+        wallets = CryptoWallet.objects.filter(
+            currency__id=currency_id
+        ).prefetch_related(
+            'blockchain', 'currency'
+        ).annotate(
+            blockchain_name=F('blockchain__blockchain_name')
+        ).values(
+            'blockchain_name', 'id',
+        )
+        return list(wallets)
 
 
 def send_to_telegram(message):

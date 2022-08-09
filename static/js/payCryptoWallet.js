@@ -108,25 +108,25 @@ function confirmProofHash() {
 
 function renderQR() {
 
-	var currency = $("input[name=currency]:checked")[0].value;
-	var blockchain = $("input[name=blockchain]:checked")[0].value;
+	var currency = $("input[name=currency_id]:checked")[0].value;
+	var blockchain = $("input[name=wallet_id]:checked")[0].value;
 	var path = "/service/payments/crypto/create/"
 	var json = {
-		currency: currency,
-		blockchain: blockchain
+		wallet_id: blockchain
 	}
 	var res = undefined;
 	$.post(document.location.origin + path, json)
 		.done(function (resp) {
-			$('#QR').attr('src', resp['qr'])
-			$("#payment-link").html(resp["payment_link"])
-			$("#blockchain-sum").html(resp["amount"])
-			$("#blockchain-name").html(resp["blockchain_name"])
+		    payment_data = resp["payment_data"]
+			$('#QR').attr('src', payment_data['qrcode'])
+			$("#payment-link").html(payment_data["paycode"])
+			$("#blockchain-sum").html(payment_data["price"]+" "+payment_data["currency"])
+			$("#blockchain-name").html(payment_data["blockchain"])
 
 			var payInfo = [
-				resp["blockchain_name"],
-				resp["amount"],
-				resp["payment_link"],
+				payment_data["blockchain"],
+				payment_data["price"],
+				payment_data["paycode"],
 			];
 			$("#pay-info").attr("value", payInfo.join())
 		})
@@ -142,7 +142,7 @@ function renderQR() {
 const inputsCurrency = document.querySelectorAll('#crypto_currency-form input')
 const inputsBlockchain = document.querySelectorAll('#blockchain-form label')
 
-const listCurrency = {
+const listCurrency1 = {
 	'bitcoin': ['Blockchain BTC network', 'Blockchain Solana network', 'Blockchain BSC network',],
 	'ethereum': ['Blockchain ETH network', 'Blockchain Solana network', 'Blockchain BSC network',],
 	'usdt': ['Blockchain ERC20 network', 'Blockchain Solana network', 'Blockchain BSC network',],
@@ -157,11 +157,29 @@ if (inputsCurrency !== null) {
 function selectCurrency() {
 	inputsCurrency.forEach(input => {
 		if (input.checked) {
-			let currentCurrency = input.value.toLowerCase();
-			setBlockchain(currentCurrency)
+			// let currentCurrency = input.value.toLowerCase();
+			let currentCurrency = input.value;
+			setBlockchains(currentCurrency)
+			//setBlockchain(currentCurrency)
 			return
 		}
 	})
+}
+function setBlockchains(currentCurrency) {
+    $.post(window.location.origin + '/service/blockchains/list/', {'currency_id': currentCurrency})
+     .done((resp)=>{
+        console.log(resp);
+        $(".blockchain_el").remove();
+        if (resp['success']) {
+            resp['wallets'].forEach((element) => {
+                  html_ = `<label class="blockchain_el">`
+                            +`<input type="radio" name="wallet_id" value="${element["id"]}" checked>`
+                            +`<span>${element["blockchain_name"]}</span>`;
+                          +`</label>`;
+                  $("#blockchain_list").append(html_)
+            });
+        }
+     });
 }
 
 function setBlockchain(currentCurrency) {
@@ -173,4 +191,4 @@ function setBlockchain(currentCurrency) {
 }
 
 setCountAndButtons()
-
+selectCurrency()
