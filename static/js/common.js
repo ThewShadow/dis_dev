@@ -163,9 +163,9 @@ function generate_crypto_token() {
                 popupClose(PaymentPopUp)
                 popupOpen(CryptoPaymentPopUp)
 
-                $("#payment-link").html(resp["payment_link"])
-                $("#amount").html(resp["amount"])
-                $("#blockchain_name").html(resp["blockchain_name"])
+                $("#payment-link").html(resp["pycode"])
+                $("#amount").html(resp["price"] +" "+ resp["currency"])
+                $("#blockchain_name").html(resp["blockchain"])
               }
            })
      .fail(function (resp) {

@@ -4,7 +4,7 @@ from modeltranslation.admin import TranslationAdmin
 from django.contrib.auth.admin import UserAdmin
 from .forms import CustomUserCreationForm, CustomUserChangeForm
 from .models import CustomUser, Transaction, Feature
-
+from .models import CryptoWallet, Blockchain
 
 class CustomUserAdmin(UserAdmin):
     add_form = CustomUserCreationForm
@@ -76,6 +76,11 @@ class TransactionAdmin(admin.ModelAdmin):
     list_filter = ('transaction_id', 'pay_type', 'date_create', 'subscription')
     search_fields = ('transaction_id', 'pay_type', 'subscription')
 
+class CryptoWalletsAdmin(admin.ModelAdmin):
+    pass
+
+class BlockchainAdmin(admin.ModelAdmin):
+    pass
 
 admin.site.register(Rate, RateAdmin)
 admin.site.register(Product, ProductAdmin)
@@ -87,4 +92,6 @@ admin.site.register(FAQ, FAQAdmin)
 admin.site.register(CustomUser, CustomUserAdmin)
 admin.site.register(Transaction, TransactionAdmin)
 admin.site.register(Feature, FeatureAdmin)
+admin.site.register(CryptoWallet, CryptoWalletsAdmin)
+admin.site.register(Blockchain, BlockchainAdmin)
 

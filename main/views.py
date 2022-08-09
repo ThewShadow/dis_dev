@@ -9,7 +9,7 @@ from .models import CustomUser
 from .models import Offer
 from .models import Subscription
 from .models import Product
-from .models import FAQ
+from .models import FAQ, CryptoWallet, Currency
 from .forms import SupportTaskCreateForm
 from .forms import ChangeUserInfoForm
 from .forms import ChangeSubscibeStatusForm
@@ -297,11 +297,17 @@ class CryptoPayment(View):
             id=current_sub_id)
 
         offer_descr = str(subscription.offer)
+        context = {}
+        context['currencies'] = Currency.objects.filter(crypto=True)
+        context['wallets'] = CryptoWallet.objects.all()
+        context['offer_descr'] = offer_descr
+        return render(request,'main/pay_crypto_wallet.html', context=context)
 
-        return render(
-            request,
-            'main/pay_crypto_wallet.html',
-            context={'offer_descr': offer_descr})
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['currencies'] = Currency.objects.filter(crypto=True)
+        context['wallets'] = CryptoWallet.objects.all()
+        return context
 
 
 

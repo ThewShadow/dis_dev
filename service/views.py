@@ -1,15 +1,16 @@
 import datetime
-
 from django.core.mail import EmailMultiAlternatives, EmailMessage
+from django.db.models import F
 
+from service.forms import CryptoPaymentForm
 import service.service as service
 from django.shortcuts import redirect, get_object_or_404, HttpResponse, HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.http import JsonResponse
 from django.views.generic import View
-
+from service.crypto import CryptoPaymentGenerator
 from config import settings
-from main.models import CustomUser
+from main.models import CustomUser, CryptoWallet
 from main.models import Offer
 from main.models import Subscription
 from main.forms import LoginForm, SupportTaskCreateForm
@@ -82,70 +83,31 @@ class SubscriptionCreate(View):
 
 @method_decorator(csrf_exempt, name='dispatch')
 class CryptoPayCreate(View):
-
-    def post(self, request, **kwargs):
-
-        type_payment = request.POST.get('currency', None)
-        type_blockchain = request.POST.get('blockchain', None)
-        offer_id = request.session.get('current_offer_id', None)
-
-        link = crypto.gen_pay_link(type_payment, type_blockchain)
-        qrcode_path = crypto.gen_qrcode(link)
-
-        try:
-            amount = Offer.objects.get(id=offer_id).price
-        except Offer.DoesNotExist:
-            amount = None
-
-        logger.debug(f'Crypto payment data: '
-                     f'{offer_id} '
-                     f'{link} '
-                     f'{amount} '
-                     f'{qrcode_path}')
-
-        if not offer_id \
-                or not link \
-                or not amount\
-                or not qrcode_path:
-
-            return JsonResponse({
-                    'success': False,
-                    'message': _('Bad Request')
-                },
-                status=400
-            )
+    def post(self, request):
+        payment_query = {
+            'sub_id': request.session.get('current_sub_id'),
+            'wallet_id': request.POST.get('wallet_id'),
+        }
+        form = CryptoPaymentForm(payment_query)
+        if not form.is_valid():
+            return JsonResponse({'success': False}, status=400)
         else:
+            cpg = CryptoPaymentGenerator(
+                sub_id=form.cleaned_data.get('sub_id'),
+                wallet_id=form.cleaned_data.get('wallet_id'),
+            )
+            try:
+                payment_data = cpg.get_payment_data()
+            except Exception as e:
+                logger.critical(f'Generate crypto payment error \n error: {e}')
+                return JsonResponse({'success': False}, status=400)
 
-            if 'Bitcoin' in type_payment:
-                currency = 'BTC'
-            elif 'Ethereum' in type_payment:
-                currency = 'ETH'
-            else:
-                currency = 'USDT'
-
-            if currency in ['BTC', 'ETH']:
-                crypto_amount = crypto.get_amount(currency, amount)
-                if crypto_amount == 0:
-                    return JsonResponse({
-                            'success': False,
-                            'message': _('Bad Request')
-                        },
-                        status=400
-                    )
-            else:
-                crypto_amount = str(amount) + ' ' + currency
-
-            blockchain_name = str(type_blockchain).replace('Blockchain', '')
-
-            return JsonResponse({
-                'success': True,
-                'payment_link': link,
-                'blockchain_name': blockchain_name,
-                'amount': crypto_amount,
-                'qr': qrcode_path,
-                'currency': currency
-            })
-
+            return JsonResponse(
+                {
+                    'success': True,
+                    'payment_data': payment_data
+                }
+            )
 
 class GoogleLogin(View):
 
@@ -576,6 +538,21 @@ class IsAuthenticated(View):
             return HttpResponse(status=401)
 
 
+@method_decorator(csrf_exempt, name='dispatch')
+class CryptoWallets(View):
+    def post(self, request, **kwargs):
+        currency_id = request.POST.get('currency_id')
+        if currency_id is None:
+            return JsonResponse({'success': False}, status=400)
+
+        wallets = CryptoWallet.get_wallets_by_currency_id(currency_id)
+        return JsonResponse(
+            {
+                'success': True,
+                'wallets': wallets
+            },
+            safe=False, status=200)
+
 def clear_temp_data(request):
     try:
         del request.session['current_sub_id']
@@ -586,3 +563,5 @@ def clear_temp_data(request):
         del request.session['current_offer_id']
     except KeyError:
         pass
+
+

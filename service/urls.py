@@ -1,5 +1,6 @@
 from django.urls import path, include
 from . import views
+from .views import CryptoWallets
 
 app_name = 'service'
 
@@ -21,7 +22,7 @@ urlpatterns = [
     path('social/google_oauth2/login/', views.GoogleLogin.as_view(),
          name='google-auth2'),
     path('payments/crypto/create/', views.CryptoPayCreate.as_view(),
-         name='cryptogen'),
+         name='crypto-pay-create'),
     path('subscriptions/create/', views.SubscriptionCreate.as_view(),
          name='create_subscription'),
     path('paypal/receiving_payment/', views.PayPalPaymentReceiving.as_view(),
@@ -36,7 +37,8 @@ urlpatterns = [
 
     path('crypto_payment_confirm/', views.CryptoPaymentReceiving.as_view(),
          name='crypto-pay-confirm'),
-    path('create_support_task/', views.SupportTaskCreateView.as_view())
+    path('create_support_task/', views.SupportTaskCreateView.as_view()),
+    path('blockchains/list/', CryptoWallets.as_view())
 
 ]
 
