@@ -15,18 +15,30 @@
 }
 
 .managment__head h1 {
-  margin-bottom: 16px;
+  margin-bottom: 20px;
   padding-right: 30px;
 }
 
 .managment__head .account__btn-exit {
-  margin-bottom: 16px;
+  margin-bottom: 32px;
 }
 
 .managment__subtitle {
   font-size: 18px;
   color: #070033;
   margin-bottom: 38px;
+}
+
+.managment__subtitle p {
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  max-width: 300px;
+}
+
+.managment__subtitle span {
+  margin-left: 12px;
+  font-weight: 500;
 }
 
 .managment__filters {
@@ -587,6 +599,28 @@
   backdrop-filter: blur(8px);
   background-color: #1749b3;
   color: #fff;
+}
+
+/* 
+
+
+*/
+.managment__table_short .table {
+  width: 100%;
+  /* max-width: 1000px; */
+  margin: 0;
+}
+
+.table__referral {
+  flex: 1 1 auto;
+}
+.table__agent {
+  flex: 1 1 auto;
+}
+
+.table__referrals-count {
+  flex: 0 0 100px;
+  text-align: center;
 }
 
 @media (max-width: 768px) {
