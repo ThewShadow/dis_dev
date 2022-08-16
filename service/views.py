@@ -1,7 +1,6 @@
 import datetime
-from django.core.mail import EmailMultiAlternatives, EmailMessage
+from django.core.mail import EmailMessage
 from django.db.models import F
-
 from service.forms import CryptoPaymentForm
 import service.service as service
 from django.shortcuts import redirect, get_object_or_404, HttpResponse, HttpResponseRedirect
@@ -24,7 +23,6 @@ from django.contrib.auth import authenticate, login
 from django.utils.translation import gettext as _
 from django.core.exceptions import ObjectDoesNotExist
 import logging
-from service import crypto
 from service import google
 import threading
 from django.views.decorators.csrf import csrf_exempt
@@ -97,7 +95,7 @@ class CryptoPayCreate(View):
                 wallet_id=form.cleaned_data.get('wallet_id'),
             )
             try:
-                payment_data = cpg.get_payment_data()
+                payment_data = cpg.get_payment_details()
             except Exception as e:
                 logger.critical(f'Generate crypto payment error \n error: {e}')
                 return JsonResponse({'success': False}, status=400)
@@ -545,13 +543,24 @@ class CryptoWallets(View):
         if currency_id is None:
             return JsonResponse({'success': False}, status=400)
 
-        wallets = CryptoWallet.get_wallets_by_currency_id(currency_id)
+        wallets = CryptoWallet.objects.filter(
+            currency__id=currency_id
+        ).prefetch_related(
+            'blockchain', 'currency'
+        ).annotate(
+            blockchain_name=F('blockchain__blockchain_name')
+        ).values(
+            'blockchain_name', 'id',
+        )
+
         return JsonResponse(
             {
                 'success': True,
-                'wallets': wallets
+                'wallets': list(wallets)
             },
-            safe=False, status=200)
+            safe=False,
+            status=200
+        )
 
 def clear_temp_data(request):
     try:

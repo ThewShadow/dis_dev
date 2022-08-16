@@ -14,6 +14,7 @@ from .forms import SupportTaskCreateForm
 from .forms import ChangeUserInfoForm
 from .forms import ChangeSubscibeStatusForm
 from .forms import SubscribeCreateForm
+from django.views.generic.detail import ContextMixin
 from django.contrib.auth import logout
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth.models import User
@@ -21,6 +22,10 @@ from django.http import Http404
 import logging
 from config import settings
 from django.core.paginator import Paginator
+from django.db.models import Avg, Count
+from django.db.models import Q
+from django.contrib.postgres.search import SearchVector
+from main.utils import ReportView
 
 
 logger = logging.getLogger('main')
@@ -140,6 +145,12 @@ class ProfileView(LoginRequiredMixin, FormView):
             'username': user_data.username
         })
 
+        context['referrals'] = self.request.user.referrals.prefetch_related('subscriptions_list').all()
+        context['all_users'] = CustomUser.objects.all().count()
+
+        agents = list(CustomUser.objects.all().values('agent__id'))
+        agents_ids = map(lambda el: el['agent__id'], agents)
+        context['all_agents'] = len(set(agents_ids))
         return context
 
     def post(self, *args, **kwargs):
@@ -184,96 +195,36 @@ class PaidCompleteView(View):
         return response
 
 
-class ManagerPanelView(LoginRequiredMixin, TemplateView):
+class ManagerPanelView(ReportView):
+    model = Subscription
     template_name = 'main/management.html'
-
-    show_pages_default = 5
-    page_number_default = 1
 
     def get(self, request, **kwargs):
         if not request.user.is_staff:
             raise PermissionDenied()
 
         response = super().get(request, **kwargs)
-
-        current_page = self.request.GET.get('page')
-        show_pages = self.request.GET.get('show_pages')
-
-        if current_page:
-            response.set_cookie(key='current_page', value=current_page)
-
-        if show_pages:
-            response.set_cookie(key='show_pages', value=show_pages)
-
         return response
 
     def post(self, request, **kwargs):
         form = ChangeSubscibeStatusForm(request.POST)
         if form.is_valid():
-            subscr_obj = get_object_or_404(
-                Subscription,
-                id=form.cleaned_data['sub_id'])
-
+            subscr_obj = get_object_or_404(self.model, id=form.cleaned_data['sub_id'])
             subscr_obj.is_active = True
             subscr_obj.save()
             subscr_obj.notify_customer()
-
         return redirect(reverse_lazy('manager_panel'))
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-
-        show_pages = self.request.GET.get('show_pages')
-        if not show_pages:
-            show_pages = self.request.COOKIES.get(
-                'show_pages',
-                self.show_pages_default)
-
-        page_number = self.request.GET.get('page')
-        if not page_number:
-            page_number = self.request.COOKIES.get(
-                'current_page',
-                self.page_number_default)
-
-        search = self.request.GET.get('search')
-        related_fields = ['offer', 'user', 'offer__product', 'offer__rate', 'offer__currency']
-        if search:
-            from django.db.models import Q
-            new_subs = Subscription.objects.filter(
-                Q(offer__name__contains=search)
-                | Q(phone_number__contains=search)
-                | Q(offer__product__name__contains=search)
-                | Q(email__contains=search)
-            ).order_by('-order_date').select_related(*related_fields)
-        else:
-            new_subs = Subscription.objects.order_by('-order_date').select_related(*related_fields)
-
-        pag = Paginator(new_subs, show_pages)
-        try:
-            page = pag.page(page_number)
-        except django.core.paginator.EmptyPage:
-            page = pag.page(self.page_number_default)
-            page_number = self.page_number_default
-
-        context['page_range'] = pag.page_range
-        context['current_page'] = int(page_number)
-        context['new_subscriptions'] = page
-        context['show_pages'] = show_pages
-        context['num_count'] = pag.count
-        context['start_index'] = page.start_index()
-        context['end_index'] = page.end_index()
-
-        try:
-            context['next_page'] = page.next_page_number()
-        except:
-            pass
-
-        try:
-            context['previous_page'] = page.previous_page_number()
-        except:
-            pass
-
-        return context
+    def get_queryset(self):
+        objects_list = Subscription.objects.filter().order_by('-order_date')
+        query = self.request.GET.get('q', '').strip()
+        if query:
+            objects_list = objects_list.filter(
+                Q(offer__name__contains=query) | Q(phone_number__contains=query)
+                | Q(offer__product__name__contains=query) | Q(email__contains=query)
+            )
+        objects_list = objects_list.select_related('offer', 'user', 'offer__product', 'offer__rate', 'offer__currency')
+        return objects_list
 
 
 class Unauthorized(TemplateView):
@@ -310,4 +261,27 @@ class CryptoPayment(View):
         return context
 
 
+class ReferralsReportView(ReportView):
+    model = CustomUser
+    template_name = 'reports/report_referrals.html'
 
+    def get_queryset(self):
+        user_list = self.model.objects.filter(agent__id=self.request.user.id).order_by('-date_joined')
+        query = self.request.GET.get('q')
+        if query is not None:
+            query = query.strip()
+            user_list = user_list.filter(Q(email__contains=query) | Q(username__contains=query))
+        return user_list
+
+class ReportAgentsView(ReportView):
+    template_name = 'reports/report_agents.html'
+    model = CustomUser
+
+    def get_queryset(self, *args):
+        objects_list = self.model.objects.annotate(referrals_count=Count('referrals')).filter(referrals_count__gte=1)
+        query = self.request.GET.get('q', '').strip()
+        if query:
+            objects_list = objects_list.filter(Q(email=query) | Q(username=query))
+
+        objects_list.prefetch_related('agent', 'referrals').values('username', 'email', 'agent', 'referrals__username', 'referrals_count')
+        return objects_list

@@ -2219,6 +2219,8 @@ select[name='language']::after {
   -webkit-box-flex: 1;
   -ms-flex: 1 1 auto;
   flex: 1 1 auto;
+  margin-top: 18px;
+  line-height: 180%;
 }
 .works__step-img {
   position: relative;
@@ -4356,6 +4358,7 @@ select[name='language']::after {
 
   .works__step-img {
     height: 200px;
+    margin-bottom: 18px;
   }
 
   .invite {

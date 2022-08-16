@@ -1,29 +1,12 @@
-{% extends 'main/base.html' %} {% load i18n %} {% load static %} {% block title %}
-<title>Manager panel</title>
+{% extends 'main/base.html' %}
+{% block title %}
+<title>Referrals</title>
+{% endblock %}
 
-{% endblock %} {% block main %}
-<section class="managment">
-  <div class="container">
-    <div class="managment__head">
-      <h1>Managment panel</h1>
-      <a href="" class="account__btn-exit link-icon logout-button">
-        <svg
-          width="19"
-          height="20"
-          viewBox="0 0 19 20"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M1 20C0.734784 20 0.48043 19.8946 0.292893 19.7071C0.105357 19.5196 0 19.2652 0 19V1C0 0.734784 0.105357 0.48043 0.292893 0.292893C0.48043 0.105357 0.734784 0 1 0H15C15.2652 0 15.5196 0.105357 15.7071 0.292893C15.8946 0.48043 16 0.734784 16 1V4H14V2H2V18H14V16H16V19C16 19.2652 15.8946 19.5196 15.7071 19.7071C15.5196 19.8946 15.2652 20 15 20H1ZM14 14V11H7V9H14V6L19 10L14 14Z"
-            fill="#333333"
-          />
-        </svg>
-        <span>Exit the office</span>
-      </a>
-    </div>
-    <div class="managment__subtitle">Subscription requests</div>
-
+{% block main %}
+<section >
+    <div class="container">
+      <h1>My Referrals</h1>
     <form method="GET" class="managment__filters">
       {% csrf_token %}
       <div class="managment__show-sort-wrap">
@@ -54,91 +37,36 @@
       </div>
     </form>
 
+
+
     <div class="managment__table">
       <div class="table">
         <ul class="table__row table__row-head">
           <li class="table__date">
-            <p>Order date</p>
+            <p>Username</p>
           </li>
           <li class="table__sub-id">
-            <p>Sub ID</p>
-          </li>
-          <li class="table__other">
-            <p>Order</p>
-          </li>
-          <li class="table__user-id">
-            <p>User ID</p>
-          </li>
-          <li class="table__email">
             <p>Email</p>
           </li>
-          <li class="table__phone">
-            <p>Phone</p>
+          <li class="table__other">
+            <p>Date joined</p>
           </li>
-          <li class="table__active">
-            <p>Active</p>
-          </li>
-          <li class="table__confirm">
-            <p></p>
-          </li>
+
         </ul>
 
         {% for item in page_obj %}
         <ul class="table__row">
           <li class="table__date">
-            <p>Order date</p>
-            <span>{{ item.order_date }}</span>
+            <p>Username</p>
+            <span>{{ item.username }}</span>
           </li>
           <li class="table__sub-id">
-            <p>Sub ID</p>
-            <span>{{ item.id }}</span>
-          </li>
-          <li class="table__other">
-            <p>Order</p>
-            <span>{{ item.offer }}</span>
-          </li>
-          <li class="table__user-id">
-            <p>User ID</p>
-            <span>{{ item.user.id }}</span>
-          </li>
-          <li class="table__email">
             <p>Email</p>
             <span>{{ item.email }}</span>
           </li>
-          <li class="table__phone">
-            <p>Phone</p>
-            <span>{{ item.phone_number }}</span>
-          </li>
-          <li class="table__active">
-            <p>Active</p>
-            <span>
-              <label>
-                <input type="radio" disabled {% if not item.is_active %} checked {% endif %} />
-                <span>
-                  <svg
-                    width="14"
-                    height="12"
-                    viewBox="0 0 14 12"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M5.02807 11.4257C4.76869 11.4257 4.51557 11.3226 4.33119 11.1382L0.390566 7.1945C-0.531309 6.22887 0.959316 4.94137 1.78432 5.80075L4.98432 9.00387L12.1718 0.913245C13.0218 -0.0398795 14.4937 1.27262 13.6437 2.22262L5.76244 11.0945C5.58119 11.2976 5.32494 11.4164 5.05619 11.4257C5.04682 11.4257 5.03744 11.4257 5.02807 11.4257Z"
-                      fill="white"
-                    />
-                  </svg>
-                </span>
-              </label>
-            </span>
-          </li>
-
-          <li class="table__confirm">
-            <p></p>
-            <form method="POST">
-              {% csrf_token %}
-              <input type="hidden" name="sub_id" value="{{ item.id }}" />
-              <span><button>Confirm</button></span>
-            </form>
+          <li class="table__other">
+            <p>Date joined</p>
+            <span>{{ item.date_joined }}</span>
           </li>
         </ul>
         {% endfor %}
@@ -207,6 +135,6 @@
         {% endif %}
       </div>
     </div>
-  </div>
+    </div>
 </section>
 {% endblock %}
