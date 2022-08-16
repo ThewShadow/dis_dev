@@ -197,7 +197,7 @@ class PaidCompleteView(View):
 
 class ManagerPanelView(ReportView):
     model = Subscription
-    template_name = 'main/management.html'
+    template_name = 'reports/report_subscriptions.html'
 
     def get(self, request, **kwargs):
         if not request.user.is_staff:
