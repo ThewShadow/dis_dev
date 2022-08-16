@@ -32,10 +32,10 @@ class BaseEmailNotification(EmailMultiAlternatives, ABC):
         raise NotImplementedError
 
     def send(self, fail_silently=False):
-        # try:
-        super().send(fail_silently=fail_silently)
-        # except Exception as error:
-        #     self.logger.error(self.message_error_text(error))
+        try:
+            super().send(fail_silently=fail_silently)
+        except Exception as error:
+            self.logger.error(self.message_error_text(error))
 
     def message_error_text(self, error):
         return f'{self=} message not sending. {error=}'
