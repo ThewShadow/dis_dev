@@ -1,6 +1,5 @@
 {% extends 'main/base_report.html' %}
 {% load i18n static %}
-
 {% block title %}
 <title>{% trans 'Referral Statistics' %}</title>
 {% endblock %}
@@ -10,33 +9,22 @@
 {% endblock %}
 
 {% block content_table %}
-    <div class="table">
-        <ul class="table__row table__row-head">
-          <li class="table__date">
-            <p>Username</p>
-          </li>
-          <li class="table__sub-id">
-            <p>Email</p>
-          </li>
-          <li class="table__other">
-            <p>Date joined</p>
-          </li>
-        </ul>
-        {% for item in page_obj %}
-        <ul class="table__row">
-          <li class="table__date">
-            <p>Username</p>
-            <span>{{ item.username }}</span>
-          </li>
-          <li class="table__sub-id">
-            <p>Email</p>
+<div class="managment__table managment__table_short">
+  <div class="table">
+    <ul class="table__row table__row-head">
+      <li class="table__referral">
+        <p>Referrals</p>
+      </li>
+    </ul>
+    {% for item in page_obj %}
+    <ul class="table__row">
+        <li class="table__referral">
+<!--            <span>{{ forloop.counter }}</span>-->
+            <p>Referral</p>
             <span>{{ item.email }}</span>
-          </li>
-          <li class="table__other">
-            <p>Date joined</p>
-            <span>{{ item.date_joined }}</span>
-          </li>
-        </ul>
-        {% endfor %}
-      </div>
+        </li>
+    </ul>
+    {% endfor %}
+  </div>
+</div>
 {% endblock %}

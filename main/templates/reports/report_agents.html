@@ -1,6 +1,5 @@
 {% extends 'main/base_report.html' %}
 {% load i18n static %}
-
 {% block title %}
 <title>{% trans 'Agents Statistics' %}</title>
 {% endblock %}
@@ -10,36 +9,81 @@
 {% endblock %}
 
 {% block content_table %}
-    {% regroup agent_list by username as agent_list_regroup %}
-    <div class="table">
-      <ul class="table__row table__row-head">
-        <li class="table__agent">
-          <p>Username</p>
-        </li>
-        <li class="table__agent">
-          <p>Email</p>
-        </li>
-        <li class="table__referrals-count">
-          <p>Invite referrals</p>
-        </li>
-      </ul>
-      {% regroup page_obj by username as agent_list_regroup %}
+
+<!--<div class="managment__table">-->
+<!--              <ul class="table-ref">-->
+<!--                <li>-->
+<!--                  <p>-->
+<!--                    <a href="#">Agent 1</a>-->
+<!--                    <span>0</span>-->
+<!--                  </p>-->
+<!--                  <ul>-->
+<!--                    <li>-->
+<!--                      <p>-->
+<!--                        <a href="#">Agent 1.1</a>-->
+<!--                        <span>0</span>-->
+<!--                      </p>-->
+<!--                      <ul>-->
+<!--                        <li>-->
+<!--                          <p>-->
+<!--                            <a href="#">Agent 1.1.1</a>-->
+<!--                            <span>0</span>-->
+<!--                          </p>-->
+<!--                          <ul></ul>-->
+<!--                        </li>-->
+<!--                      </ul>-->
+<!--                    </li>-->
+<!--                    <li>-->
+<!--                      <p>-->
+<!--                        <a href="#">Agent 1.2</a>-->
+<!--                        <span>0</span>-->
+<!--                      </p>-->
+<!--                      <ul></ul>-->
+<!--                    </li>-->
+<!--                  </ul>-->
+<!--                </li>-->
+
+<!--                <li>-->
+<!--                  <p>-->
+<!--                    <a href="#">Agent 2</a>-->
+<!--                    <span>0</span>-->
+<!--                  </p>-->
+<!--                  <ul></ul>-->
+<!--                </li>-->
+<!--              </ul>-->
+<!--            </div>-->
+
+
+<div class="managment__table">
+  <ul class="table__row table__row-head">
+     <li class="table__agent">
+      <p>Agents</p>
+    </li>
+    <li class="table__referrals-count">
+      <p>Referrals</p>
+    </li>
+  </ul>
+  <ul class="table-ref">
+  {% regroup page_obj by agent__email as agent_list_regroup %}
 
       {% for username in agent_list_regroup %}
-        <ul class="table__row">
-          <li class="table__agent">
-            <p>Agent</p>
-            <span>{{ username.grouper }}</span>
-          </li>
-           <li class="table__agent">
-            <p>Referrals count</p>
-            <span>{{ username.list.0.email }}</span>
-          </li>
-          <li class="table__referrals-count">
-            <p>Invite referrals</p>
+        <li>
+          <p>
+            <a href="#">{{ username.grouper }}</a>
             <span>{{ username.list|length }}</span>
-          </li>
-        </ul>
+          </p>
+          <ul>
+            {% for referral in username.list %}
+             <li>
+              <p>
+                <a href="#">{{ referral.email }}</a>
+              </p>
+            </li>
+            {% endfor %}
+          </ul>
+        </li>
       {% endfor %}
-    </div>
+    </ul>
+</div>
+
 {% endblock %}

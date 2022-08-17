@@ -25,10 +25,87 @@ from django.core.paginator import Paginator
 from django.db.models import Avg, Count
 from django.db.models import Q
 from django.contrib.postgres.search import SearchVector
-from main.utils import ReportView
-
+from django.core.paginator import Paginator
+from django.shortcuts import render
+from django.views.generic.base import ContextMixin, View
 
 logger = logging.getLogger('main')
+
+
+class ReportView(ContextMixin, View):
+    paginate_by = 10
+    model = None
+    template_name = f'main/report_{model}.html'
+
+    def get(self, request):
+        queryset = self.get_queryset()
+        show = self.define_number_to_show(len(queryset))
+        page_number = self.get_page_number()
+        if not show:
+            show = self.paginate_by
+
+        page_obj = self.paginate(queryset, show, page_number)
+
+        context = self.get_context_data()
+        if page_obj:
+            context['count_obj'] = queryset.count() if not isinstance(queryset, list) else len(queryset)
+            context['page_obj'] = page_obj
+            context['show_pages'] = show
+            context['current_page'] = page_number
+            context['pages_count'] = range(1, page_obj.paginator.num_pages + 1)
+            context['query_string'] = request.GET.get('q', '')
+            context['start_objects'] = (show * page_obj.number + 1) - show
+            context['end_objects'] = (show * page_obj.number - show) + len(page_obj.object_list)
+        else:
+            context['count_obj'] = 0
+            context['page_obj'] = None
+            context['show_pages'] = request.GET.get('q', '')
+            context['current_page'] = 1
+            context['pages_count'] = range(1,2)
+            context['query_string'] = request.GET.get('q', '')
+            context['start_objects'] = 0
+            context['end_objects'] = 0
+
+        response = render(request, self.template_name, context)
+
+        response.set_cookie(key='current_page', value=page_number)
+        response.set_cookie(key='show', value=show)
+
+        return response
+
+    def define_number_to_show(self, list_count):
+        show = self.paginate_by
+        if self.request.GET.get('show'):
+            show = self.request.GET.get('show')
+        elif self.request.COOKIES.get('show'):
+            show = self.request.COOKIES.get('show')
+
+        if not isinstance(show, int):
+            try:
+                show = int(show)
+            except ValueError:
+                show = self.paginate_by
+        if show > list_count:
+            show = list_count
+        return show
+
+    def get_page_number(self):
+        page_number = self.request.GET.get('page')
+        if page_number:
+            return page_number
+        else:
+            return self.request.COOKIES.get('current_page', 1)
+
+    def paginate(self, queryset, show_elements, page_number):
+        if not queryset:
+            return []
+        else:
+            return Paginator(queryset, show_elements).get_page(page_number)
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        return context
+
 
 class IndexView(ListView):
     template_name = 'main/index.html'
@@ -261,7 +338,7 @@ class CryptoPayment(View):
         return context
 
 
-class ReferralsReportView(ReportView):
+class ReferralsReportView(LoginRequiredMixin, ReportView):
     model = CustomUser
     template_name = 'reports/report_referrals.html'
 
@@ -273,15 +350,17 @@ class ReferralsReportView(ReportView):
             user_list = user_list.filter(Q(email__contains=query) | Q(username__contains=query))
         return user_list
 
-class ReportAgentsView(ReportView):
+class ReportAgentsView(LoginRequiredMixin, ReportView):
     template_name = 'reports/report_agents.html'
     model = CustomUser
 
     def get_queryset(self, *args):
-        objects_list = self.model.objects.annotate(referrals_count=Count('referrals')).filter(referrals_count__gte=1)
+        objects_list = self.model.objects.all()
+
         query = self.request.GET.get('q', '').strip()
         if query:
-            objects_list = objects_list.filter(Q(email=query) | Q(username=query))
+            objects_list = objects_list.filter(Q(agent__email__contains=query) | Q(agent__username__contains=query))
 
-        objects_list.prefetch_related('agent', 'referrals').values('username', 'email', 'agent', 'referrals__username', 'referrals_count')
-        return objects_list
+        objects_list = objects_list.select_related('agent').prefetch_related('referrals')
+
+        return list(objects_list.values('agent__email', 'agent__username', 'email'))
