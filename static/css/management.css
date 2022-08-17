@@ -623,6 +623,119 @@
   text-align: center;
 }
 
+/*^ table ref */
+
+.table-ref {
+  max-width: 100%;
+  overflow: hidden;
+  overflow-x: auto;
+  padding-bottom: 15px;
+}
+
+.table-ref li {
+  min-width: 280px;
+}
+
+.table-ref li.in > p:before {
+  color: #272833;
+}
+.table-ref li.open > p:before {
+  content: '-';
+  color: #272833;
+}
+
+.table-ref li.open > ul {
+  display: block;
+}
+
+.table-ref p {
+  display: flex;
+  justify-content: space-between;
+  font-family: 'Source Sans Pro';
+  padding: 15px 15px 15px 45px;
+  border: 1px solid #e7e7ed;
+  border-radius: 12px;
+  background-color: #fff;
+  margin-bottom: 3px;
+  font-size: 14px;
+  line-height: 150%;
+  color: #272833;
+  cursor: pointer;
+  transition: all 0.3s ease 0s;
+  position: relative;
+
+  width: 100%;
+}
+
+.table-ref p:hover {
+  background-color: #f3f3f3;
+}
+.table-ref p:before {
+  content: '+';
+  width: 16px;
+  height: 16px;
+  border: 1px solid #e7e7ed;
+  color: #e7e7ed;
+  border-radius: 2px;
+  position: absolute;
+  left: 15px;
+  top: calc(50% - 8px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.table-ref a {
+  font-weight: 400;
+  margin-right: 20px;
+  color: #272833;
+}
+
+.table-ref ul {
+  display: none;
+}
+
+.table-ref ul > li {
+  margin-left: 8px;
+  position: relative;
+}
+
+/* Лінії вложеності */
+
+.table-ref ul > li > p:after {
+  /* горизонтальна */
+  content: '';
+  left: -9px;
+  top: 24px;
+  position: absolute;
+  width: 8px;
+  height: 1px;
+  background: #e7e7ed;
+}
+
+.table-ref ul > li:before {
+  /* вертикальна */
+  content: '';
+  position: absolute;
+  left: -8px;
+  /* bottom: 24px; */
+  top: -24px;
+  width: 1px;
+  height: calc(100% + 24px);
+  background: #e7e7ed;
+}
+.table-ref ul > li:last-child:after {
+  /* вертикальна приховане зайве*/
+  content: '';
+  position: absolute;
+  left: -9px;
+  top: 26px;
+  width: 3px;
+  height: calc(100% - 24px);
+  background: #ecf3fb;
+}
+
+/*^ end table-ref  */
+
 @media (max-width: 768px) {
   .managment__head h1 {
     margin-bottom: 12px;
