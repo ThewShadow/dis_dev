@@ -394,8 +394,10 @@
 <script src="{% static 'js/common.js' %}"></script>
 <script src="{% static 'js/account.js' %}"></script>
 <script src="{% static 'js/payCryptoWallet.js' %}"></script>
-<script src="{% static 'js/management.js' %}"></script>
 <script src="https://www.paypal.com/sdk/js?client-id={{ PAYPAL_CLIENT_ID }}&disable-funding=credit,card"></script>
 <script src="{% static 'js/paypal.js' %}"></script>
 
+{% block scripts %}
+
+{% endblock %}
 </html>

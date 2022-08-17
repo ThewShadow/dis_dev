@@ -2,6 +2,7 @@ from django.urls import path, include
 from main import views
 from django.contrib import admin
 
+from main.views import ReportAgentsView, ReferralsReportView
 
 urlpatterns = [
 
@@ -29,4 +30,8 @@ urlpatterns = [
          name='paypal_error'),
     path('crypto_payment/', views.CryptoPayment.as_view(),
          name='crypto-pay'),
+    path('reports/agents/', ReportAgentsView.as_view(), name='report-agents'),
+
+
+    path('reports/referrals', ReferralsReportView.as_view(), name='report-referrals')
 ]

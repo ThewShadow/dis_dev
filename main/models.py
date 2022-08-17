@@ -26,6 +26,8 @@ except telebot.apihelper.ApiHTTPException as e:
     logger.error(f'Telegram bot not created. error: {e}')
 
 
+
+
 class CustomUser(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(_('email address'), unique=True)
     username = models.CharField(max_length=250)
@@ -53,7 +55,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
             return
 
         try:
-            agent = CustomUser.objects.get(id=int(agent_id))
+            agent = CustomUser.objects.get(id=agent_id)
         except CustomUser.DoesNotExist:
             logger.warning(f'Agent not found. ref_link: {agent_id=}')
             return

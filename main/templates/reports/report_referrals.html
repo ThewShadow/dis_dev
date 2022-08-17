@@ -1,0 +1,30 @@
+{% extends 'main/base_report.html' %}
+{% load i18n static %}
+{% block title %}
+<title>{% trans 'Referral Statistics' %}</title>
+{% endblock %}
+
+{% block report_name %}
+  <h1>{% trans 'Referral Statistics' %}</h1>
+{% endblock %}
+
+{% block content_table %}
+<div class="managment__table managment__table_short">
+  <div class="table">
+    <ul class="table__row table__row-head">
+      <li class="table__referral">
+        <p>Referrals</p>
+      </li>
+    </ul>
+    {% for item in page_obj %}
+    <ul class="table__row">
+        <li class="table__referral">
+<!--            <span>{{ forloop.counter }}</span>-->
+            <p>Referral</p>
+            <span>{{ item.email }}</span>
+        </li>
+    </ul>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

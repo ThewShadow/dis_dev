@@ -1,0 +1,101 @@
+{% extends 'main/base_report.html' %}
+{% load i18n static %}
+
+{% block title %}
+<title>{% trans 'Subscriptions Statistics' %}</title>
+{% endblock %}
+
+{% block report_name %}
+  <h1>{% trans 'Subscriptions Statistics' %}</h1>
+{% endblock %}
+
+{% block content_table %}
+    <div class="table">
+        <ul class="table__row table__row-head">
+          <li class="table__date">
+            <p>Order date</p>
+          </li>
+          <li class="table__sub-id">
+            <p>Sub ID</p>
+          </li>
+          <li class="table__other">
+            <p>Order</p>
+          </li>
+          <li class="table__user-id">
+            <p>User ID</p>
+          </li>
+          <li class="table__email">
+            <p>Email</p>
+          </li>
+          <li class="table__phone">
+            <p>Phone</p>
+          </li>
+          <li class="table__active">
+            <p>Active</p>
+          </li>
+          <li class="table__confirm">
+            <p></p>
+          </li>
+        </ul>
+
+        {% for item in page_obj %}
+        <ul class="table__row">
+          <li class="table__date">
+            <p>Order date</p>
+            <span>{{ item.order_date }}</span>
+          </li>
+          <li class="table__sub-id">
+            <p>Sub ID</p>
+            <span>{{ item.id }}</span>
+          </li>
+          <li class="table__other">
+            <p>Order</p>
+            <span>{{ item.offer }}</span>
+          </li>
+          <li class="table__user-id">
+            <p>User ID</p>
+            <span>{{ item.user.id }}</span>
+          </li>
+          <li class="table__email">
+            <p>Email</p>
+            <span>{{ item.email }}</span>
+          </li>
+          <li class="table__phone">
+            <p>Phone</p>
+            <span>{{ item.phone_number }}</span>
+          </li>
+          <li class="table__active">
+            <p>Active</p>
+            <span>
+              <label>
+                <input type="radio" disabled {% if not item.is_active %} checked {% endif %} />
+                <span>
+                  <svg
+                    width="14"
+                    height="12"
+                    viewBox="0 0 14 12"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M5.02807 11.4257C4.76869 11.4257 4.51557 11.3226 4.33119 11.1382L0.390566 7.1945C-0.531309 6.22887 0.959316 4.94137 1.78432 5.80075L4.98432 9.00387L12.1718 0.913245C13.0218 -0.0398795 14.4937 1.27262 13.6437 2.22262L5.76244 11.0945C5.58119 11.2976 5.32494 11.4164 5.05619 11.4257C5.04682 11.4257 5.03744 11.4257 5.02807 11.4257Z"
+                      fill="white"
+                    />
+                  </svg>
+                </span>
+              </label>
+            </span>
+          </li>
+
+          <li class="table__confirm">
+            <p></p>
+            <form method="POST">
+              {% csrf_token %}
+              <input type="hidden" name="sub_id" value="{{ item.id }}" />
+              <span><button>Confirm</button></span>
+            </form>
+          </li>
+        </ul>
+        {% endfor %}
+      </div>
+{% endblock %}

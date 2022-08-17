@@ -1,18 +1,14 @@
 import datetime
-from django.core.mail import EmailMultiAlternatives, EmailMessage
+from django.core.mail import EmailMessage
 from django.db.models import F
-
 from service.forms import CryptoPaymentForm
-import service.service as service
+from service.service import gen_verify_code
 from django.shortcuts import redirect, get_object_or_404, HttpResponse, HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.http import JsonResponse
 from django.views.generic import View
 from service.crypto import CryptoPaymentGenerator
 from config import settings
-from main.models import CustomUser, CryptoWallet
-from main.models import Offer
-from main.models import Subscription
 from main.forms import LoginForm, SupportTaskCreateForm
 from main.forms import SubscribeCreateForm
 from main.forms import VerifyEmailForm
@@ -22,15 +18,13 @@ from main.forms import ResetPasswordVerifyForm
 from main.forms import NewPasswordForm, CustomUserSocialCreationForm
 from django.contrib.auth import authenticate, login
 from django.utils.translation import gettext as _
-from django.core.exceptions import ObjectDoesNotExist
-import logging
-from service import crypto
 from service import google
 import threading
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 from main.forms import TransactionForm
 import json
+from main.notifications import *
 
 logger = logging.getLogger('main')
 
@@ -68,9 +62,7 @@ class SubscriptionCreate(View):
                 status=400
             )
 
-        thread = threading.Thread(
-            target=new_subscription.notify_managers)
-        thread.start()
+        SubscriptionCreateMessage(new_subscription).inform()
 
         return JsonResponse({
                 'success': True,
@@ -97,7 +89,7 @@ class CryptoPayCreate(View):
                 wallet_id=form.cleaned_data.get('wallet_id'),
             )
             try:
-                payment_data = cpg.get_payment_data()
+                payment_data = cpg.get_payment_details()
             except Exception as e:
                 logger.critical(f'Generate crypto payment error \n error: {e}')
                 return JsonResponse({'success': False}, status=400)
@@ -108,6 +100,7 @@ class CryptoPayCreate(View):
                     'payment_data': payment_data
                 }
             )
+
 
 class GoogleLogin(View):
 
@@ -160,9 +153,9 @@ class GoogleLoginComplete(View):
                 logger.warning(f':Social user create error. '
                                f'Form not valid. \n'
                                f'form errors: {form.errors}')
-        except:
+        except Exception:
+            # the user is already registered through the basic registration
             return redirect(reverse_lazy('unauthorized'))
-
 
         if isinstance(customer, CustomUser):
             login(self.request, customer, backend='main.backends.EmailBackend')
@@ -214,7 +207,8 @@ class PayPalPaymentReceiving(View):
         transaction = form.save()
         customer_subscription.paid = True
         customer_subscription.save()
-        transaction.notify_managers()
+        # transaction.notify_managers()
+        SubscriptionPaymentMessage(transaction).inform()
 
         logger.error('PayPalPaymentReceiving: payment receiving success')
 
@@ -310,12 +304,13 @@ class Registration(View):
     def post(self, request, **kwargs):
         form = self.class_form(self.request.POST)
         if not form.is_valid():
-            return JsonResponse({
-                    'success': False,
-                    'error_messages': dict(form.errors)
-                },
-                status=400
-            )
+            return JsonResponse({'success': False,
+                                 'error_messages': dict(form.errors)},
+                                status=400)
+
+        activation_code = gen_verify_code()
+
+        EmailActivationCodeMessage(form.cleaned_data['email'], activation_code).inform()
 
         try:
             agent_id = int(request.COOKIES.get('ref_link', '').lstrip('0'))
@@ -326,12 +321,6 @@ class Registration(View):
         if agent_id:
             new_customer.set_agent(agent_id)
         new_customer.save()
-
-        activation_code = service.gen_verify_code()
-        send_code = threading.Thread(
-            target=service.send_activation_account_code,
-            args=(activation_code, new_customer.email))
-        send_code.start()
 
         request.session['activation_code'] = activation_code
         request.session['activation_email'] = new_customer.email
@@ -357,6 +346,7 @@ class ResetPasswordConfirm(View):
                 )
 
             if str(verify_code) == verify_code_check:
+                request.session['allow_reset_pass'] = True
                 return JsonResponse({'success': True}, status=200)
             else:
                 return JsonResponse({
@@ -378,38 +368,25 @@ class ResetPasswordComplete(View):
     class_form = NewPasswordForm
 
     def post(self, request, **kwargs):
+        if not request.session.get('allow_reset_pass', False):
+            return JsonResponse(dict(success=False), status=403)
 
         form = self.class_form(request.POST)
-        if form.is_valid():
-            reset_pass_email = request.session.get('reset_pass_email')
-            if not reset_pass_email:
-                return JsonResponse({
-                        'success': False,
-                        'message': 'Session expired'
-                    },
-                    status=400
-                )
+        if not form.is_valid():
+            return JsonResponse({'success': False, 'error_messages': dict(form.errors)}, status=400)
 
-            try:
-                user = CustomUser.objects.get(email=reset_pass_email)
-            except ObjectDoesNotExist:
-                return JsonResponse({
-                        'success': False,
-                        'message': 'User does not exist'
-                    },
-                    status=400
-                )
-            else:
-                user.set_password(form.cleaned_data.get('password1'))
-                user.save()
-                return JsonResponse({'success': True}, status=200)
+        reset_pass_email = request.session.get('reset_pass_email')
+
+        try:
+            user = CustomUser.objects.get(email=reset_pass_email)
+        except Exception as error:
+            logger.warning('Reset password fail. incorrect reset_pass_email ', error)
+            return JsonResponse({'success': False, 'message': 'Session expired'}, status=400)
         else:
-            return JsonResponse({
-                    'success': False,
-                    'error_messages': dict(form.errors)
-                },
-                status=400
-            )
+            user.set_password(form.cleaned_data.get('password1'))
+            user.save()
+
+        return JsonResponse({'success': True}, status=200)
 
 
 class ResetPassword(View):
@@ -427,15 +404,12 @@ class ResetPassword(View):
             )
 
         customer_email = form.cleaned_data['email']
-        reset_code = service.gen_verify_code()
+        reset_code = gen_verify_code()
 
         request.session['reset_pass_email'] = customer_email
         request.session['reset_pass_verify_code'] = reset_code
 
-        send_reset_code = threading.Thread(
-            target=service.send_reset_password_code,
-            args=(reset_code, customer_email))
-        send_reset_code.start()
+        ResetPasswordCodeMessage(customer_email, reset_code).inform()
 
         return JsonResponse({'success': True}, status=200)
 
@@ -520,6 +494,7 @@ class SupportTaskCreateView(View):
                 status=400
             )
 
+
 class PayPalPaymentReturnView(View):
 
     def get(self, request, **kwargs):
@@ -540,18 +515,31 @@ class IsAuthenticated(View):
 
 @method_decorator(csrf_exempt, name='dispatch')
 class CryptoWallets(View):
+
     def post(self, request, **kwargs):
         currency_id = request.POST.get('currency_id')
         if currency_id is None:
             return JsonResponse({'success': False}, status=400)
 
-        wallets = CryptoWallet.get_wallets_by_currency_id(currency_id)
+        wallets = CryptoWallet.objects.filter(
+            currency__id=currency_id
+        ).prefetch_related(
+            'blockchain', 'currency'
+        ).annotate(
+            blockchain_name=F('blockchain__blockchain_name')
+        ).values(
+            'blockchain_name', 'id',
+        )
+
         return JsonResponse(
             {
                 'success': True,
-                'wallets': wallets
+                'wallets': list(wallets)
             },
-            safe=False, status=200)
+            safe=False,
+            status=200
+        )
+
 
 def clear_temp_data(request):
     try:
