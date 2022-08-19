@@ -1,0 +1,20 @@
+{% load i18n %}
+<h3>{% trans 'Account info' %}</h3>
+<form method="post">
+    {% csrf_token %}
+    <div class="account__info-inputs">
+        <label>
+            <p>{% trans 'ID user' %}</p>
+            <input disabled name="user_id" type="text" id="id_user_pk" value="{{ user_id }}" >
+        </label>
+        <label>
+            <p>{% trans 'How can I call you?' %}</p>
+            {{ form.username }}
+        </label>
+        <label>
+            <p>{% trans 'E-mail' %}</p>
+            {{ form.email }}
+        </label>
+    </div>
+    <button type="submit" class="account__btn-save btn btn-blue" tabindex="4">{% trans 'Save changes' %}</button>
+</form>

@@ -220,7 +220,7 @@ class TestCryptoPayment(TestCase):
         rate = Rate(name='mouth', count=12, slug='xxx')
         rate.save()
 
-        offer = Offer(product, price=40, name='Basic', currency=curr, description='xxx', rate=rate)
+        offer = Offer(product=product, price=40, name='Basic', currency=curr, description='xxx', rate=rate)
         offer.save()
 
         user = CustomUser.objects.create_user(email=auth_data.email, password=auth_data.password)
