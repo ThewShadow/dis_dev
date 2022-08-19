@@ -606,7 +606,7 @@
 
 */
 .managment__table_short .table {
-  width: 100%;
+  min-width: 100%;
   /* max-width: 1000px; */
   margin: 0;
 }
@@ -732,6 +732,23 @@
   width: 3px;
   height: calc(100% - 24px);
   background: #ecf3fb;
+}
+
+.table-ref p a,
+.table-ref p span {
+  margin-right: 15px;
+}
+
+/*^ Columns of agent-table  */
+
+.agent__name {
+  flex: 0 0 200px;
+}
+.agent__email {
+  flex: 0 0 200px;
+}
+.agent__count {
+  flex: 0 0 50px;
 }
 
 /*^ end table-ref  */
