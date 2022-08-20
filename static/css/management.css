@@ -45,10 +45,20 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: justify;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
+  /* -webkit-box-pack: justify; */
+  /* -ms-flex-pack: justify; */
+  /* justify-content: space-between; */
   margin-bottom: 44px;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: reverse;
+  -ms-flex-direction: column-reverse;
+  flex-direction: column-reverse;
+  /* -webkit-box-align: center;
+  -ms-flex-align: center; */
+  align-items: flex-start;
+  -webkit-box-pack: start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
 }
 
 .managment__show-sort-wrap {
@@ -235,6 +245,10 @@
 
 .managment__search {
   position: relative;
+
+  margin-bottom: 24px;
+  width: 100%;
+  max-width: 400px;
 }
 
 .managment__search input {
@@ -246,6 +260,7 @@
   line-height: 100%;
   background-color: #ffffff;
   border-radius: 8px;
+  width: 100%;
 }
 
 .managment__search input::-webkit-input-placeholder {
@@ -601,28 +616,6 @@
   color: #fff;
 }
 
-/* 
-
-
-*/
-.managment__table_short .table {
-  min-width: 100%;
-  /* max-width: 1000px; */
-  margin: 0;
-}
-
-.table__referral {
-  flex: 1 1 auto;
-}
-.table__agent {
-  flex: 1 1 auto;
-}
-
-.table__referrals-count {
-  flex: 0 0 100px;
-  text-align: center;
-}
-
 /*^ table ref */
 
 .table-ref {
@@ -630,10 +623,6 @@
   overflow: hidden;
   overflow-x: auto;
   padding-bottom: 15px;
-}
-
-.table-ref li {
-  min-width: 280px;
 }
 
 .table-ref li.in > p:before {
@@ -739,7 +728,14 @@
   margin-right: 15px;
 }
 
-/*^ Columns of agent-table  */
+/*^ Columns in 'AGENTS'  */
+
+.table-ref li {
+  min-width: 100%;
+
+  /* довжина рядка в 'Agents', змінювати тільки останню цифру*/
+  width: calc(60px + 450px);
+}
 
 .agent__name {
   flex: 0 0 200px;
@@ -751,7 +747,39 @@
   flex: 0 0 50px;
 }
 
-/*^ end table-ref  */
+/*^ Columns in 'REFERRALS' */
+
+@media (min-width: 480px) {
+  .table.width-table-referrals {
+    min-width: 100%;
+
+    /* довжина ряядка */
+    width: 800px;
+  }
+}
+
+.ref__name {
+  flex: 0 0 200px;
+}
+.ref__email {
+  flex: 0 0 200px;
+}
+
+@media (max-width: 992px) {
+  .managment__footer {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-pack: start;
+    -ms-flex-pack: start;
+    justify-content: flex-start;
+  }
+
+  .pagination-info {
+    margin-bottom: 24px;
+  }
+}
 
 @media (max-width: 768px) {
   .managment__head h1 {
@@ -800,6 +828,7 @@
   .managment__search {
     margin-bottom: 24px;
     width: 100%;
+    max-width: 100%;
   }
 
   .managment__search input {
