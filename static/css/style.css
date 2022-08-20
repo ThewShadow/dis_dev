@@ -232,7 +232,7 @@ h4 {
 }
 
 .hide {
-	display: none;
+  display: none;
 }
 
 .btn-wh {
@@ -2904,7 +2904,7 @@ select[name='language']::after {
 }
 
 .account__edit-data {
-  margin-bottom: 60px;
+  margin-bottom: 70px;
   -webkit-box-flex: 1;
   -ms-flex: 1 1 auto;
   flex: 1 1 auto;
@@ -4197,8 +4197,8 @@ select[name='language']::after {
     grid-template-columns: 1fr;
     grid-template-areas:
       'title '
-      'content'
-      'btn-exit';
+      'btn-exit'
+      'content';
   }
 
   .account__title {
