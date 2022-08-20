@@ -15,7 +15,6 @@ logger = logging.getLogger('main')
 
 
 class CustomUserSocialCreationForm(ModelForm):
-
     ref_link = forms.CharField(max_length=255, required=False)
 
     class Meta(UserCreationForm):
@@ -25,7 +24,7 @@ class CustomUserSocialCreationForm(ModelForm):
             'username',
             'social_sign_up',
             'is_active',
-            'is_verified'
+            'email_verified'
         )
 
     def clean_email(self):
@@ -102,6 +101,8 @@ class SupportTaskCreateForm(ModelForm):
         if commit:
             task.save()
         return task
+
+
 class ChangeUserInfoForm(Form):
     username = forms.CharField(max_length=250, label='Your name')
     email = forms.EmailField(max_length=250)
@@ -151,7 +152,6 @@ class SubscribeCreateForm(ModelForm):
     def save(self, commit=True):
         subscription = super().save(commit=False)
         subscription.set_service_password()
-
         if commit:
             subscription.save()
         return subscription
@@ -162,13 +162,10 @@ class LoginForm(Form):
     password = forms.CharField(max_length=250, required=True)
 
     def clean_email(self):
-
         email = self.cleaned_data['email']
         users = CustomUser.objects.filter(email=email)
-
         if not users.exists():
             raise ValidationError(_("User with this email does not exist"))
-
         return email
 
 
@@ -196,16 +193,26 @@ class ResetPasswordVerifyForm(Form):
     verify_code = forms.CharField(max_length=6, required=True)
 
 
-class NewPasswordForm(Form):
-    password1 = forms.CharField(max_length=250, required=True)
-    password2 = forms.CharField(max_length=250, required=True)
+class ChangePasswordForm(ModelForm):
+    password_confirm = forms.CharField(max_length=250, required=True)
+
+    class Meta:
+        model = CustomUser
+        fields = ('password', )
 
     def clean(self):
         super().clean()
-        pass1 = self.cleaned_data.get('password1')
-        pass2 = self.cleaned_data.get('password2')
+        pass1 = self.cleaned_data.get('password')
+        pass2 = self.cleaned_data.get('password_confirm')
         if not pass1 == pass2:
-            self.add_error('password2', _('Passwords do not match'))
+            self.add_error('password_confirm', _('Passwords do not match'))
+
+    def save(self, commit=True):
+        password = self.cleaned_data['password_confirm']
+        self.instance.set_password(password)
+        if commit:
+            self.instance.save()
+        return self.instance
 
 
 class TransactionForm(ModelForm):

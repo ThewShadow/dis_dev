@@ -24,7 +24,7 @@ class TestLogin(TestCase):
     @classmethod
     def setUpTestData(cls):
         user = CustomUser.objects.create_user(email=auth_data.email, password=auth_data.password)
-        user.is_verified = True
+        user.email_verified = True
         user.is_active = True
         user.save()
 
@@ -32,7 +32,7 @@ class TestLogin(TestCase):
         c = Client(HTTP_USER_AGENT='Mozilla/5.0')
         c.logout()
 
-    def test_test_checks_the_login_of_the_user(self):
+    def test_login(self):
         c = Client(HTTP_USER_AGENT='Mozilla/5.0')
         login_data = {
             'email': auth_data.email,
@@ -41,13 +41,18 @@ class TestLogin(TestCase):
         resp = c.post(reverse('service:login'), data=login_data)
         self.assertEqual(resp.status_code, 200, msg=resp.json())
 
-    def test_checks_the_access_of_the_authorized_user_to_the_profile(self):
+    def test_checks_access_profile(self):
         c = Client(HTTP_USER_AGENT='Mozilla/5.0')
-        login = c.login(username=auth_data.email, password=auth_data.password)
-        self.assertEqual(login, True, msg='login is fall')
+        c.login(username=auth_data.email, password=auth_data.password)
 
         resp = c.get(reverse('profile'))
         self.assertEqual(resp.status_code, 200, msg='User not authorized')
+
+    def test_logout(self):
+        c = Client(HTTP_USER_AGENT='Mozilla/5.0')
+        c.login(username=auth_data.email, password=auth_data.password)
+        resp = c.post(reverse('logout'))
+        self.assertEqual(resp.status_code, 302, msg='logout is fail')
 
 
 class TestRegistration(TestCase):
@@ -62,13 +67,13 @@ class TestRegistration(TestCase):
     @classmethod
     def setUpTestData(cls):
         base_agent = CustomUser.objects.create_user(email='www@gmail.com', password='123')
-        base_agent.is_verified = True
+        base_agent.email_verified = True
         base_agent.is_active = True
         base_agent.is_superuser = True
         base_agent.save()
 
         agent1 = CustomUser.objects.create_user(email='www1@gmail.com', password='123')
-        agent1.is_verified = True
+        agent1.email_verified = True
         agent1.is_active = True
         agent1.is_superuser = True
         agent1.save()
@@ -125,7 +130,7 @@ class TestResetPassword(TestCase):
         user = CustomUser.objects.create_user(
             email=auth_data.email,
             password=auth_data.password)
-        user.is_verified = True
+        user.email_verified = True
         user.is_active = True
         user.save()
 
@@ -156,7 +161,7 @@ class TestResetPassword(TestCase):
         self.assertEqual(resp.status_code, 200, msg=f'Email not activated {code=} {json_response=}')
 
         new_pass = service.service.gen_verify_code()
-        resp = c.post(reverse('service:reset_pass_complete'), {'password1': new_pass, 'password2': new_pass})
+        resp = c.post(reverse('service:reset_pass_complete'), {'password': new_pass, 'password_confirm': new_pass})
 
         json_response = resp.json()
         self.assertEqual(resp.status_code, 200, msg=f'Password not restored {new_pass=} {json_response=}')
@@ -224,7 +229,7 @@ class TestCryptoPayment(TestCase):
         offer.save()
 
         user = CustomUser.objects.create_user(email=auth_data.email, password=auth_data.password)
-        user.is_verified = True
+        user.email_verified = True
         user.is_active = True
         user.save()
 

@@ -6,16 +6,16 @@ from service.service import gen_verify_code
 from django.shortcuts import redirect, get_object_or_404, HttpResponse, HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.http import JsonResponse
-from django.views.generic import View
+from django.views.generic import View, FormView
 from service.crypto import CryptoPaymentGenerator
 from config import settings
-from main.forms import LoginForm, SupportTaskCreateForm
+from main.forms import LoginForm, SupportTaskCreateForm, ChangePasswordForm
 from main.forms import SubscribeCreateForm
 from main.forms import VerifyEmailForm
 from main.forms import CustomUserCreationForm
 from main.forms import ResetPasswordForm
 from main.forms import ResetPasswordVerifyForm
-from main.forms import NewPasswordForm, CustomUserSocialCreationForm
+from main.forms import CustomUserSocialCreationForm
 from django.contrib.auth import authenticate, login
 from django.utils.translation import gettext as _
 from service import google
@@ -143,7 +143,7 @@ class GoogleLoginComplete(View):
                 'social_sign_up': True,
                 'email': user_info['email'],
                 'is_active': True,
-                'is_verified': True
+                'email_verified': True
             })
 
             if form.is_valid():
@@ -280,7 +280,7 @@ class Login(View):
                 status=401
             )
 
-        if not user.is_verified and not user.is_superuser:
+        if not user.email_verified and not user.is_superuser:
             return JsonResponse({
                     'success': False,
                     'message': _('Email not verified')
@@ -365,28 +365,32 @@ class ResetPasswordConfirm(View):
 
 
 class ResetPasswordComplete(View):
-    class_form = NewPasswordForm
+    class_form = ChangePasswordForm
 
     def post(self, request, **kwargs):
         if not request.session.get('allow_reset_pass', False):
-            return JsonResponse(dict(success=False), status=403)
+            return JsonResponse({'success': False}, status=403)
 
-        form = self.class_form(request.POST)
-        if not form.is_valid():
+        user = self.get_user()
+        if user is None:
+            logger.warning('Reset password fail. incorrect reset_pass_email')
+            return JsonResponse({'success': False, 'message': 'Session expired'}, status=400)
+
+        form = self.class_form(request.POST, instance=user)
+        if form.is_valid():
+            user = form.save()
+            del request.session['allow_reset_pass']
+            login(request, user, backend='main.backends.EmailBackend')
+            return JsonResponse({'success': True}, status=200)
+        else:
             return JsonResponse({'success': False, 'error_messages': dict(form.errors)}, status=400)
 
-        reset_pass_email = request.session.get('reset_pass_email')
-
+    def get_user(self):
+        reset_pass_email = self.request.session.get('reset_pass_email')
         try:
-            user = CustomUser.objects.get(email=reset_pass_email)
-        except Exception as error:
-            logger.warning('Reset password fail. incorrect reset_pass_email ', error)
-            return JsonResponse({'success': False, 'message': 'Session expired'}, status=400)
-        else:
-            user.set_password(form.cleaned_data.get('password1'))
-            user.save()
-
-        return JsonResponse({'success': True}, status=200)
+            return CustomUser.objects.get(email=reset_pass_email)
+        except CustomUser.DoesNotExist:
+            return None
 
 
 class ResetPassword(View):
@@ -449,7 +453,7 @@ class ActivationEmail(View):
 
         try:
             user = CustomUser.objects.get(email=activation_email)
-            user.is_verified = True
+            user.email_verified = True
             user.is_active = True
             user.save()
         except CustomUser.DoesNotExist:

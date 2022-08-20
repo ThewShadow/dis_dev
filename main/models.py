@@ -26,20 +26,20 @@ except telebot.apihelper.ApiHTTPException as e:
     logger.error(f'Telegram bot not created. error: {e}')
 
 
-
-
 class CustomUser(AbstractBaseUser, PermissionsMixin):
+    objects = CustomUserManager()
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = []
+
     email = models.EmailField(_('email address'), unique=True)
     username = models.CharField(max_length=250)
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=False)
-    is_verified = models.BooleanField(default=False)
-    date_joined = models.DateTimeField(default=timezone.now)
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = []
-    objects = CustomUserManager()
-    social_sign_up = models.BooleanField(default=False)
+    is_agent = models.BooleanField(default=False)
 
+    email_verified = models.BooleanField(default=False)
+    date_joined = models.DateTimeField(default=timezone.now)
+    social_sign_up = models.BooleanField(default=False)
 
     agent = models.ForeignKey(
         'self',

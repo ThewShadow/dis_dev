@@ -127,16 +127,14 @@ class IndexView(ListView):
 
         return context
 
+from django.views.generic import RedirectView
+class LogoutView(LoginRequiredMixin, RedirectView):
+    url = reverse_lazy('index')
 
-class LogoutView(View):
-
-    def post(self, *args, **kwargs):
+    def get(self, request, *args, **kwargs):
+        response = super().get(request, *args, **kwargs)
         logout(self.request)
-        return redirect(reverse_lazy('index'))
-
-    def get(self, *args, **kwargs):
-        logout(self.request)
-        return redirect(reverse_lazy('index'))
+        return response
 
 
 class OffersView(ListView):
