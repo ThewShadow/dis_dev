@@ -2830,11 +2830,13 @@ select[name='language']::after {
   -webkit-box-shadow: 0px 12px 28px rgba(177, 177, 177, 0.2);
   box-shadow: 0px 12px 28px rgba(177, 177, 177, 0.2);
   border-radius: 12px;
-  margin-right: 44px;
+  margin-right: 34px;
   -webkit-transition: all 0.4s ease 0s;
   -o-transition: all 0.4s ease 0s;
   transition: all 0.4s ease 0s;
   margin-bottom: 30px;
+
+  flex: 0 0 310px;
 }
 
 .account__nav::before {
@@ -2866,7 +2868,7 @@ select[name='language']::after {
 }
 
 .account__nav a {
-  min-width: 350px;
+  min-width: 280px;
   padding: 11px 30px 11px 22px;
   margin-bottom: 4px;
   border-radius: 8px;
@@ -4213,7 +4215,7 @@ select[name='language']::after {
   }
 
   .account__nav {
-    margin-right: 24px;
+    margin-right: 34px;
   }
 
   .account__edit-data {
@@ -4431,6 +4433,8 @@ select[name='language']::after {
     overflow: hidden;
     padding: 4px 54px 0 4px;
     position: relative;
+
+    flex: 1 1 auto;
   }
 
   .account__nav::before {

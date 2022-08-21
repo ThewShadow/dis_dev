@@ -45,20 +45,11 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  /* -webkit-box-pack: justify; */
-  /* -ms-flex-pack: justify; */
-  /* justify-content: space-between; */
-  margin-bottom: 44px;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: reverse;
-  -ms-flex-direction: column-reverse;
-  flex-direction: column-reverse;
-  /* -webkit-box-align: center;
-  -ms-flex-align: center; */
-  align-items: flex-start;
-  -webkit-box-pack: start;
-  -ms-flex-pack: start;
-  justify-content: flex-start;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  flex-wrap: wrap-reverse;
 }
 
 .managment__show-sort-wrap {
@@ -76,6 +67,7 @@
   align-items: center;
   margin-right: 40px;
   position: relative;
+  margin-bottom: 20px;
 }
 
 .managment__show-count span {
@@ -246,9 +238,9 @@
 .managment__search {
   position: relative;
 
-  margin-bottom: 24px;
-  width: 100%;
-  max-width: 400px;
+  margin-bottom: 20px;
+  /* width: 100%;
+  max-width: 400px; */
 }
 
 .managment__search input {
@@ -301,6 +293,7 @@
   overflow: hidden;
   overflow-x: auto;
   padding-bottom: 10px;
+  max-width: 850px;
 }
 
 .managment__table::-webkit-scrollbar {
@@ -728,20 +721,31 @@
   margin-right: 15px;
 }
 
+.table-ref__title p {
+  background-color: transparent;
+  border: none;
+}
+.table-ref__title p::before {
+  display: none;
+}
+.table-ref__title span {
+  font-weight: 700;
+}
+
 /*^ Columns in 'AGENTS'  */
 
 .table-ref li {
   min-width: 100%;
 
   /* довжина рядка в 'Agents', змінювати тільки останню цифру*/
-  width: calc(60px + 450px);
+  width: calc(60px + 900px);
 }
 
 .agent__name {
   flex: 0 0 200px;
 }
 .agent__email {
-  flex: 0 0 200px;
+  flex: 0 0 900px;
 }
 .agent__count {
   flex: 0 0 50px;
