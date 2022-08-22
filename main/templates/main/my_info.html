@@ -1,4 +1,8 @@
+{% extends 'main/base_profile.html' %}
 {% load i18n %}
+
+{% block account_content %}
+<div class="account__info bg-white">
 <h3>{% trans 'Account info' %}</h3>
 <form method="post">
     {% csrf_token %}
@@ -10,11 +14,18 @@
         <label>
             <p>{% trans 'How can I call you?' %}</p>
             {{ form.username }}
+            {{ form.username.errors }}
         </label>
+
         <label>
             <p>{% trans 'E-mail' %}</p>
             {{ form.email }}
+            {{ form.email.errors }}
         </label>
+
     </div>
+
     <button type="submit" class="account__btn-save btn btn-blue" tabindex="4">{% trans 'Save changes' %}</button>
 </form>
+</div>
+{% endblock %}

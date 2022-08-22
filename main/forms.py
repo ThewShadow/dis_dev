@@ -1,5 +1,8 @@
 import datetime
 from django.utils import timezone
+
+from service import service
+from . import models
 from .models import Subscription, SupportTask
 from django.forms import ModelForm, DateTimeInput, TextInput, NumberInput, Form
 from django import forms
@@ -95,6 +98,7 @@ class SupportTaskCreateForm(ModelForm):
                 'type': 'hidden'
             }),
         }
+
     def save(self, commit=True):
         task = super().save(commit=False)
         task.pub_date = timezone.now()
@@ -103,12 +107,25 @@ class SupportTaskCreateForm(ModelForm):
         return task
 
 
-class ChangeUserInfoForm(Form):
-    username = forms.CharField(max_length=250, label='Your name')
-    email = forms.EmailField(max_length=250)
+class ChangeUserInfoForm(ModelForm):
 
     class Meta:
         fields = ('username', 'email', )
+        model = CustomUser
+
+    def clean_email(self):
+        new_email = self.cleaned_data.get('email')
+        if self.instance.email == new_email:
+            raise ValidationError('Email not changes')
+        if not service.email_is_unique(self.instance.id, new_email):
+            raise ValidationError('Email not uniq')
+        return new_email
+
+    def clean_username(self):
+        new_username = self.cleaned_data.get('username')
+        if self.instance.username == new_username:
+            raise ValidationError('Username not change')
+        return new_username
 
 
 class ChangeSubscibeStatusForm(Form):

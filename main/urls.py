@@ -2,15 +2,20 @@ from django.urls import path, include
 from main import views
 from django.contrib import admin
 
-from main.views import ReportAgentsView, ReferralsReportView
+from main.views import ReportAgentsView, ReferralsReportView, AccountInfoView, MySubscriptionsView
+
 
 urlpatterns = [
 
     # main views
     path('', views.IndexView.as_view(),
          name='index'),
-    path('profile/info', views.ProfileView.as_view(),
-         name='profile'),
+    # path('profile/info', views.ProfileView.as_view(),
+
+    path('profile/mysubscriptions/', MySubscriptionsView.as_view(),
+        name='my_sub_list'),
+    path('profile/account_info/', AccountInfoView.as_view(),
+        name='my_info'),
     path('accounts/logout/', views.LogoutView.as_view(),
          name='logout'),
     path('offers/<slug:slug>/<slug:rate_slug>/', views.OffersView.as_view(),
@@ -32,6 +37,5 @@ urlpatterns = [
          name='crypto-pay'),
     path('reports/agents/', ReportAgentsView.as_view(), name='report-agents'),
 
-
-    path('reports/referrals', ReferralsReportView.as_view(), name='report-referrals')
+    path('reports/referrals', ReferralsReportView.as_view(), name='report-referrals'),
 ]

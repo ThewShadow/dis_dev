@@ -19,6 +19,33 @@ class UserAuthData:
 auth_data = UserAuthData()
 
 
+class TestProfile(TestCase):
+    current_user_id = None
+
+    @classmethod
+    def setUpTestData(cls):
+        user = CustomUser.objects.create_user(email=auth_data.email, password=auth_data.password)
+        user.email_verified = True
+        user.is_active = True
+        user.username = 'tepes'
+        user.save()
+        cls.current_user_id = user.id
+
+    def test_change_user_info(self):
+        new_username = 'NewUserName'
+        new_email = 'newemail@gmail.com'
+
+        c = Client(HTTP_USER_AGENT='Mozilla/5.0')
+        c.login(username=auth_data.email, password=auth_data.password)
+
+        resp = c.post(reverse('my_info'), data={'username': new_username, 'email': new_email})
+        self.assertEqual(resp.status_code, 200, msg='Change user info fail. Error Request.')
+
+        user = CustomUser.objects.get(id=self.current_user_id)
+        self.assertEqual(user.username, new_username)
+        self.assertEqual(user.email, new_email)
+
+
 class TestLogin(TestCase):
 
     @classmethod
@@ -45,7 +72,7 @@ class TestLogin(TestCase):
         c = Client(HTTP_USER_AGENT='Mozilla/5.0')
         c.login(username=auth_data.email, password=auth_data.password)
 
-        resp = c.get(reverse('profile'))
+        resp = c.get(reverse('my_info'))
         self.assertEqual(resp.status_code, 200, msg='User not authorized')
 
     def test_logout(self):
@@ -103,7 +130,7 @@ class TestRegistration(TestCase):
         resp = c.post(reverse('service:activation_email'), {'activation_code': code})
         self.assertEqual(resp.status_code, 200, msg=f'Email not activated {code=}')
 
-        resp = c.get(reverse('profile'))
+        resp = c.get(reverse('my_info'))
         self.assertEqual(resp.status_code, 200, msg='User not logged after sign up')
 
         user = CustomUser.objects.filter(email=auth_data.email).first()

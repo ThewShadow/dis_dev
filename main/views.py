@@ -28,6 +28,8 @@ from django.contrib.postgres.search import SearchVector
 from django.core.paginator import Paginator
 from django.shortcuts import render
 from django.views.generic.base import ContextMixin, View
+from django.forms.models import model_to_dict
+
 
 logger = logging.getLogger('main')
 
@@ -342,23 +344,62 @@ class ReferralsReportView(LoginRequiredMixin, ReportView):
 
     def get_queryset(self):
         user_list = self.model.objects.filter(agent__id=self.request.user.id).order_by('-date_joined')
-        query = self.request.GET.get('q')
+        query = self.request.GET.get('q', '').strip()
         if query is not None:
-            query = query.strip()
             user_list = user_list.filter(Q(email__contains=query) | Q(username__contains=query))
         return user_list
+
 
 class ReportAgentsView(LoginRequiredMixin, ReportView):
     template_name = 'reports/report_agents.html'
     model = CustomUser
 
     def get_queryset(self, *args):
-        objects_list = self.model.objects.all()
-
+        objects_list = self.model.objects.annotate(order=Count('referrals')).filter(order__gt=0).select_related('agent').order_by('-order')
         query = self.request.GET.get('q', '').strip()
         if query:
-            objects_list = objects_list.filter(Q(agent__email__contains=query) | Q(agent__username__contains=query))
+            return objects_list.filter(Q(agent__email__contains=query) | Q(agent__username__contains=query))
 
-        objects_list = objects_list.select_related('agent').prefetch_related('referrals')
+        return objects_list
 
-        return list(objects_list.values('agent__email', 'agent__username', 'email'))
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context['referrals_count'] = self.model.objects.filter(is_active=True, is_agent=False).count()
+        context['agents_count'] = self.model.objects.annotate(order=Count('referrals')).filter(order__gt=0).count()
+        return context
+
+
+class MySubscriptionsView(LoginRequiredMixin, TemplateView):
+    template_name = 'main/my_subsctiptions.html'
+
+    def get_context_data(self, *args, **kwargs):
+       context = super().get_context_data(*args, **kwargs)
+       context['user_subscriptions'] = Subscription.objects.filter(
+           user__id=self.request.user.id).prefetch_related(
+           'offer__product',
+           'offer__rate'
+       )
+       return context
+
+
+
+class AccountInfoView(LoginRequiredMixin, View):
+    template_name = 'main/my_info.html'
+    form_class = ChangeUserInfoForm
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.POST:
+            form = self.form_class(request.POST, instance=request.user)
+            if form.is_valid():
+                form.save()
+        else:
+            form = self.form_class(model_to_dict(request.user))
+
+        context = self.get_context_data()
+        context.update({'form': form})
+        return render(request, template_name=self.template_name, context=context)
+
+    def get_context_data(self, *args, **kwargs):
+        context = {}
+        context['user_id'] = self.request.user.id
+        return context

@@ -31,7 +31,7 @@
 
 				<div class="header__content">
 					{% if request.user.is_authenticated %}
-					<a href="{% url 'profile' %}" class="header__btn-account ">
+					<a href="{% url 'my_sub_list' %}" class="header__btn-account ">
 						<span>
 							<svg class="svg-icon" width="12" height="15" viewBox="0 0 12 15" fill="none"
 								xmlns="http://www.w3.org/2000/svg">
@@ -124,7 +124,7 @@
 									<a href="##" class="menu__link">WatsApp</a>
 								  </li>
 								  <li>
-										<a href="##" class="email_support">E-mail</a>
+										<a href="" class="email_support">E-mail</a>
 								  </li>
 								</ul>
 							  </li>
@@ -161,13 +161,13 @@
 						  <a href="##" class="menu__link">{% trans 'Support' %}</a>
 						</li>
 						<li>
-						  <a href="##" class="menu__link">Telegram</a>
+						  <a href="https://t.me/FarmSkillsSupport" class="menu__link">Telegram</a>
 						</li>
 						<li>
 						  <a href="##" class="menu__link">WatsApp</a>
 						</li>
 						<li>
-						  <a href="##" class="menu__link">E-mail</a>
+						  <a href="##" class="menu__link email_support">E-mail</a>
 						</li>
 					</ul>
 
@@ -179,7 +179,6 @@
 						{% endfor %}
 
 					</ul>
-
 
 					<div class="header__auth">
 						{% if request.user.is_authenticated %}
@@ -258,7 +257,7 @@
 												fill="#333333" />
 										</svg>
 									</span>
-									<a href="{% url 'profile' %}">{% trans 'My profile' %}</a>
+									<a href="{% url 'my_sub_list' %}">{% trans 'My profile' %}</a>
 								</li>
 								{% if request.user.is_authenticated and request.user.is_staff %}
 								<li>
@@ -364,8 +363,8 @@
 					<p>Developed by ....</p>
 				</div>
 			</div>
-		</div>
-	</footer>
+			</div>
+		</footer>
 	</div>
 
 	{% include 'popups/email_verification.html' %}

@@ -49,10 +49,10 @@ def send_reset_password_code(code, to):
         logger.error(f'Account activation message not sent. error: {e}')
 
 
-def user_email_uniq(user, email):
-    return not models.CustomUser.objects\
-        .exclude(id=user.id)\
-        .filter(email=email)\
+def email_is_unique(exclude_id, email):
+    return not models.CustomUser.objects \
+        .exclude(id=exclude_id) \
+        .filter(email=email) \
         .exists()
 
 
