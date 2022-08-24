@@ -183,7 +183,7 @@ class ManagerPanelView(LoginRequiredMixin, CookiePaginationMixin, ListView):
             subscr_obj.is_active = True
             subscr_obj.save()
             subscr_obj.notify_customer()
-        return redirect(self.te)
+        return redirect(reverse_lazy('manager_panel'))
 
     def get_queryset(self):
         objects_list = Subscription.objects.filter().order_by('-order_date')
