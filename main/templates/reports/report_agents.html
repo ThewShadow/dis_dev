@@ -1,89 +1,53 @@
-{% extends 'main/base_report.html' %}
+{% extends 'main/base_profile.html' %}
 {% load i18n static %}
+
 {% block title %}
-<title>{% trans 'Agents Statistics' %}</title>
+<title>{% trans 'Referral Statistics' %}</title>
 {% endblock %}
 
-{% block report_name %}
-  <h1>{% trans 'Agents Statistics' %}</h1>
-{% endblock %}
-
-{% block content_table %}
-
-<!--<div class="managment__table">-->
-<!--              <ul class="table-ref">-->
-<!--                <li>-->
-<!--                  <p>-->
-<!--                    <a href="#">Agent 1</a>-->
-<!--                    <span>0</span>-->
-<!--                  </p>-->
-<!--                  <ul>-->
-<!--                    <li>-->
-<!--                      <p>-->
-<!--                        <a href="#">Agent 1.1</a>-->
-<!--                        <span>0</span>-->
-<!--                      </p>-->
-<!--                      <ul>-->
-<!--                        <li>-->
-<!--                          <p>-->
-<!--                            <a href="#">Agent 1.1.1</a>-->
-<!--                            <span>0</span>-->
-<!--                          </p>-->
-<!--                          <ul></ul>-->
-<!--                        </li>-->
-<!--                      </ul>-->
-<!--                    </li>-->
-<!--                    <li>-->
-<!--                      <p>-->
-<!--                        <a href="#">Agent 1.2</a>-->
-<!--                        <span>0</span>-->
-<!--                      </p>-->
-<!--                      <ul></ul>-->
-<!--                    </li>-->
-<!--                  </ul>-->
-<!--                </li>-->
-
-<!--                <li>-->
-<!--                  <p>-->
-<!--                    <a href="#">Agent 2</a>-->
-<!--                    <span>0</span>-->
-<!--                  </p>-->
-<!--                  <ul></ul>-->
-<!--                </li>-->
-<!--              </ul>-->
-<!--            </div>-->
-
-
-<div class="managment__table">
-  <ul class="table__row table__row-head">
-     <li class="table__agent">
-      <p>Agents</p>
-    </li>
-    <li class="table__referrals-count">
-      <p>Referrals</p>
-    </li>
-  </ul>
-  <ul class="table-ref">
-  {% regroup page_obj by agent__email as agent_list_regroup %}
-
-      {% for username in agent_list_regroup %}
-        <li>
-          <p>
-            <a href="#">{{ username.grouper }}</a>
-            <span>{{ username.list|length }}</span>
-          </p>
-          <ul>
-            {% for referral in username.list %}
-             <li>
-              <p>
-                <a href="#">{{ referral.email }}</a>
-              </p>
-            </li>
-            {% endfor %}
-          </ul>
-        </li>
-      {% endfor %}
-    </ul>
+{% block account_content %}
+<div class="managment__subtitle bg-white account__info">
+    <p>{% trans 'Only referrals' %}<span>{{ referrals_count }}</span></p>
+    <p>{% trans 'Agents count' %} <span>{{ agents_count }}</span></p>
 </div>
 
+{% endblock%}
+
+{% block account_table %}
+{% include 'blocks/search_form.html' %}
+<div class="managment__table">
+    <ul class="table-ref">
+      <li class="table-ref__title">
+        <p>
+          <span class="agent__name">Agent </span>
+          <span class="ref__count">Id</span>
+          <span class="agent__count">Referrals count</span>
+        </p>
+      </li>
+      {% for agent in page_obj %}
+        <li>
+             <p>
+              <a href="{{ request.path }}?q={{ referral.email }}" class="agent__name"><strong>{{ agent.email }}</strong></a>
+              <span class="ref__count">{{ agent.id }}</span>
+              <span class="agent__count">{{ agent.referrals.count }}</span>
+            </p>
+             <ul>
+                 {% for referral in agent.referrals.all %}
+                 <li>
+                      <p>
+                          <a href="{{ request.path }}?q={{ referral.email }}" class="agent__name"><strong>{{ referral.email }}</strong></a>
+
+                      </p>
+                 </li>
+                {% endfor %}
+            </ul>
+            {% endfor %}
+        </li>
+    </ul>
+</div>
+{% include 'blocks/pagination.html' %}
 {% endblock %}
+
+
+
+

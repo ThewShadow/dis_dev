@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Home</title>
+    <meta charset="UTF-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/managment.css" />
+    <link rel="shortcut icon" href="img/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+
+  <body>
+    <div class="wrapper">
+      <header class="header">
+        <div class="container">
+          <div class="header__body">
+            <a href="index.html" class="header__logo">
+              <img src="img/icons/logo.png" alt="logo" />
+              <span>DiscountsOnServices</span>
+            </a>
+
+            <div class="header__content">
+              <a href="account.html" class="header__btn-account">
+                <span>
+                  <svg
+                    class="svg-icon"
+                    width="12"
+                    height="15"
+                    viewBox="0 0 12 15"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M0.666504 14.6665C0.666504 13.252 1.22841 11.8955 2.2286 10.8953C3.2288 9.89507 4.58535 9.33317 5.99984 9.33317C7.41433 9.33317 8.77088 9.89507 9.77107 10.8953C10.7713 11.8955 11.3332 13.252 11.3332 14.6665H9.99984C9.99984 13.6056 9.57841 12.5882 8.82827 11.8381C8.07812 11.0879 7.0607 10.6665 5.99984 10.6665C4.93897 10.6665 3.92156 11.0879 3.17141 11.8381C2.42126 12.5882 1.99984 13.6056 1.99984 14.6665H0.666504ZM5.99984 8.6665C3.78984 8.6665 1.99984 6.8765 1.99984 4.6665C1.99984 2.4565 3.78984 0.666504 5.99984 0.666504C8.20984 0.666504 9.99984 2.4565 9.99984 4.6665C9.99984 6.8765 8.20984 8.6665 5.99984 8.6665ZM5.99984 7.33317C7.47317 7.33317 8.6665 6.13984 8.6665 4.6665C8.6665 3.19317 7.47317 1.99984 5.99984 1.99984C4.5265 1.99984 3.33317 3.19317 3.33317 4.6665C3.33317 6.13984 4.5265 7.33317 5.99984 7.33317Z"
+                      fill="#fff"
+                    />
+                  </svg>
+                </span>
+                Account
+              </a>
+
+              <nav class="menu">
+                <ul class="menu__list">
+                  <li class="submenu-block submenu-block__services">
+                    <div class="submenu-block__head">
+                      Subscriptions
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="8"
+                        height="4"
+                        fill="none"
+                        viewBox="0 0 8 4"
+                      >
+                        <path
+                          fill="#333"
+                          d="M4 2.586 6.475.111l.707.707L4 4 .818.818l.707-.707L4 2.586Z"
+                        />
+                      </svg>
+                    </div>
+                    <ul>
+                      <li>
+                        <a href="get-netflix.html" class="menu__link">Netflix</a>
+                      </li>
+                      <li>
+                        <a href="get-youtube.html" class="menu__link">YouTube Premium</a>
+                      </li>
+                      <li>
+                        <a href="get-spotify.html" class="menu__link">Spotify</a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li>
+                    <svg
+                      width="20"
+                      height="18"
+                      viewBox="0 0 20 18"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M17.2727 17.0839C17.2727 17.3269 17.177 17.5599 17.0065 17.7317C16.836 17.9035 16.6047 18 16.3636 18H3.63636C3.39526 18 3.16403 17.9035 2.99354 17.7317C2.82305 17.5599 2.72727 17.3269 2.72727 17.0839V8.83893H0L9.38818 0.238515C9.55556 0.0850471 9.77371 0 10 0C10.2263 0 10.4444 0.0850471 10.6118 0.238515L20 8.83893H17.2727V17.0839ZM7.27273 7.92282V13.4195H12.7273V7.92282H7.27273ZM9.09091 9.75504H10.9091V11.5873H9.09091V9.75504Z"
+                        fill="#9C99AD"
+                      />
+                    </svg>
+                    <a href="index.html" class="menu__link menu__link_home">Home</a>
+                  </li>
+                  <li>
+                    <svg
+                      width="20"
+                      height="20"
+                      viewBox="0 0 20 20"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M10 20C4.477 20 0 15.523 0 10C0 4.477 4.477 0 10 0C15.523 0 20 4.477 20 10C20 15.523 15.523 20 10 20ZM9 13V15H11V13H9ZM11 11.355C11.8037 11.1128 12.4936 10.59 12.9442 9.88174C13.3947 9.17353 13.5759 8.32705 13.4547 7.49647C13.3336 6.66588 12.9181 5.90644 12.284 5.35646C11.6499 4.80647 10.8394 4.50254 10 4.5C9.19085 4.49994 8.40666 4.78015 7.78079 5.29299C7.15492 5.80583 6.72601 6.51963 6.567 7.313L8.529 7.706C8.58468 7.42743 8.71832 7.1704 8.91437 6.96482C9.11042 6.75923 9.36081 6.61354 9.63643 6.54471C9.91204 6.47587 10.2015 6.48671 10.4712 6.57597C10.7409 6.66523 10.9797 6.82924 11.1598 7.04891C11.34 7.26858 11.454 7.53489 11.4887 7.81684C11.5234 8.0988 11.4773 8.3848 11.3558 8.64158C11.2343 8.89837 11.0423 9.11536 10.8023 9.26733C10.5623 9.4193 10.2841 9.49998 10 9.5C9.73478 9.5 9.48043 9.60536 9.29289 9.79289C9.10536 9.98043 9 10.2348 9 10.5V12H11V11.355Z"
+                        fill="#9C99AD"
+                      />
+                    </svg>
+                    <a href="faq.html" class="menu__link">FAQ</a>
+                  </li>
+                  <li>
+                    <svg
+                      width="18"
+                      height="20"
+                      viewBox="0 0 18 20"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M17 20H1C0.734784 20 0.48043 19.8946 0.292893 19.7071C0.105357 19.5196 0 19.2652 0 19V6H18V19C18 19.2652 17.8946 19.5196 17.7071 19.7071C17.5196 19.8946 17.2652 20 17 20ZM18 4H0V1C0 0.734784 0.105357 0.48043 0.292893 0.292893C0.48043 0.105357 0.734784 0 1 0H17C17.2652 0 17.5196 0.105357 17.7071 0.292893C17.8946 0.48043 18 0.734784 18 1V4ZM4 9V13H8V9H4ZM4 15V17H14V15H4ZM10 10V12H14V10H10Z"
+                        fill="#9C99AD"
+                      />
+                    </svg>
+                    <a href="##" class="menu__link">Support</a>
+                  </li>
+                  <li>
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 16 16"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M0 8.88889H7.11111V0H0V8.88889ZM0 16H7.11111V10.6667H0V16ZM8.88889 16H16V7.11111H8.88889V16ZM8.88889 0V5.33333H16V0H8.88889Z"
+                        fill="#9C99AD"
+                      />
+                    </svg>
+                    <a href="##" class="menu__link">About</a>
+                  </li>
+                </ul>
+              </nav>
+
+              <ul class="header__mobile-services">
+                <li>
+                  <a href="get-netflix.html" class="menu__link">Netflix</a>
+                </li>
+                <li>
+                  <a href="get-youtube.html" class="menu__link">YouTube Premium</a>
+                </li>
+                <li>
+                  <a href="get-spotify.html" class="menu__link">Spotify</a>
+                </li>
+              </ul>
+
+              <div class="header__auth">
+                <a href="##" class="header__login btn btn-wh">Login</a>
+                <a href="##" class="header__sing-up btn btn-blue">Sign up</a>
+                <a href="##" class="header__logout">
+                  <svg
+                    width="19"
+                    height="20"
+                    viewBox="0 0 19 20"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M1 20C0.734784 20 0.48043 19.8946 0.292893 19.7071C0.105357 19.5196 0 19.2652 0 19V1C0 0.734784 0.105357 0.48043 0.292893 0.292893C0.48043 0.105357 0.734784 0 1 0H15C15.2652 0 15.5196 0.105357 15.7071 0.292893C15.8946 0.48043 16 0.734784 16 1V4H14V2H2V18H14V16H16V19C16 19.2652 15.8946 19.5196 15.7071 19.7071C15.5196 19.8946 15.2652 20 15 20H1ZM14 14V11H7V9H14V6L19 10L14 14Z"
+                      fill="#333333"
+                    />
+                  </svg>
+                  Log out
+                </a>
+              </div>
+
+              <div class="header__lang-socials">
+                <div class="header__socials socials">
+                  <a href="##">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="27"
+                      height="27"
+                      fill="none"
+                      viewBox="0 0 27 27"
+                    >
+                      <path
+                        fill="#333"
+                        d="m.005 26.667 1.803-6.624A13.272 13.272 0 0 1 0 13.333C0 5.97 5.97 0 13.333 0c7.364 0 13.334 5.97 13.334 13.333 0 7.364-5.97 13.334-13.334 13.334a13.272 13.272 0 0 1-6.706-1.807L.005 26.667Zm8.516-19.59c-.172.011-.34.056-.494.134a1.724 1.724 0 0 0-.392.304c-.16.15-.251.281-.348.408a3.639 3.639 0 0 0-.754 2.237c.003.653.174 1.29.44 1.884.546 1.203 1.443 2.476 2.628 3.656.286.284.564.57.864.835a12.596 12.596 0 0 0 5.12 2.728l.759.116c.247.013.493-.006.741-.018.389-.02.768-.125 1.111-.308.221-.117.325-.176.51-.293 0 0 .058-.037.167-.12.18-.133.291-.228.44-.384.111-.115.207-.25.28-.403.104-.217.208-.632.251-.977.032-.264.023-.408.019-.497-.006-.143-.124-.291-.254-.354l-.776-.348s-1.16-.505-1.868-.828a.664.664 0 0 0-.236-.054.642.642 0 0 0-.504.169v-.003c-.006 0-.096.076-1.06 1.244a.466.466 0 0 1-.49.174 1.906 1.906 0 0 1-.255-.088c-.165-.07-.223-.096-.336-.146l-.007-.002a8.016 8.016 0 0 1-2.093-1.334c-.168-.146-.324-.306-.484-.461a8.4 8.4 0 0 1-1.36-1.69l-.079-.127a1.23 1.23 0 0 1-.136-.274c-.05-.196.082-.353.082-.353s.324-.355.474-.547a5.71 5.71 0 0 0 .351-.497c.157-.253.207-.513.124-.715-.373-.912-.76-1.82-1.157-2.721-.079-.179-.312-.307-.524-.332a5.91 5.91 0 0 0-.216-.021 4.512 4.512 0 0 0-.538.005v.001Z"
+                      />
+                    </svg>
+                  </a>
+                  <a href="##">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="28"
+                      height="28"
+                      fill="none"
+                      viewBox="0 0 28 28"
+                    >
+                      <path
+                        fill="#333"
+                        d="M14 27.333C6.636 27.333.667 21.363.667 14 .667 6.636 6.637.666 14 .666c7.364 0 13.333 5.97 13.333 13.334S21.364 27.333 14 27.333ZM9.853 15.56l.018-.01 1.16 3.827c.15.415.354.49.604.455.25-.034.382-.168.546-.326l1.584-1.53 3.4 2.517c.622.343 1.068.165 1.223-.576l2.21-10.43c.243-.97-.183-1.36-.937-1.05L6.684 13.45c-.885.355-.88.851-.16 1.071l3.33 1.04v-.001Z"
+                      />
+                    </svg>
+                  </a>
+                </div>
+
+                <select name="lang" class="select">
+                  <option value="EN" selected>English</option>
+                  <option value="UK">Ukraine</option>
+                  <option value="RU">Russian</option>
+                </select>
+              </div>
+
+              <div class="header__account">
+                <!-- <a href="##" class="header__btn-login btn btn-blue">Log in</a> -->
+                <div class="header__btn-profile submenu-block">
+                  <div class="submenu-block__head">
+                    Profile
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="8"
+                      height="4"
+                      fill="none"
+                      viewBox="0 0 8 4"
+                    >
+                      <path
+                        fill="#333"
+                        d="M4 2.586 6.475.111l.707.707L4 4 .818.818l.707-.707L4 2.586Z"
+                      />
+                    </svg>
+                  </div>
+                  <ul>
+                    <li>
+                      <span>
+                        <svg
+                          class="svg-icon"
+                          width="12"
+                          height="15"
+                          viewBox="0 0 12 15"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M0.666504 14.6665C0.666504 13.252 1.22841 11.8955 2.2286 10.8953C3.2288 9.89507 4.58535 9.33317 5.99984 9.33317C7.41433 9.33317 8.77088 9.89507 9.77107 10.8953C10.7713 11.8955 11.3332 13.252 11.3332 14.6665H9.99984C9.99984 13.6056 9.57841 12.5882 8.82827 11.8381C8.07812 11.0879 7.0607 10.6665 5.99984 10.6665C4.93897 10.6665 3.92156 11.0879 3.17141 11.8381C2.42126 12.5882 1.99984 13.6056 1.99984 14.6665H0.666504ZM5.99984 8.6665C3.78984 8.6665 1.99984 6.8765 1.99984 4.6665C1.99984 2.4565 3.78984 0.666504 5.99984 0.666504C8.20984 0.666504 9.99984 2.4565 9.99984 4.6665C9.99984 6.8765 8.20984 8.6665 5.99984 8.6665ZM5.99984 7.33317C7.47317 7.33317 8.6665 6.13984 8.6665 4.6665C8.6665 3.19317 7.47317 1.99984 5.99984 1.99984C4.5265 1.99984 3.33317 3.19317 3.33317 4.6665C3.33317 6.13984 4.5265 7.33317 5.99984 7.33317Z"
+                            fill="#333333"
+                          />
+                        </svg>
+                      </span>
+                      <a href="##">My profile</a>
+                    </li>
+                    <li>
+                      <span>
+                        <svg
+                          width="19"
+                          height="20"
+                          viewBox="0 0 19 20"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M1 20C0.734784 20 0.48043 19.8946 0.292893 19.7071C0.105357 19.5196 0 19.2652 0 19V1C0 0.734784 0.105357 0.48043 0.292893 0.292893C0.48043 0.105357 0.734784 0 1 0H15C15.2652 0 15.5196 0.105357 15.7071 0.292893C15.8946 0.48043 16 0.734784 16 1V4H14V2H2V18H14V16H16V19C16 19.2652 15.8946 19.5196 15.7071 19.7071C15.5196 19.8946 15.2652 20 15 20H1ZM14 14V11H7V9H14V6L19 10L14 14Z"
+                            fill="#333333"
+                          />
+                        </svg>
+                      </span>
+                      <a href="##">Logout</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div class="btn-menu">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+          </div>
+        </div>
+      </header>
+      <main>
+        <section class="account">
+          <div class="container">
+            <div class="account__body">
+              <h1 class="account__title">Subscription panel</h1>
+              <a class="account__btn-exit link-icon">
+                <svg
+                  width="19"
+                  height="20"
+                  viewBox="0 0 19 20"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M1 20C0.734784 20 0.48043 19.8946 0.292893 19.7071C0.105357 19.5196 0 19.2652 0 19V1C0 0.734784 0.105357 0.48043 0.292893 0.292893C0.48043 0.105357 0.734784 0 1 0H15C15.2652 0 15.5196 0.105357 15.7071 0.292893C15.8946 0.48043 16 0.734784 16 1V4H14V2H2V18H14V16H16V19C16 19.2652 15.8946 19.5196 15.7071 19.7071C15.5196 19.8946 15.2652 20 15 20H1ZM14 14V11H7V9H14V6L19 10L14 14Z"
+                    fill="#333333"
+                  />
+                </svg>
+                <span>Exit the office</span>
+              </a>
+              <div class="account__content">
+                <div class="account__nav">
+                  <a href="##" class="account__btn-info active" data-link="1">
+                    <svg
+                      width="20"
+                      height="21"
+                      viewBox="0 0 20 21"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M7.95405 1.20875C9.30298 0.925884 10.6958 0.925203 12.045 1.20675C12.1349 1.80004 12.3574 2.36544 12.6958 2.86093C13.0343 3.35642 13.4801 3.76925 14 4.06875C14.5196 4.36928 15.1002 4.54881 15.6987 4.594C16.2973 4.63919 16.8983 4.54887 17.457 4.32975C18.3753 5.35781 19.0709 6.56479 19.5 7.87475C19.0314 8.24933 18.6532 8.7247 18.3935 9.26554C18.1338 9.80638 17.9993 10.3988 18 10.9987C18 12.2627 18.586 13.3897 19.502 14.1227C19.0704 15.4316 18.3739 16.6376 17.456 17.6658C16.8974 17.4468 16.2966 17.3566 15.6983 17.4017C15.0999 17.4469 14.5195 17.6264 14 17.9268C13.4805 18.2262 13.0351 18.6387 12.6968 19.1338C12.3585 19.629 12.1361 20.1939 12.046 20.7868C10.6973 21.0703 9.30439 21.0716 7.95505 20.7908C7.86559 20.1969 7.64335 19.6309 7.30487 19.1349C6.96639 18.6389 6.52038 18.2256 6.00005 17.9258C5.48041 17.6254 4.89975 17.446 4.30124 17.401C3.70272 17.356 3.10176 17.4465 2.54305 17.6658C1.62465 16.6374 0.929052 15.4301 0.500047 14.1198C0.96844 13.7454 1.34651 13.2703 1.60618 12.7299C1.86586 12.1894 2.00048 11.5974 2.00005 10.9977C2.00054 10.3976 1.86575 9.80512 1.60571 9.26427C1.34568 8.72341 0.96707 8.24813 0.498047 7.87375C0.929715 6.56487 1.62616 5.35885 2.54405 4.33075C3.1027 4.54971 3.70352 4.63995 4.30184 4.59476C4.90017 4.54958 5.48062 4.37013 6.00005 4.06975C6.51959 3.77035 6.96503 3.35777 7.30331 2.86266C7.64158 2.36754 7.864 1.80259 7.95405 1.20975V1.20875ZM10 13.9987C10.7957 13.9987 11.5588 13.6827 12.1214 13.1201C12.684 12.5575 13 11.7944 13 10.9987C13 10.2031 12.684 9.44004 12.1214 8.87743C11.5588 8.31482 10.7957 7.99875 10 7.99875C9.2044 7.99875 8.44134 8.31482 7.87873 8.87743C7.31612 9.44004 7.00005 10.2031 7.00005 10.9987C7.00005 11.7944 7.31612 12.5575 7.87873 13.1201C8.44134 13.6827 9.2044 13.9987 10 13.9987Z"
+                        fill="#9C99AD"
+                      />
+                    </svg>
+                    Account info
+                  </a>
+                  <a href="##" class="account__btn-subscr" data-link="2">
+                    <svg
+                      width="20"
+                      height="18"
+                      viewBox="0 0 20 18"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M0 6H19C19.2652 6 19.5196 6.10536 19.7071 6.29289C19.8946 6.48043 20 6.73478 20 7V17C20 17.2652 19.8946 17.5196 19.7071 17.7071C19.5196 17.8946 19.2652 18 19 18H1C0.734784 18 0.48043 17.8946 0.292893 17.7071C0.105357 17.5196 0 17.2652 0 17V6ZM1 0H16V4H0V1C0 0.734784 0.105357 0.48043 0.292893 0.292893C0.48043 0.105357 0.734784 0 1 0ZM13 11V13H16V11H13Z"
+                        fill="#9C99AD"
+                      />
+                    </svg>
+                    My Subscriptions
+                  </a>
+
+                  <a href="##" data-link="3">
+                    <svg
+                      width="20"
+                      height="20"
+                      viewBox="0 0 20 20"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M5 1H18V3H5V1ZM1.5 3.5C1.10218 3.5 0.720644 3.34196 0.43934 3.06066C0.158035 2.77936 0 2.39782 0 2C0 1.60218 0.158035 1.22064 0.43934 0.93934C0.720644 0.658035 1.10218 0.5 1.5 0.5C1.89782 0.5 2.27936 0.658035 2.56066 0.93934C2.84196 1.22064 3 1.60218 3 2C3 2.39782 2.84196 2.77936 2.56066 3.06066C2.27936 3.34196 1.89782 3.5 1.5 3.5ZM1.5 10.5C1.10218 10.5 0.720644 10.342 0.43934 10.0607C0.158035 9.77936 0 9.39782 0 9C0 8.60218 0.158035 8.22064 0.43934 7.93934C0.720644 7.65804 1.10218 7.5 1.5 7.5C1.89782 7.5 2.27936 7.65804 2.56066 7.93934C2.84196 8.22064 3 8.60218 3 9C3 9.39782 2.84196 9.77936 2.56066 10.0607C2.27936 10.342 1.89782 10.5 1.5 10.5ZM1.5 17.4C1.10218 17.4 0.720644 17.242 0.43934 16.9607C0.158035 16.6794 0 16.2978 0 15.9C0 15.5022 0.158035 15.1206 0.43934 14.8393C0.720644 14.558 1.10218 14.4 1.5 14.4C1.89782 14.4 2.27936 14.558 2.56066 14.8393C2.84196 15.1206 3 15.5022 3 15.9C3 16.2978 2.84196 16.6794 2.56066 16.9607C2.27936 17.242 1.89782 17.4 1.5 17.4ZM5 8H18V10H5V8ZM5 15H18V17H5V15Z"
+                        fill="#9C99AD"
+                      />
+                    </svg>
+                    Список рефералів
+                  </a>
+                  <a href="##" data-link="4">
+                    <svg
+                      width="19"
+                      height="18"
+                      viewBox="0 0 19 18"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M2 0V16H18V18H0V0H2ZM17.293 3.293L18.707 4.707L13 10.414L10 7.415L5.707 11.707L4.293 10.293L10 4.586L13 7.585L17.293 3.293Z"
+                        fill="#9C99AD"
+                      />
+                    </svg>
+                    Зведений звіт
+                  </a>
+                </div>
+
+                <div class="account__edit-data">
+                  <div class="managment__subtitle">
+                    <p>Кількість підписок<span>6</span></p>
+                  </div>
+
+                  <form class="managment__filters">
+                    <div class="managment__show-sort-wrap">
+                      <label class="managment__show-count">
+                        <span>Show</span>
+                        <input type="number" value="10" />
+                        <div class="managment__show-count-arrows"><span></span><span></span></div>
+                      </label>
+                    </div>
+                    <div class="managment__search">
+                      <input type="text" placeholder="Search ..." />
+                      <button type="submit">
+                        <svg
+                          width="18"
+                          height="18"
+                          viewBox="0 0 18 18"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M14.0252 12.8488L17.5943 16.4171L16.4152 17.5963L12.8469 14.0271C11.5191 15.0915 9.86768 15.6704 8.16602 15.668C4.02602 15.668 0.666016 12.308 0.666016 8.16797C0.666016 4.02797 4.02602 0.667969 8.16602 0.667969C12.306 0.667969 15.666 4.02797 15.666 8.16797C15.6684 9.86964 15.0895 11.5211 14.0252 12.8488ZM12.3535 12.2305C13.4111 11.1429 14.0017 9.68499 13.9993 8.16797C13.9993 4.94464 11.3885 2.33464 8.16602 2.33464C4.94268 2.33464 2.33268 4.94464 2.33268 8.16797C2.33268 11.3905 4.94268 14.0013 8.16602 14.0013C9.68304 14.0037 11.1409 13.4131 12.2285 12.3555L12.3535 12.2305Z"
+                            fill="#8F8F8F"
+                          />
+                        </svg>
+                      </button>
+                    </div>
+                  </form>
+
+                  <div class="managment__table">
+                    <div class="table">
+                      <ul class="table__row table__row-head">
+                        <li class="table__date">
+                          <p>Orther date</p>
+                        </li>
+                        <li class="table__sub-id">
+                          <p>Sub ID</p>
+                        </li>
+                        <li class="table__other">
+                          <p>Orther</p>
+                        </li>
+                        <li class="table__user-id">
+                          <p>User ID</p>
+                        </li>
+                        <li class="table__email">
+                          <p>Email</p>
+                        </li>
+                        <li class="table__phone">
+                          <p>Phone</p>
+                        </li>
+                        <li class="table__active">
+                          <p>Active</p>
+                        </li>
+                        <li class="table__confirm">
+                          <p></p>
+                        </li>
+                      </ul>
+
+                      <ul class="table__row">
+                        <li class="table__date">
+                          <p>Orther date</p>
+                          <span>June 14, 2022 10:30 a.m</span>
+                        </li>
+                        <li class="table__sub-id">
+                          <p>Sub ID</p>
+                          <span>46</span>
+                        </li>
+                        <li class="table__other">
+                          <p>Other</p>
+                          <span>Netflix, Basic, 1Years; 150 USD</span>
+                        </li>
+                        <li class="table__user-id">
+                          <p>User ID</p>
+                          <span>20</span>
+                        </li>
+                        <li class="table__email">
+                          <p>Email</p>
+                          <span>asaa97580@gmail.com</span>
+                        </li>
+                        <li class="table__phone">
+                          <p>Phone</p>
+                          <span>+380953157991</span>
+                        </li>
+                        <li class="table__active">
+                          <p>Active</p>
+                          <span>
+                            <label>
+                              <input type="radio" disabled checked />
+                              <span>
+                                <svg
+                                  width="14"
+                                  height="12"
+                                  viewBox="0 0 14 12"
+                                  fill="none"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                >
+                                  <path
+                                    d="M5.02807 11.4257C4.76869 11.4257 4.51557 11.3226 4.33119 11.1382L0.390566 7.1945C-0.531309 6.22887 0.959316 4.94137 1.78432 5.80075L4.98432 9.00387L12.1718 0.913245C13.0218 -0.0398795 14.4937 1.27262 13.6437 2.22262L5.76244 11.0945C5.58119 11.2976 5.32494 11.4164 5.05619 11.4257C5.04682 11.4257 5.03744 11.4257 5.02807 11.4257Z"
+                                    fill="white"
+                                  />
+                                </svg>
+                              </span>
+                            </label>
+                          </span>
+                        </li>
+                        <li class="table__confirm">
+                          <p></p>
+                          <span><a href="##">Confirm</a></span>
+                        </li>
+                      </ul>
+                      <ul class="table__row">
+                        <li class="table__date">
+                          <p>Orther date</p>
+                          <span>June 14, 2022 10:30 a.m</span>
+                        </li>
+                        <li class="table__sub-id">
+                          <p>Sub ID</p>
+                          <span>46</span>
+                        </li>
+                        <li class="table__other">
+                          <p>Other</p>
+                          <span>Netflix, Basic, 1Years; 150 USD</span>
+                        </li>
+                        <li class="table__user-id">
+                          <p>User ID</p>
+                          <span>20</span>
+                        </li>
+                        <li class="table__email">
+                          <p>Email</p>
+                          <span>asaa97580@gmail.com</span>
+                        </li>
+                        <li class="table__phone">
+                          <p>Phone</p>
+                          <span>+380953157991</span>
+                        </li>
+                        <li class="table__active">
+                          <p>Active</p>
+                          <span>
+                            <label>
+                              <input type="radio" disabled />
+                              <span>
+                                <svg
+                                  width="14"
+                                  height="12"
+                                  viewBox="0 0 14 12"
+                                  fill="none"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                >
+                                  <path
+                                    d="M5.02807 11.4257C4.76869 11.4257 4.51557 11.3226 4.33119 11.1382L0.390566 7.1945C-0.531309 6.22887 0.959316 4.94137 1.78432 5.80075L4.98432 9.00387L12.1718 0.913245C13.0218 -0.0398795 14.4937 1.27262 13.6437 2.22262L5.76244 11.0945C5.58119 11.2976 5.32494 11.4164 5.05619 11.4257C5.04682 11.4257 5.03744 11.4257 5.02807 11.4257Z"
+                                    fill="white"
+                                  />
+                                </svg>
+                              </span>
+                            </label>
+                          </span>
+                        </li>
+                        <li class="table__confirm">
+                          <p></p>
+                          <span><a href="##">Confirm</a></span>
+                        </li>
+                      </ul>
+                      <ul class="table__row">
+                        <li class="table__date">
+                          <p>Orther date</p>
+                          <span>June 14, 2022 10:30 a.m</span>
+                        </li>
+                        <li class="table__sub-id">
+                          <p>Sub ID</p>
+                          <span>46</span>
+                        </li>
+                        <li class="table__other">
+                          <p>Other</p>
+                          <span>Netflix, Basic, 1Years; 150 USD</span>
+                        </li>
+                        <li class="table__user-id">
+                          <p>User ID</p>
+                          <span>20</span>
+                        </li>
+                        <li class="table__email">
+                          <p>Email</p>
+                          <span>asaa97580@gmail.com</span>
+                        </li>
+                        <li class="table__phone">
+                          <p>Phone</p>
+                          <span>+380953157991</span>
+                        </li>
+                        <li class="table__active">
+                          <p>Active</p>
+                          <span>
+                            <label>
+                              <input type="radio" disabled checked />
+                              <span>
+                                <svg
+                                  width="14"
+                                  height="12"
+                                  viewBox="0 0 14 12"
+                                  fill="none"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                >
+                                  <path
+                                    d="M5.02807 11.4257C4.76869 11.4257 4.51557 11.3226 4.33119 11.1382L0.390566 7.1945C-0.531309 6.22887 0.959316 4.94137 1.78432 5.80075L4.98432 9.00387L12.1718 0.913245C13.0218 -0.0398795 14.4937 1.27262 13.6437 2.22262L5.76244 11.0945C5.58119 11.2976 5.32494 11.4164 5.05619 11.4257C5.04682 11.4257 5.03744 11.4257 5.02807 11.4257Z"
+                                    fill="white"
+                                  />
+                                </svg>
+                              </span>
+                            </label>
+                          </span>
+                        </li>
+                        <li class="table__confirm">
+                          <p></p>
+                          <span><a href="##">Confirm</a></span>
+                        </li>
+                      </ul>
+                      <ul class="table__row">
+                        <li class="table__date">
+                          <p>Orther date</p>
+                          <span>June 14, 2022 10:30 a.m</span>
+                        </li>
+                        <li class="table__sub-id">
+                          <p>Sub ID</p>
+                          <span>46</span>
+                        </li>
+                        <li class="table__other">
+                          <p>Other</p>
+                          <span>Netflix, Basic, 1Years; 150 USD</span>
+                        </li>
+                        <li class="table__user-id">
+                          <p>User ID</p>
+                          <span>20</span>
+                        </li>
+                        <li class="table__email">
+                          <p>Email</p>
+                          <span>asaa97580@gmail.com</span>
+                        </li>
+                        <li class="table__phone">
+                          <p>Phone</p>
+                          <span>+380953157991</span>
+                        </li>
+                        <li class="table__active">
+                          <p>Active</p>
+                          <span>
+                            <label>
+                              <input type="radio" disabled />
+                              <span>
+                                <svg
+                                  width="14"
+                                  height="12"
+                                  viewBox="0 0 14 12"
+                                  fill="none"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                >
+                                  <path
+                                    d="M5.02807 11.4257C4.76869 11.4257 4.51557 11.3226 4.33119 11.1382L0.390566 7.1945C-0.531309 6.22887 0.959316 4.94137 1.78432 5.80075L4.98432 9.00387L12.1718 0.913245C13.0218 -0.0398795 14.4937 1.27262 13.6437 2.22262L5.76244 11.0945C5.58119 11.2976 5.32494 11.4164 5.05619 11.4257C5.04682 11.4257 5.03744 11.4257 5.02807 11.4257Z"
+                                    fill="white"
+                                  />
+                                </svg>
+                              </span>
+                            </label>
+                          </span>
+                        </li>
+                        <li class="table__confirm">
+                          <p></p>
+                          <span><a href="##">Confirm</a></span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  <div class="managment__footer">
+                    <div class="pagination-info">
+                      Showing
+                      <span>1</span>
+                      to
+                      <span>10</span>
+                      of
+                      <span>45</span>
+                      entries
+                    </div>
+                    <div class="pagination">
+                      <a href="##" class="pagination__btn pagination__prew">
+                        <svg
+                          width="34"
+                          height="16"
+                          viewBox="0 0 34 16"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M33 9C33.5523 9 34 8.55228 34 8C34 7.44772 33.5523 7 33 7L33 9ZM0.292893 7.29289C-0.0976295 7.68341 -0.0976296 8.31658 0.292892 8.7071L6.65685 15.0711C7.04738 15.4616 7.68054 15.4616 8.07107 15.0711C8.46159 14.6805 8.46159 14.0474 8.07107 13.6569L2.41421 8L8.07107 2.34314C8.46159 1.95262 8.46159 1.31945 8.07107 0.92893C7.68054 0.538406 7.04738 0.538406 6.65686 0.92893L0.292893 7.29289ZM33 7L1 7L1 9L33 9L33 7Z"
+                            fill="#1749B3"
+                          />
+                        </svg>
+                      </a>
+                      <div class="pagination__pages">
+                        <a href="##" class="pagination__page current">1</a>
+                        <a href="##" class="pagination__page">2</a>
+                        <a href="##" class="pagination__page">3</a>
+                        <a href="##" class="pagination__page">4</a>
+                      </div>
+                      <a href="##" class="pagination__btn pagination__next">
+                        <svg
+                          width="34"
+                          height="16"
+                          viewBox="0 0 34 16"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M1 7C0.447715 7 0 7.44772 0 8C0 8.55228 0.447715 9 1 9V7ZM33.7071 8.70711C34.0976 8.31658 34.0976 7.68342 33.7071 7.29289L27.3431 0.928932C26.9526 0.538408 26.3195 0.538408 25.9289 0.928932C25.5384 1.31946 25.5384 1.95262 25.9289 2.34315L31.5858 8L25.9289 13.6569C25.5384 14.0474 25.5384 14.6805 25.9289 15.0711C26.3195 15.4616 26.9526 15.4616 27.3431 15.0711L33.7071 8.70711ZM1 9H33V7H1V9Z"
+                            fill="#1749B3"
+                          />
+                        </svg>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+      <footer class="footer">
+        <div class="container">
+          <div class="footer__body">
+            <div class="footer__nav">
+              <div class="footer__logo">
+                <a href="index.html"><span>DiscountsOnServices</span></a>
+                <p>It's simple, fast and economical</p>
+              </div>
+              <div class="footer__links">
+                <ul>
+                  <li class="footer__links-title">Subscriptions</li>
+                  <li><a href="##">Netflix</a></li>
+                  <li><a href="##">YouTube Premium</a></li>
+                  <li><a href="##">Spotify</a></li>
+                </ul>
+                <ul>
+                  <li class="footer__links-title">Site navigation</li>
+                  <li><a href="">About</a></li>
+                  <li><a href="faq.html">FAQ</a></li>
+                  <li><a href="##">Support</a></li>
+                </ul>
+              </div>
+              <div class="footer__socials-wrap">
+                <div class="footer__socials socials">
+                  <a href="##">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="27"
+                      height="27"
+                      fill="none"
+                      viewBox="0 0 27 27"
+                    >
+                      <path
+                        fill="#fff"
+                        d="m.005 26.667 1.803-6.624A13.272 13.272 0 0 1 0 13.333C0 5.97 5.97 0 13.333 0c7.364 0 13.334 5.97 13.334 13.333 0 7.364-5.97 13.334-13.334 13.334a13.272 13.272 0 0 1-6.706-1.807L.005 26.667Zm8.516-19.59c-.172.011-.34.056-.494.134a1.724 1.724 0 0 0-.392.304c-.16.15-.251.281-.348.408a3.639 3.639 0 0 0-.754 2.237c.003.653.174 1.29.44 1.884.546 1.203 1.443 2.476 2.628 3.656.286.284.564.57.864.835a12.596 12.596 0 0 0 5.12 2.728l.759.116c.247.013.493-.006.741-.018.389-.02.768-.125 1.111-.308.221-.117.325-.176.51-.293 0 0 .058-.037.167-.12.18-.133.291-.228.44-.384.111-.115.207-.25.28-.403.104-.217.208-.632.251-.977.032-.264.023-.408.019-.497-.006-.143-.124-.291-.254-.354l-.776-.348s-1.16-.505-1.868-.828a.664.664 0 0 0-.236-.054.642.642 0 0 0-.504.169v-.003c-.006 0-.096.076-1.06 1.244a.466.466 0 0 1-.49.174 1.906 1.906 0 0 1-.255-.088c-.165-.07-.223-.096-.336-.146l-.007-.002a8.016 8.016 0 0 1-2.093-1.334c-.168-.146-.324-.306-.484-.461a8.4 8.4 0 0 1-1.36-1.69l-.079-.127a1.23 1.23 0 0 1-.136-.274c-.05-.196.082-.353.082-.353s.324-.355.474-.547a5.71 5.71 0 0 0 .351-.497c.157-.253.207-.513.124-.715-.373-.912-.76-1.82-1.157-2.721-.079-.179-.312-.307-.524-.332a5.91 5.91 0 0 0-.216-.021 4.512 4.512 0 0 0-.538.005v.001Z"
+                      />
+                    </svg>
+                  </a>
+                  <a href="##">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="28"
+                      height="28"
+                      fill="none"
+                      viewBox="0 0 28 28"
+                    >
+                      <path
+                        fill="#fff"
+                        d="M14 27.333C6.636 27.333.667 21.363.667 14 .667 6.636 6.637.666 14 .666c7.364 0 13.333 5.97 13.333 13.334S21.364 27.333 14 27.333ZM9.853 15.56l.018-.01 1.16 3.827c.15.415.354.49.604.455.25-.034.382-.168.546-.326l1.584-1.53 3.4 2.517c.622.343 1.068.165 1.223-.576l2.21-10.43c.243-.97-.183-1.36-.937-1.05L6.684 13.45c-.885.355-.88.851-.16 1.071l3.33 1.04v-.001Z"
+                      />
+                    </svg>
+                  </a>
+                </div>
+                <div class="footer__lang">
+                  <select name="lang" class="select">
+                    <option value="EN" selected>English</option>
+                    <option value="UK">Ukraine</option>
+                    <option value="RU">Russian</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="footer__copyright">
+              <p><a href="##">Privacy Policy</a></p>
+              <p>Copyright 2021 © All Rights Reserved</p>
+              <p>Developed by ....</p>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="js/script.js"></script>
+    <script src="js/account.js"></script>
+    <script src="js/managment.js"></script>
+  </body>
+</html>

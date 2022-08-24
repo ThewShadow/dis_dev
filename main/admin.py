@@ -17,14 +17,14 @@ class CustomUserAdmin(UserAdmin):
         'is_active',
         'username',
         'agent',
-        'is_verified',
+        'email_verified',
         'social_sign_up',
     )
 
     list_filter = ('email', 'is_staff', 'is_active', 'username',)
     fieldsets = (
         (None, {'fields': ('id', 'username', 'email', 'password', 'agent', 'social_sign_up')}),
-        ('Permissions', {'fields': ('is_staff', 'is_active', 'is_verified', 'user_permissions')}),
+        ('Permissions', {'fields': ('is_staff', 'is_active', 'email_verified', 'user_permissions')}),
     )
     add_fieldsets = (
         (None, {

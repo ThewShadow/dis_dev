@@ -12,7 +12,7 @@ def base_context(request):
     common_context['questions_list'] = FAQ.objects.all()
     common_context['forget_pass_code_form'] = ResetPasswordVerifyForm()
     common_context['forget_pass_email_form'] = ResetPasswordForm()
-    common_context['new_pass_form'] = NewPasswordForm()
+    common_context['new_pass_form'] = ChangePasswordForm()
     common_context['PAYPAL_CLIENT_ID'] = settings.PAYPAL_CLIENT_ID
     common_context['support_email_form'] = SupportTaskCreateForm()
 

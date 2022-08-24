@@ -1,3 +1,8 @@
+{% extends 'main/base_profile.html' %}
+{% load i18n %}
+
+{% block account_table %}
+
 {% load i18n %}
 {% for item in user_subscriptions %}
     <div  class="account__subscr-item account__subscr-spotify bg-white">
@@ -12,3 +17,5 @@
 {% empty %}
     <h5>{% trans "You don't have any subscriptions yet." %}</h5>
 {% endfor %}
+
+{% endblock %}

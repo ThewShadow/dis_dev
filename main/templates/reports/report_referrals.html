@@ -1,30 +1,52 @@
-{% extends 'main/base_report.html' %}
+{% extends 'main/base_profile.html' %}
 {% load i18n static %}
+
 {% block title %}
 <title>{% trans 'Referral Statistics' %}</title>
 {% endblock %}
 
-{% block report_name %}
-  <h1>{% trans 'Referral Statistics' %}</h1>
+{% block account_content %}
+<div class="managment__subtitle bg-white account__info">
+<p>{% trans 'Referrals count' %}<span>{{ page_obj.paginator.count }}</span></p>
+</div>
+
 {% endblock %}
 
-{% block content_table %}
-<div class="managment__table managment__table_short">
-  <div class="table">
+{% block account_table %}
+{% include 'blocks/search_form.html' %}
+<div class="managment__table">
+  <div class="table width-table-referrals">
     <ul class="table__row table__row-head">
-      <li class="table__referral">
-        <p>Referrals</p>
-      </li>
-    </ul>
+        <li class="ref__name">
+          <p>Name</p>
+        </li>
+        <li class="ref__email">
+          <p>Email</p>
+        </li>
+         <li class="ref__email">
+          <p>Date joined</p>
+        </li>
+      </ul>
+
     {% for item in page_obj %}
     <ul class="table__row">
-        <li class="table__referral">
-<!--            <span>{{ forloop.counter }}</span>-->
-            <p>Referral</p>
+        <li class="ref__name">
+            <p>Name</p>
+            <span>{{ item.username }}</span>
+        </li>
+        <li class="ref__email">
+            <p>Email</p>
             <span>{{ item.email }}</span>
+        </li>
+                <li class="ref__name">
+            <p>#</p>
+            <span>{{ item.date_joined }}</span>
         </li>
     </ul>
     {% endfor %}
   </div>
 </div>
+{% include 'blocks/pagination.html' %}
 {% endblock %}
+
+

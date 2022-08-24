@@ -1,12 +1,9 @@
-
-
 const loginPopUp = document.getElementById('popup_1');
 const RegistrationPopUp =  document.getElementById("popup_2");
 const VerifyPopUp =  document.getElementById("popup_3");
 const VerifySuccessPopUp =  document.getElementById("popup_4");
 const CreateSubsctiptionPopUp = document.getElementById('popup_8');
 const PaymentPopUp = document.getElementById('popup_9');
-
 const ResetPasswordEmailPopUp = document.getElementById('popup_5');
 const ResetPasswordCodePopUp = document.getElementById('popup_6');
 const NewPasswordPopUp = document.getElementById('popup_7');
@@ -48,13 +45,9 @@ $('.register-button').click(function (event){
     register();
 });
 
-
 $('.register_success__button_ok').click((e)=>{
     popupClose(VerifySuccessPopUp)
 })
-
-
-
 
 $(".apply-button").click(function (event) {
      event.preventDefault()
@@ -121,12 +114,18 @@ $(".get-started-button").click(function (event){
     });
 });
 
+
+$(".managment__filters").submit((event)=>{
+    document.cookie = "q="+$('.managment__filters input[name=q]').val()+"; path=/";
+    document.cookie = "show="+$('.managment__filters input[name=show]').val()+"; path=/";
+    $(".managment__filters").submit()
+})
+
 function createTask() {
     var form_name = "create-task-form";
     $(`#${form_name} .email_errors`).empty();
     $(`#${form_name} .description_errors`).empty();
     var data =new FormData(document.getElementById('create-task-form'));
-    //data.append('img', document.getElementById('create-task-form')[0].files[0]);
     $.ajax({
         type: "POST",
         url: document.location.origin+"/service/create_support_task/",
@@ -150,12 +149,9 @@ function generate_crypto_token() {
     var form_id = "crypto-payment-form";
     var register_form = $("#"+form_id).serializeArray();
     var json = getJson(register_form);
-
     json = getJson($('#csrf_ajax_token').serializeArray());
     json["type-payment"] = $('.select-currency option:selected'). text();
     json["type-blockchain"]= $('.select-blockchain option:selected'). text();
-
-
     $.post(document.location.origin+"/service/payments/crypto/create/", json)
     .done(function (resp) {
               if (resp['success']) {
@@ -178,11 +174,9 @@ function login() {
     var form_id = "login-form";
     var register_form = $("#"+form_id).serializeArray();
     var json = getJson(register_form);
-
     $("#"+form_id+" .password_errors").empty();
     $("#"+form_id+" .email_errors").empty();
     $("#"+form_id+" .message").empty();
-
     $.post(document.location.origin+"/service/accounts/login/", json)
      .done(function (resp) {
          if (resp['success']) {
@@ -198,7 +192,6 @@ function register() {
     var form_id = "registration-form"
     var register_form = $("#"+form_id).serializeArray();
     var json = getJson(register_form);
-
     if ($('input[name=agreement]').is(':checked')) {
         json['agreement'] = true;
     } else {
@@ -225,12 +218,10 @@ function register() {
 
 
 function verify() {
-
     var form_id = "verify-email-form"
     var register_form = $("#"+form_id).serializeArray();
     var json = getJson(register_form);
     $("#"+form_id+" .message").empty();
-
     $.post(document.location.origin+"/service/accounts/activation_email/", json)
      .done(function (resp) {
             if (resp['success']) {
@@ -244,13 +235,11 @@ function verify() {
 
 
 function resetPasswordStart() {
-
     var form_id = "forget-pass-email-form"
     var register_form = $("#"+form_id).serializeArray();
     var json = getJson(register_form);
     $("#"+form_id+" .message").empty();
     $("#"+form_id+" .email_errors").empty();
-
     $.post(document.location.origin+"/service/accounts/reset_password/start/", json)
      .done(function (resp) {
             if (resp['success']) {
@@ -263,7 +252,6 @@ function resetPasswordStart() {
 }
 
 function resetPasswordConfirm() {
-
     var form_id = "forget-pass-code-form"
     var register_form = $("#"+form_id).serializeArray();
     var json = getJson(register_form);
@@ -283,15 +271,12 @@ function resetPasswordConfirm() {
 }
 
 function resetPasswordComplete() {
-
     var form_id = "new-password-form"
     var register_form = $("#"+form_id).serializeArray();
     var json = getJson(register_form);
     $("#"+form_id+" .message").empty();
     $("#"+form_id+" .password1_errors").empty();
     $("#"+form_id+" .password2_errors").empty();
-
-
     $.post(document.location.origin+"/service/accounts/reset_password/complete/", json)
      .done(function (resp) {
             if (resp['success']) {
@@ -304,25 +289,18 @@ function resetPasswordComplete() {
 }
 
 
-
 function createSubscription() {
-
     var form_id = "subscription_app_form";
     var form = $('#subscription_app_form');
     var data_array = form.serializeArray();
     var json = getJson(data_array);
-
     var offer_id = getCookie('offer_id');
-
     json['offer_id'] = offer_id;
-
-
     $("#"+form_id+" .email_errors").empty();
     $("#"+form_id+" .user_name_errors").empty();
     $("#"+form_id+" .phone_number_errors").empty();
     $("#"+form_id+" .service_password_errors").empty();
     $("#"+form_id+" .message").empty();
-
     if (offer_id.length) {
         $.post(document.location.origin+"/service/subscriptions/create/", json
         ).done(function (resp) {
@@ -359,14 +337,11 @@ function showMessages(data, form_id) {
 }
 
 function showErrorMessages(messages, form_id) {
-
     const keys = Object.keys(messages);
-
     for (let i = 0; i < keys.length; i++) {
         const key = keys[i];
         var message_array= messages[key];
         $("#"+form_id+" ."+key+"_errors").empty();
-
         for (let i=0; i < message_array.length; i++) {
             let text = message_array[i];
             $("#"+form_id+" ."+key+"_errors").append(text);
@@ -403,4 +378,13 @@ if (getCookie("paid_success") == "True") {
 if (getCookie("show_login") == "True") {
     document.cookie = "show_login=null; path=/"
     popupOpen(loginPopUp)
+}
+
+var show = getCookie('show')
+var q = getCookie('q')
+if (show != undefined && show.length) {
+    $('.managment__filters input[name=show]').val(show)
+}
+if (q != undefined && q.length) {
+    $('.managment__filters input[name=q]').val(q)
 }
