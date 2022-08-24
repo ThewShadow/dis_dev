@@ -7,24 +7,33 @@
 <form method="post">
     {% csrf_token %}
     <div class="account__info-inputs">
+
         <label>
             <p>{% trans 'ID user' %}</p>
-            <input disabled name="user_id" type="text" id="id_user_pk" value="{{ user_id }}" >
+            <input disabled name="user_id" type="text" id="id_user_pk" value="{{ request.user.id }}" >
         </label>
         <label>
             <p>{% trans 'How can I call you?' %}</p>
             {{ form.username }}
-            {{ form.username.errors }}
+             <div class="text_error">{{ form.username.errors }}</div>
         </label>
 
         <label>
             <p>{% trans 'E-mail' %}</p>
-            {{ form.email }}
-            {{ form.email.errors }}
+           {{ form.email }}
+            <div class="text_error">{{ form.email.errors }}</div>
         </label>
 
     </div>
-
+    <center>
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul><br>
+        {% endif %}
+    </center>
     <button type="submit" class="account__btn-save btn btn-blue" tabindex="4">{% trans 'Save changes' %}</button>
 </form>
 </div>

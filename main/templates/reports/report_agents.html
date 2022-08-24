@@ -19,26 +19,22 @@
     <ul class="table-ref">
       <li class="table-ref__title">
         <p>
-          <span class="ref__counter"># </span>
           <span class="agent__name">Agent </span>
-          <span class="agent__email">Id</span>
+          <span class="ref__count">Id</span>
           <span class="agent__count">Referrals count</span>
         </p>
       </li>
       {% for agent in page_obj %}
         <li>
              <p>
-              <span class="ref__counter">{{ forloop.counter }}</span>
-
               <a href="{{ request.path }}?q={{ referral.email }}" class="agent__name"><strong>{{ agent.email }}</strong></a>
-              <span class="agent__email">{{ agent.id }}</span>
+              <span class="ref__count">{{ agent.id }}</span>
               <span class="agent__count">{{ agent.referrals.count }}</span>
             </p>
              <ul>
                  {% for referral in agent.referrals.all %}
                  <li>
                       <p>
-                          <span class="ref__counter">{{ forloop.counter }}</span>
                           <a href="{{ request.path }}?q={{ referral.email }}" class="agent__name"><strong>{{ referral.email }}</strong></a>
 
                       </p>

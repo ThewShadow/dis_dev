@@ -738,14 +738,14 @@
   min-width: 100%;
 
   /* довжина рядка в 'Agents', змінювати тільки останню цифру*/
-  width: calc(60px + 900px);
+  width: calc(60px + 480px);
 }
 
 .agent__name {
   flex: 0 0 200px;
 }
 .agent__email {
-  flex: 0 0 900px;
+  flex: 0 0 200px;
 }
 .agent__count {
   flex: 0 0 50px;
@@ -762,6 +762,9 @@
   }
 }
 
+.ref__count {
+    flex: 0 0 20px;
+}
 .ref__name {
   flex: 0 0 200px;
 }
@@ -981,4 +984,8 @@
   .pagination__pages .pagination__page:nth-child(n + 4) {
     display: none;
   }
+}
+
+.info {
+    color: blue;
 }

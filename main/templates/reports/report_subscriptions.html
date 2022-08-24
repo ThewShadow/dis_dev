@@ -1,4 +1,4 @@
-{% extends 'main/base_report.html' %}
+{% extends 'main/base_profile.html' %}
 {% load i18n static %}
 
 {% block title %}
@@ -6,10 +6,12 @@
 {% endblock %}
 
 {% block report_name %}
-  <h1>{% trans 'Subscriptions Statistics' %}</h1>
+  <h1>{% trans 'Orders' %}</h1>
 {% endblock %}
 
-{% block content_table %}
+{% block account_table %}
+{% include 'blocks/search_form.html' %}
+<div class="managment__table">
     <div class="table">
         <ul class="table__row table__row-head">
           <li class="table__date">
@@ -98,4 +100,6 @@
         </ul>
         {% endfor %}
       </div>
+</div>
+{% include 'blocks/pagination.html' %}
 {% endblock %}

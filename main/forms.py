@@ -115,17 +115,11 @@ class ChangeUserInfoForm(ModelForm):
 
     def clean_email(self):
         new_email = self.cleaned_data.get('email')
-        if self.instance.email == new_email:
-            raise ValidationError('Email not changes')
+
         if not service.email_is_unique(self.instance.id, new_email):
-            raise ValidationError('Email not uniq')
+            raise ValidationError('Email not unique')
         return new_email
 
-    def clean_username(self):
-        new_username = self.cleaned_data.get('username')
-        if self.instance.username == new_username:
-            raise ValidationError('Username not change')
-        return new_username
 
 
 class ChangeSubscibeStatusForm(Form):

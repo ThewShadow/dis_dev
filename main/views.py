@@ -2,6 +2,7 @@ import django.core.paginator
 from django.shortcuts import redirect, get_object_or_404, HttpResponse, render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, FormView, CreateView, TemplateView, View
+from django.views.generic.edit import ProcessFormView
 from datetime import datetime
 from service import service
 from django.core.exceptions import PermissionDenied
@@ -29,84 +30,24 @@ from django.core.paginator import Paginator
 from django.shortcuts import render
 from django.views.generic.base import ContextMixin, View
 from django.forms.models import model_to_dict
-
+from django.contrib import messages
+from django.template.loader import render_to_string
+from django.utils.translation import gettext
+from django.views.generic import RedirectView
 
 logger = logging.getLogger('main')
 
 
-class ReportView(ContextMixin, View):
-    paginate_by = 10
-    model = None
-    template_name = f'main/report_{model}.html'
+class CookiePaginationMixin:
 
-    def get(self, request):
-        queryset = self.get_queryset()
-        show = self.define_number_to_show(len(queryset))
-        page_number = self.get_page_number()
-        if not show:
-            show = self.paginate_by
-
-        page_obj = self.paginate(queryset, show, page_number)
-
-        context = self.get_context_data()
-        if page_obj:
-            context['count_obj'] = queryset.count() if not isinstance(queryset, list) else len(queryset)
-            context['page_obj'] = page_obj
-            context['show_pages'] = show
-            context['current_page'] = page_number
-            context['pages_count'] = range(1, page_obj.paginator.num_pages + 1)
-            context['query_string'] = request.GET.get('q', '')
-            context['start_objects'] = (show * page_obj.number + 1) - show
-            context['end_objects'] = (show * page_obj.number - show) + len(page_obj.object_list)
-        else:
-            context['count_obj'] = 0
-            context['page_obj'] = None
-            context['show_pages'] = request.GET.get('q', '')
-            context['current_page'] = 1
-            context['pages_count'] = range(1,2)
-            context['query_string'] = request.GET.get('q', '')
-            context['start_objects'] = 0
-            context['end_objects'] = 0
-
-        response = render(request, self.template_name, context)
-
-        response.set_cookie(key='current_page', value=page_number)
-        response.set_cookie(key='show', value=show)
-
-        return response
-
-    def define_number_to_show(self, list_count):
-        show = self.paginate_by
-        if self.request.GET.get('show'):
-            show = self.request.GET.get('show')
-        elif self.request.COOKIES.get('show'):
-            show = self.request.COOKIES.get('show')
-
-        if not isinstance(show, int):
-            try:
-                show = int(show)
-            except ValueError:
-                show = self.paginate_by
-        if show > list_count:
-            show = list_count
-        return show
-
-    def get_page_number(self):
-        page_number = self.request.GET.get('page')
-        if page_number:
-            return page_number
-        else:
-            return self.request.COOKIES.get('current_page', 1)
-
-    def paginate(self, queryset, show_elements, page_number):
-        if not queryset:
-            return []
-        else:
-            return Paginator(queryset, show_elements).get_page(page_number)
-
-    def get_context_data(self, *args, **kwargs):
-        context = super().get_context_data(*args, **kwargs)
-        return context
+    def get_paginate_by(self, queryset):
+        list_count = queryset.count()
+        paginate_by = self.request.GET.get('show') \
+                      or self.request.COOKIES.get('show')
+        try:
+            return int(paginate_by)
+        except TypeError:
+            return super().get_paginate_by(queryset)
 
 
 class IndexView(ListView):
@@ -120,16 +61,10 @@ class IndexView(ListView):
             response = redirect(reverse_lazy('index'))
             response.set_cookie(key='ref_link', value=ref_id.strip())
             logger.info(f'Save refer id {ref_id}')
-
         return response
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['products'] = Product.objects.all()
 
-        return context
 
-from django.views.generic import RedirectView
 class LogoutView(LoginRequiredMixin, RedirectView):
     url = reverse_lazy('index')
 
@@ -198,49 +133,6 @@ class OffersView(ListView):
         return context
 
 
-class ProfileView(LoginRequiredMixin, FormView):
-    template_name = 'main/user_profile.html'
-    login_url = 'unauthorized'
-    redirect_field_name = 'redirect_to'
-    form_class = ChangeUserInfoForm
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data()
-
-        user_data = CustomUser.objects.select_related('agent').get(id=self.request.user.id)
-
-        context['user_id'] = user_data.id
-        context['questions_list'] = FAQ.objects.all()
-        context['agent'] = user_data.agent.username
-        context['user_subscriptions'] = Subscription.objects.filter(
-            user__id=user_data.id).prefetch_related(
-                'offer__product',
-                'offer__rate'
-            )
-        context['form'] = ChangeUserInfoForm(initial={
-            'email': user_data.email,
-            'username': user_data.username
-        })
-
-        context['referrals'] = self.request.user.referrals.prefetch_related('subscriptions_list').all()
-        context['all_users'] = CustomUser.objects.all().count()
-
-        agents = list(CustomUser.objects.all().values('agent__id'))
-        agents_ids = map(lambda el: el['agent__id'], agents)
-        context['all_agents'] = len(set(agents_ids))
-        return context
-
-    def post(self, *args, **kwargs):
-        form = ChangeUserInfoForm(self.request.POST)
-        if form.is_valid():
-            service.change_profile_info(self.request, form)
-
-        return super().post(*args, **kwargs)
-
-    def get_success_url(self):
-        return reverse_lazy('profile')
-
-
 class UserSubscriptionsView(LoginRequiredMixin, ListView):
     login_url = 'unauthorized'
     redirect_field_name = 'redirect_to'
@@ -272,9 +164,10 @@ class PaidCompleteView(View):
         return response
 
 
-class ManagerPanelView(ReportView):
+class ManagerPanelView(LoginRequiredMixin, CookiePaginationMixin, ListView):
     model = Subscription
     template_name = 'reports/report_subscriptions.html'
+    paginate_by = 10
 
     def get(self, request, **kwargs):
         if not request.user.is_staff:
@@ -290,7 +183,7 @@ class ManagerPanelView(ReportView):
             subscr_obj.is_active = True
             subscr_obj.save()
             subscr_obj.notify_customer()
-        return redirect(reverse_lazy('manager_panel'))
+        return redirect(self.te)
 
     def get_queryset(self):
         objects_list = Subscription.objects.filter().order_by('-order_date')
@@ -300,7 +193,9 @@ class ManagerPanelView(ReportView):
                 Q(offer__name__contains=query) | Q(phone_number__contains=query)
                 | Q(offer__product__name__contains=query) | Q(email__contains=query)
             )
-        objects_list = objects_list.select_related('offer', 'user', 'offer__product', 'offer__rate', 'offer__currency')
+        objects_list = objects_list.select_related(
+            'offer', 'user', 'offer__product', 'offer__rate', 'offer__currency'
+        )
         return objects_list
 
 
@@ -312,75 +207,79 @@ class PayPalErrorView(TemplateView):
     template_name = 'main/paypal_error.html'
 
 
-class CryptoPayment(View):
-
-    def get(self, request, **kwargs):
-        try:
-            current_sub_id = request.session['current_sub_id']
-        except KeyError:
-            raise Http404
-
-        subscription = get_object_or_404(
-            Subscription,
-            id=current_sub_id)
-
-        offer_descr = str(subscription.offer)
-        context = {}
-        context['currencies'] = Currency.objects.filter(crypto=True)
-        context['wallets'] = CryptoWallet.objects.all()
-        context['offer_descr'] = offer_descr
-        return render(request,'main/pay_crypto_wallet.html', context=context)
+class CryptoPayment(TemplateView):
+    template_name = 'main/pay_crypto_wallet.html'
 
     def get_context_data(self, **kwargs):
+        current_sub_id = self.request.session.get('current_sub_id', 0)
+        subscription = get_object_or_404(Subscription, id=current_sub_id)
+
         context = super().get_context_data(**kwargs)
-        context['currencies'] = Currency.objects.filter(crypto=True)
-        context['wallets'] = CryptoWallet.objects.all()
+        context.update({
+            'currencies': Currency.objects.filter(crypto=True),
+            'wallets': CryptoWallet.objects.all()
+        })
         return context
 
 
-class ReferralsReportView(LoginRequiredMixin, ReportView):
-    model = CustomUser
+class ReferralsReportView(LoginRequiredMixin, CookiePaginationMixin, ListView):
     template_name = 'reports/report_referrals.html'
+    model = CustomUser
+    paginate_by = 2
 
     def get_queryset(self):
-        user_list = self.model.objects.filter(agent__id=self.request.user.id).order_by('-date_joined')
-        query = self.request.GET.get('q', '').strip()
-        if query is not None:
-            user_list = user_list.filter(Q(email__contains=query) | Q(username__contains=query))
-        return user_list
-
-
-class ReportAgentsView(LoginRequiredMixin, ReportView):
-    template_name = 'reports/report_agents.html'
-    model = CustomUser
-
-    def get_queryset(self, *args):
-        objects_list = self.model.objects.annotate(order=Count('referrals')).filter(order__gt=0).select_related('agent').order_by('-order')
+        objects_list = self.model.objects.filter(agent__id=self.request.user.id)
         query = self.request.GET.get('q', '').strip()
         if query:
-            return objects_list.filter(Q(agent__email__contains=query) | Q(agent__username__contains=query))
+            objects_list = objects_list.filter(
+                Q(email__contains=query) | Q(username__contains=query)
+            )
+        return objects_list
 
+    def get_ordering(self):
+        retur('-date_joined', )
+
+
+class ReportAgentsView(LoginRequiredMixin, CookiePaginationMixin, ListView):
+    template_name = 'reports/report_agents.html'
+    model = CustomUser
+    paginate_by = 2
+
+    def get_queryset(self, *args):
+        objects_list = self.model.objects.annotate(order=Count('referrals'))\
+            .filter(order__gt=0).select_related('agent')
+
+        query = self.request.GET.get('q', '').strip()
+        if query:
+            objects_list = objects_list.filter(
+                Q(email__contains=query) | Q(username__contains=query)
+            )
         return objects_list
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
-        context['referrals_count'] = self.model.objects.filter(is_active=True, is_agent=False).count()
-        context['agents_count'] = self.model.objects.annotate(order=Count('referrals')).filter(order__gt=0).count()
+        context.update({
+            'referrals_count': self.model.objects.filter(is_active=True, is_agent=False).count(),
+            'agents_count': self.model.objects.annotate(order=Count('referrals')).filter(order__gt=0).count()
+        })
         return context
 
+    def get_ordering(self):
+        retur('-order', )
 
-class MySubscriptionsView(LoginRequiredMixin, TemplateView):
+class MySubscriptionsView(LoginRequiredMixin, ListView):
     template_name = 'main/my_subsctiptions.html'
+    context_object_name = 'user_subscriptions'
+    model = Subscription
+    paginate_by = 10
 
-    def get_context_data(self, *args, **kwargs):
-       context = super().get_context_data(*args, **kwargs)
-       context['user_subscriptions'] = Subscription.objects.filter(
-           user__id=self.request.user.id).prefetch_related(
-           'offer__product',
-           'offer__rate'
-       )
-       return context
+    def get_queryset(self):
+        self.queryset = self.model.objects.filter(user__id=self.request.user.id)\
+            .prefetch_related('offer__product', 'offer__rate')
+        return super().get_queryset()
 
+    def get_ordering(self):
+        return ('-order_date',)
 
 
 class AccountInfoView(LoginRequiredMixin, View):
@@ -388,18 +287,21 @@ class AccountInfoView(LoginRequiredMixin, View):
     form_class = ChangeUserInfoForm
 
     def dispatch(self, request, *args, **kwargs):
-        if request.POST:
-            form = self.form_class(request.POST, instance=request.user)
+        user = request.user
+        if request.method == 'POST':
+            form = self.form_class(request.POST, instance=user)
             if form.is_valid():
                 form.save()
         else:
-            form = self.form_class(model_to_dict(request.user))
+            initial = model_to_dict(user)
+            form = self.form_class(initial=initial)
 
-        context = self.get_context_data()
-        context.update({'form': form})
-        return render(request, template_name=self.template_name, context=context)
+        context = {
+            'form': form
+        }
 
-    def get_context_data(self, *args, **kwargs):
-        context = {}
-        context['user_id'] = self.request.user.id
-        return context
+        return render(
+            request=request,
+            template_name=self.template_name,
+            context=context
+        )
